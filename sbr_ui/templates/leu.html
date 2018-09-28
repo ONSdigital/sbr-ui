@@ -27,34 +27,70 @@
 		<div class="wrapper">
 			<div class="group">
 				<div class="col-12">
-					<h3 class="jupiter sml-margin">{{session['business']['vars']['businessName']}}</h3>
+					<h3 class="jupiter sml-margin">{{session['business']['vars']['name']}}</h3>
 					<div class="badge badge--teal ent-reference">Legal Unit</div>
 					<div class="ent-reference u-mb-l">UBRN <strong>{{session['business']['id']}}</strong></div>
 					<div class="panel panel--simple panel--info u-mb-l">
                         <table class="unit-info">
                             <tr>
-                                <th class="mars">Postcode</th>
-                                <td class="venus">{{session['business']['vars']['postCode']}}</td>
-                            </tr>
-                                <tr>
-                                <th class="mars">Industry</th>
+                                <th class="mars">Industry Code</th>
                                 <td class="venus">{{session['business']['vars']['industryCode']}}</td>
                              </tr>
                                 <tr>
-                                <th class="mars">Legal status</th>
+                                <th class="mars">Legal Status</th>
                                 <td class="venus">{{session['business']['vars']['legalStatus']}}</td>
                              </tr>
                                 <tr>
-                                <th class="mars">Trading status</th>
+                                <th class="mars">Trading Status</th>
                                 <td class="venus">{{session['business']['vars']['tradingStatus']}}</td>
                              </tr>
+                            </tr>
                                 <tr>
-                                <th class="mars">Employment band</th>
+                                <th class="mars">Trading Style</th>
+                                <td class="venus">{{session['business']['vars']['tradingStyle']}}</td>
+                             </tr>
+                            </tr>
+                                <tr>
+                                <th class="mars">Sic 07</th>
+                                <td class="venus">{{session['business']['vars']['sic07']}}</td>
+                             </tr>
+                                <tr>
+                                <th class="mars">Employment</th>
                                 <td class="venus">{{session['business']['vars']['employmentBands']}}</td>
                              </tr>
                                 <tr>
-                                <th class="mars">Turnover band</th>
+                                <th class="mars">Turnover</th>
                                 <td class="venus">{{session['business']['vars']['turnover']}}</td>
+                             </tr>
+                            </tr>
+                                <tr>
+                                <th class="mars">PAYE Jobs</th>
+                                <td class="venus">{{session['business']['vars']['payeJobs']}}</td>
+                             </tr>
+                            </tr>
+                                <tr>
+                                <th class="mars">Birth Date</th>
+                                <td class="venus">{{session['business']['vars']['birthDate']}}</td>
+                             </tr>
+                            </tr>
+                                <tr>
+                                <th class="mars">Death Date</th>
+                                <td class="venus">{{session['business']['vars']['deathDate']}}</td>
+                             </tr>
+                            </tr>
+                                <tr>
+                                <th class="mars">CRN</th>
+                                <td class="venus">{{session['business']['vars']['crn']}}</td>
+                             </tr>
+                            </tr>
+                                <tr>
+                                <th class="mars">UPRN</th>
+                                <td class="venus">{{session['business']['vars']['uprn']}}</td>
+                             </tr>
+                            </tr>
+                                <tr>
+                                <th class="mars">Address</th>
+                                <td class="venus">{{", ".join(session['business']['vars']['address'].values())}}</td>
                              </tr>
                         </table>
 					<div>
