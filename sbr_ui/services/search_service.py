@@ -1,7 +1,6 @@
 import logging
 import requests
 from structlog import wrap_logger
-from typing import List, Tuple, Optional
 
 from sbr_ui.models.exceptions import ApiError
 from sbr_ui.utilities.helpers import log_api_error
@@ -11,22 +10,33 @@ logger = wrap_logger(logging.getLogger(__name__))
 
 
 class SearchService:
-    NumResults = Optional[int]
-    Business = dict
-    Businesses = List[Business]
-    SearchResponse = Tuple[NumResults, Businesses]
+    Unit = dict
 
     def __init__(self):
         self.base_url = 'http://localhost:9000'
         self.version = 'v1'
 
-    def search_reference_number(self, reference_number: str) -> Business:
-        response = requests.get(f'{self.base_url}/{self.version}/search/{reference_number}')
+    def search_by_id(self, unit_id: str) -> Unit:
+        url = f'{self.base_url}/{self.version}/search/{unit_id}'
+        response = requests.get(url)
 
         try:
             response.raise_for_status()
         except requests.exceptions.HTTPError:
-            log_api_error(response.status_code, 'Failed to retrieve Business by reference number', reference_number)
+            log_api_error(response.status_code, 'Failed to retrieve Unit by id', url)
+            raise ApiError(response)
+
+        return response.json()
+
+
+    def get_unit_by_id_type_period(self, unit_id: str, unit_type: str, period: str) -> Unit:
+        url = f'{self.base_url}/{self.version}/periods/{period}/types/{unit_type}/units/{unit_id}'
+        response = requests.get(url)
+
+        try:
+            response.raise_for_status()
+        except requests.exceptions.HTTPError:
+            log_api_error(response.status_code, 'Failed to retrieve Unit by id, type and period', url)
             raise ApiError(response)
 
         return response.json()

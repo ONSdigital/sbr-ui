@@ -41,19 +41,44 @@ def handle_error(error: ApiError):
     return redirect(url_for('error_bp.error'))
 
 
+@api_bp.route('/periods/<period>/types/<unit_type>/units/<unit_id>', methods=['GET'])
+@login_required
+def get_unit_by_id(period, unit_type, unit_id):
+
+    try:
+        json = search_service.get_unit_by_id_type_period(unit_id, unit_type, period)
+    except (ApiError, ValueError) as e:
+        logger.error('Unable to return results for get unit by id')
+        raise e
+
+    filtered_children = format_children(json['children'])
+    json['children'] = filtered_children
+    session['business'] = json
+
+    return redirect_to_unit_page(unit_type, unit_id)
+
+
 @api_bp.route('/search_reference_number', methods=['POST', 'GET'])
 @login_required
 def search_reference_number():
-    reference_number = request.form['ReferenceNumber']
+    unit_id = request.form['ReferenceNumber']
 
     try:
-        json = search_service.search_reference_number(reference_number)
+        json = search_service.search_by_id(unit_id)
     except (ApiError, ValueError) as e:
         logger.error('Unable to return search results')
         raise e
 
     unit_type = json.get("unitType")
+    formatted_children = format_children(json['children'])
+    json['children'] = formatted_children
+    session['business'] = json
+    session['id'] = json.get("id")
 
+    return redirect_to_unit_page(unit_type, unit_id)
+
+
+def format_children(children: dict):
     vats = []
     chs = []
     payes = []
@@ -61,32 +86,30 @@ def search_reference_number():
 
     # Rather than a dict of unitId:unitType, we want a dict of unitType:[unitId's], to make parsing them in the
     # template easier
-    for unitId, unitType in json['children'].items():
-        if unitType == "VAT":
-            vats.append(unitId)
-        elif unitType == "CH":
-            chs.append(unitId)
-        elif unitType == "PAYE":
-            payes.append(unitId)
-        elif unitType == "LEU":
-            leus.append(unitId)
+    for child_id, child_type in children.items():
+        if child_type == "VAT":
+            vats.append(child_id)
+        elif child_type == "CH":
+            chs.append(child_id)
+        elif child_type == "PAYE":
+            payes.append(child_id)
+        elif child_type == "LEU":
+            leus.append(child_id)
 
     children = {"VAT": vats, "CH": chs, "PAYE": payes, "LEU": leus}
 
     # Filter empty arrays
-    filtered_children = {k: v for k, v in children.items() if len(v) != 0}
+    return {k: v for k, v in children.items() if len(v) != 0}
 
-    json['children'] = filtered_children
 
-    session['business'] = json
-
+def redirect_to_unit_page(unit_type: str, unit_id: str):
     if unit_type == "LEU":
-        return redirect(url_for('leu_bp.leu', id=reference_number))
+        return redirect(url_for('leu_bp.leu', id=unit_id))
     elif unit_type == "VAT":
-        return redirect(url_for('vat_bp.vat', id=reference_number))
+        return redirect(url_for('vat_bp.vat', id=unit_id))
     elif unit_type == "PAYE":
-        return redirect(url_for('paye_bp.paye', id=reference_number))
+        return redirect(url_for('paye_bp.paye', id=unit_id))
     elif unit_type == "CH":
-        return redirect(url_for('ch_bp.ch', id=reference_number))
+        return redirect(url_for('ch_bp.ch', id=unit_id))
     elif unit_type == "ENT":
-        return redirect(url_for('ent_bp.ent', id=reference_number))
+        return redirect(url_for('ent_bp.ent', id=unit_id))
