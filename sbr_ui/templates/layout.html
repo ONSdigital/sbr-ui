@@ -51,8 +51,12 @@
                 <div class="wrapper">
                     <div class="group">
                         <div class="col-12">
+                            {%- if request.path == "/Home" %}
                             <h1 class="jupiter main_heading">Statistical Business Register</h1>
                             <h2 class="neptune sub_heading">A comprehensive list of UK businesses used by government for statistical purposes</h2>
+                            {% else %}
+                            <p class="saturn main_heading_sub_page">Statistical Business Register</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
