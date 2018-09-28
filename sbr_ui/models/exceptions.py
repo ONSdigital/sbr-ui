@@ -1,5 +1,4 @@
 import logging
-import sys
 from structlog import wrap_logger
 
 
@@ -18,7 +17,6 @@ class InvalidEnvironment(Exception):
     """ An InvalidEnvironment exception will be thrown if anything other than DEV/TEST/PROD is passed in """
     def __init__(self, key):
         logger.error('Invalid Environment key used, should be DEV/TEST/PROD', key=key)
-        sys.exit("Flask Application failed to start due to invalid environment variable")
 
 
 class MissingEnvironmentVariable(Exception):
@@ -26,4 +24,3 @@ class MissingEnvironmentVariable(Exception):
     missing. (This will only occur in PROD) """
     def __init__(self, missing_vars):
         logger.error('Missing environment variables', missing_vars=missing_vars)
-        sys.exit("Flask Application failed to start due to missing required environment variables}")
