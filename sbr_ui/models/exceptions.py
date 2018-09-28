@@ -1,6 +1,5 @@
 import logging
 import sys
-
 from structlog import wrap_logger
 
 

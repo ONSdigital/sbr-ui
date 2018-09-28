@@ -1,9 +1,4 @@
-import logging
-from structlog import wrap_logger
 from flask import Blueprint, render_template, redirect, url_for, session
-
-
-logger = wrap_logger(logging.getLogger(__name__))
 
 
 ent_bp = Blueprint('ent_bp', __name__, static_folder='static', template_folder='templates')

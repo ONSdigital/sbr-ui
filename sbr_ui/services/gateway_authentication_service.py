@@ -19,6 +19,7 @@ class GatewayAuthenticationService:
         self.gateway_auth_url = gateway_auth_url
 
     def login(self, username: str, password: str) -> TokenAndRole:
+        logger.debug("Logging user in", username=username)
         headers = {'content-type': 'application/json', 'Authorization': base_64_encode(f'{username}:{password}')}
         response = requests.post(self.gateway_auth_url, headers=headers)
 

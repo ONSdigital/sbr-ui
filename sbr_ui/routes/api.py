@@ -2,62 +2,24 @@ import logging
 from structlog import wrap_logger
 from flask import Blueprint, request, redirect, url_for, session
 from flask_login import login_required
-
 from sbr_ui import app # For some reason, current_app won't work to get the config
 from sbr_ui.services.fake_search_service import FakeSearchService
 from sbr_ui.services.search_service import SearchService
 from sbr_ui.models.exceptions import ApiError
-from sbr_ui.utilities.sic_codes import industry_code_description
-from sbr_ui.utilities.convert_bands import employment_bands, legal_status_bands, turnover_bands, trading_status_bands
-from sbr_ui.utilities.helpers import compose, convert_band
-
+from sbr_ui.utilities.helpers import convert_bands, format_children
 
 
 logger = wrap_logger(logging.getLogger(__name__))
 
 
-if app.config['USE_FAKE_DATA']:
+if app.config.get('USE_FAKE_DATA'):
+    logger.warn("USE_FAKE_DATA set to true, using test data")
     search_service = FakeSearchService()
 else:
     search_service = SearchService()
 
 
 api_bp = Blueprint('api_bp', __name__, static_folder='static', template_folder='templates')
-
-
-# Need to look at where to store these, for internationalisation etc.
-ERROR_MESSAGES = {
-    404: 'The search query you entered did not return any results.',
-    500: 'An error occurred. Please contact your system administrator.',
-    503: 'An error occurred. This is likely to be an issue with ElasticSearch.',
-    504: 'An error occurred. This is likely to be a timeout issue.'
-}
-
-ERROR_CODES = {
-    404: 'Not Found',
-    500: 'Internal Server Error',
-    503: 'Service Unavailable',
-    504: 'Gateway Timeout'
-}
-
-
-@api_bp.errorhandler(ApiError)
-def handle_error(error: ApiError):
-    error_code_detail = ERROR_CODES.get(error.status_code, 'Error')
-    session['level'] = 'warn' if error.status_code == 404 else 'error'
-    session['title'] = f'{error.status_code} - {error_code_detail}'
-    session['error_message'] = ERROR_MESSAGES.get(error.status_code, 'An error occurred.')
-    return redirect(url_for('error_bp.error'))
-
-
-sic = lambda unit: convert_band(unit, 'industryCode', 'industry code description', industry_code_description)
-sic07 = lambda unit: convert_band(unit, 'sic07', 'industry code description', industry_code_description)
-trading_status = lambda unit: convert_band(unit, 'tradingStatus', 'trading status', trading_status_bands)
-legal_status = lambda unit: convert_band(unit, 'legalStatus', 'legal status', legal_status_bands)
-employment_band = lambda unit: convert_band(unit, 'employmentBands', 'employment band', employment_bands)
-turnover_band = lambda unit: convert_band(unit, 'turnover', 'turnover band', turnover_bands)
-
-convert_bands = compose(sic, sic07, trading_status, legal_status, employment_band, turnover_band)
 
 
 @api_bp.route('/periods/<period>/types/<unit_type>/units/<unit_id>', methods=['GET'])
@@ -67,7 +29,7 @@ def get_unit_by_id(period, unit_type, unit_id):
     try:
         json = search_service.get_unit_by_id_type_period(unit_id, unit_type, period)
     except (ApiError, ValueError) as e:
-        logger.error('Unable to return results for get unit by id')
+        logger.error("Unable to return results for get unit by id", unit_id=unit_id, unit_type=unit_type, period=period)
         raise e
 
     if unit_type in ["ENT", "LEU"]:
@@ -91,7 +53,7 @@ def search_reference_number():
     try:
         json = search_service.search_by_id(unit_id)
     except (ApiError, ValueError) as e:
-        logger.error('Unable to return search results')
+        logger.error('Unable to return search results for reference number search', unit_id=unit_id)
         raise e
 
     unit_type = json.get("unitType")
@@ -109,33 +71,6 @@ def search_reference_number():
     session['id'] = json.get("id")
 
     return redirect_to_unit_page(unit_type, unit_id, period)
-
-
-def format_children(children: dict):
-    vats = []
-    chs = []
-    payes = []
-    leus = []
-    lus = []
-
-    # Rather than a dict of unitId:unitType, we want a dict of unitType:[unitId's], to make parsing them in the
-    # template easier
-    for child_id, child_type in children.items():
-        if child_type == "VAT":
-            vats.append(child_id)
-        elif child_type == "CH":
-            chs.append(child_id)
-        elif child_type == "PAYE":
-            payes.append(child_id)
-        elif child_type == "LEU":
-            leus.append(child_id)
-        elif child_type == "LU":
-            lus.append(child_id)
-
-    children = {"VAT": vats, "CH": chs, "PAYE": payes, "LEU": leus, "LU": lus}
-
-    # Filter empty arrays
-    return {k: v for k, v in children.items() if len(v) != 0}
 
 
 def redirect_to_unit_page(unit_type: str, unit_id: str, period: str):
