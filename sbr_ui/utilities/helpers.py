@@ -12,15 +12,17 @@ logger = wrap_logger(logging.getLogger(__name__))
 
 # https://mathieularose.com/function-composition-in-python/
 def compose(*fns):
-    return reduce(lambda f, g: lambda x: f(g(x)), fns, lambda x: x)
+    return reduce(lambda g, f: lambda x: f(g(x)), fns, lambda x: x)
 
 
 def convert_band(unit: dict, key: str, not_found_key: str, bands: dict) -> dict:
     initial_value = unit.get(key)
+
+    # If the key isn't valid then just return the original unit dict
     if initial_value is None:
         return unit
     else:
-        not_found_msg = f'No {not_found_key} could be found.'
+        not_found_msg = f'No {not_found_key} could be found'
         description = bands.get(initial_value, not_found_msg)
         return {**unit, key: f'{initial_value} - {description}'}
 
@@ -38,7 +40,7 @@ def log_api_error(status: int, error_msg: str, query: str):
 
 
 def base_64_encode(to_encode: str) -> str:
-    """ Encode something using base64, for Basic Authentication """
+    """ Encode a string using base64, for Basic Authentication """
     return base64.b64encode(to_encode.encode())
 
 

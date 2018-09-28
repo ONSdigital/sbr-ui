@@ -6,3 +6,4 @@ requests==2.19.1
 structlog==18.1.0
 colorama==0.3.9
 Jinja2==2.10
+pytest==3.8.1

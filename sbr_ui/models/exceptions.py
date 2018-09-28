@@ -26,4 +26,4 @@ class MissingEnvironmentVariable(Exception):
     missing. (This will only occur in PROD) """
     def __init__(self, missing_vars):
         logger.error('Missing environment variables', missing_vars=missing_vars)
-        sys.exit("Flask Application failed to start due to missing required environment variables")
+        sys.exit("Flask Application failed to start due to missing required environment variables}")

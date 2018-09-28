@@ -55,6 +55,12 @@ The user interface can be accessed on http://localhost:5000.
 
 ## Testing
 
+To run the `pytest` tests, use the following command:
+
+```shell
+ENVIRONMENT=TEST pytest
+```
+
 ## Dependencies
 
 * [flask-login](http://flask-login.readthedocs.io/en/latest/)
