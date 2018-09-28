@@ -15,6 +15,10 @@ def compose(*fns):
     return reduce(lambda g, f: lambda x: f(g(x)), fns, lambda x: x)
 
 
+def acronym_to_sbr_api_format(acronym):
+    return {"ENT": "ents", "LEU": "leus", "LU": "lous", "VAT": "vats", "PAYE": "payes", "CH": "crns"}.get(acronym)
+
+
 def convert_band(unit: dict, key: str, not_found_key: str, bands: dict) -> dict:
     initial_value = unit.get(key)
 
