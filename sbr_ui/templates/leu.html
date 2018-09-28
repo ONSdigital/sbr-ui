@@ -2,6 +2,27 @@
 
 {% block content %}
 <section>
+	<div class="wrapper">
+		<div class="group">
+			<div class="col-12">
+				<nav class="breadcrumb">
+					<ul class="breadcrumb__items pluto">
+						<li class="breadcrumb__item">
+							<a href="/Home" class="breadcrumb__link">Search</a>
+							<span class="breadcrumb__chevron">&nbsp;&gt;&nbsp;</span>
+						</li>
+						<li class="breadcrumb__item">
+							<a href="enterprise.html" class="breadcrumb__link">ENT - {{session['business']['parents']['ENT']}}</a>
+                            <span class="breadcrumb__chevron">&nbsp;&gt;&nbsp;</span>
+						</li>
+                        <li class="breadcrumb__item breadcrumb__item--current">LEU - {{session['business']['id']}}</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+</section>
+<section>
     <div class="main-content">
 		<div class="wrapper">
 			<div class="group">
