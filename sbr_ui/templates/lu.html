@@ -27,34 +27,65 @@
 		<div class="wrapper">
 			<div class="group">
 				<div class="col-12">
-					<h3 class="jupiter sml-margin">{{session['business']['vars']['businessName']}}</h3>
+					<h3 class="jupiter sml-margin">{{session['business']['vars']['name']}}</h3>
 					<div class="badge badge--teal ent-reference">Local Unit</div>
 					<div class="ent-reference u-mb-l">LURN <strong>{{session['business']['id']}}</strong></div>
 					<div class="panel panel--simple panel--info u-mb-l">
                         <table class="unit-info">
                             <tr>
-                                <th class="mars">Postcode</th>
-                                <td class="venus">{{session['business']['vars']['postCode']}}</td>
+                                <th class="mars">Local Unit Reference</th>
+                                <td class="venus">{{session['business']['vars']['luref']}}</td>
+                            <tr>
+                                <th class="mars">Trading Style</th>
+                                <td class="venus">{{session['business']['vars']['tradingStyle']}}</td>
+                             </tr>
+                                <tr>
+                                <th class="mars">Sic 07</th>
+                                <td class="venus">{{session['business']['vars']['sic07']}}</td>
+                             </tr>
+                                <tr>
+                                <th class="mars">Employees</th>
+                                <td class="venus">{{session['business']['vars']['employees']}}</td>
+                             </tr>
                             </tr>
                                 <tr>
-                                <th class="mars">Industry</th>
-                                <td class="venus">{{session['business']['vars']['industryCode']}}</td>
+                                <th class="mars">Employment</th>
+                                <td class="venus">{{session['business']['vars']['employment']}}</td>
                              </tr>
+                            </tr>
                                 <tr>
-                                <th class="mars">Legal status</th>
-                                <td class="venus">{{session['business']['vars']['legalStatus']}}</td>
+                                <th class="mars">PRN</th>
+                                <td class="venus">{{session['business']['vars']['prn']}}</td>
                              </tr>
+                            </tr>
                                 <tr>
-                                <th class="mars">Trading status</th>
-                                <td class="venus">{{session['business']['vars']['tradingStatus']}}</td>
+                                <th class="mars">Region</th>
+                                <td class="venus">{{session['business']['vars']['region']}}</td>
                              </tr>
+                            </tr>
                                 <tr>
-                                <th class="mars">Employment band</th>
-                                <td class="venus">{{session['business']['vars']['employmentBands']}}</td>
+                                <th class="mars">Reporting Unit Ref Number</th>
+                                <td class="venus">{{session['business']['vars']['reportingUnit']['rurn']}}</td>
                              </tr>
+                            </tr>
                                 <tr>
-                                <th class="mars">Turnover band</th>
-                                <td class="venus">{{session['business']['vars']['turnover']}}</td>
+                                <th class="mars">Reporting Unit Ref</th>
+                                <td class="venus">{{session['business']['vars']['reportingUnit']['ruref']}}</td>
+                             </tr>
+                            </tr>
+                                <tr>
+                                <th class="mars">Enterprise Ref Number</th>
+                                <td class="venus">{{session['business']['vars']['enterprise']['ern']}}</td>
+                             </tr>
+                            </tr>
+                                <tr>
+                                <th class="mars">Enterprise Reference</th>
+                                <td class="venus">{{session['business']['vars']['enterprise']['entref']}}</td>
+                             </tr>
+                            </tr>
+                                <tr>
+                                <th class="mars">Address</th>
+                                <td class="venus">{{", ".join(session['business']['vars']['address'].values())}}</td>
                              </tr>
                         </table>
 					<div>
