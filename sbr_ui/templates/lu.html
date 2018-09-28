@@ -1,0 +1,66 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<section>
+	<div class="wrapper">
+		<div class="group">
+			<div class="col-12">
+				<nav class="breadcrumb">
+					<ul class="breadcrumb__items pluto">
+						<li class="breadcrumb__item">
+							<a href="/Home" class="breadcrumb__link">Search</a>
+							<span class="breadcrumb__chevron">&nbsp;&gt;&nbsp;</span>
+						</li>
+						<li class="breadcrumb__item">
+							<a href="/api/periods/{{session['business']['period']}}/types/ENT/units/{{session['business']['parents']['ENT']}}" class="breadcrumb__link">ENT - {{session['business']['parents']['ENT']}}</a>
+                            <span class="breadcrumb__chevron">&nbsp;&gt;&nbsp;</span>
+						</li>
+                        <li class="breadcrumb__item breadcrumb__item--current">LU - {{session['business']['id']}}</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+</section>
+<section>
+    <div class="main-content">
+		<div class="wrapper">
+			<div class="group">
+				<div class="col-12">
+					<h3 class="jupiter sml-margin">{{session['business']['vars']['businessName']}}</h3>
+					<div class="badge badge--teal ent-reference">Local Unit</div>
+					<div class="ent-reference u-mb-l">UBRN <strong>{{session['business']['id']}}</strong></div>
+					<div class="panel panel--simple panel--info u-mb-l">
+                        <table class="unit-info">
+                            <tr>
+                                <th class="mars">Postcode</th>
+                                <td class="venus">{{session['business']['vars']['postCode']}}</td>
+                            </tr>
+                                <tr>
+                                <th class="mars">Industry</th>
+                                <td class="venus">{{session['business']['vars']['industryCode']}}</td>
+                             </tr>
+                                <tr>
+                                <th class="mars">Legal status</th>
+                                <td class="venus">{{session['business']['vars']['legalStatus']}}</td>
+                             </tr>
+                                <tr>
+                                <th class="mars">Trading status</th>
+                                <td class="venus">{{session['business']['vars']['tradingStatus']}}</td>
+                             </tr>
+                                <tr>
+                                <th class="mars">Employment band</th>
+                                <td class="venus">{{session['business']['vars']['employmentBands']}}</td>
+                             </tr>
+                                <tr>
+                                <th class="mars">Turnover band</th>
+                                <td class="venus">{{session['business']['vars']['turnover']}}</td>
+                             </tr>
+                        </table>
+					<div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

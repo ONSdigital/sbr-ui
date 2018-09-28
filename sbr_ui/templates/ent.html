@@ -63,9 +63,10 @@
             <div class="col-12">
                 <ul class="tabs clearfix u-mb-l" data-tabgroup="first-tab-group">
                   <li><a href="#tab1" class="active">LEU ({{session['business']['children']['LEU'] | count}})</a></li>
-                  <li><a href="#tab2">CRN ({{session['business']['children']['CH'] | count}})</a></li>
-                  <li><a href="#tab3">PAYE ({{session['business']['children']['PAYE'] | count}})</a></li>
-                  <li><a href="#tab4">VAT ({{session['business']['children']['VAT'] | count}})</a></li>
+                  <li><a href="#tab2">LU ({{session['business']['children']['LU'] | count}})</a></li>
+                  <li><a href="#tab3">CRN ({{session['business']['children']['CH'] | count}})</a></li>
+                  <li><a href="#tab4">PAYE ({{session['business']['children']['PAYE'] | count}})</a></li>
+                  <li><a href="#tab5">VAT ({{session['business']['children']['VAT'] | count}})</a></li>
                 </ul>
                 <section id="first-tab-group" class="tabgroup u-mb-l">
                     <div id="tab1">
@@ -83,6 +84,18 @@
                     <div id="tab2">
                         <table class="unit-info">
                             <tr>
+                                <th class="venus legal">LU</th>
+                            </tr>
+                            {% for id in session['business']['children']['LU'] %}
+                            <tr>
+                                <td class="mars legal"><a href="/api/periods/{{session['business']['period']}}/types/LU/units/{{id}}" class="mars">{{id}}</a></td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    <div id="tab3">
+                        <table class="unit-info">
+                            <tr>
                                 <th class="venus legal">CRN</th>
                             </tr>
                             {% for id in session['business']['children']['CH'] %}
@@ -92,7 +105,7 @@
                             {% endfor %}
                         </table>
                     </div>
-                    <div id="tab3">
+                    <div id="tab4">
                         <table class="unit-info">
                             <tr>
                                 <th class="venus legal">PAYE</th>
@@ -104,7 +117,7 @@
                             {% endfor %}
                         </table>
                     </div>
-                    <div id="tab4">
+                    <div id="tab5">
                         <table class="unit-info">
                             <tr>
                                 <th class="venus legal">VAT</th>

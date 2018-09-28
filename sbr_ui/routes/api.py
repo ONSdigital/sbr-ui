@@ -83,6 +83,7 @@ def format_children(children: dict):
     chs = []
     payes = []
     leus = []
+    lus = []
 
     # Rather than a dict of unitId:unitType, we want a dict of unitType:[unitId's], to make parsing them in the
     # template easier
@@ -95,8 +96,10 @@ def format_children(children: dict):
             payes.append(child_id)
         elif child_type == "LEU":
             leus.append(child_id)
+        elif child_type == "LU":
+            lus.append(child_id)
 
-    children = {"VAT": vats, "CH": chs, "PAYE": payes, "LEU": leus}
+    children = {"VAT": vats, "CH": chs, "PAYE": payes, "LEU": leus, "LU": lus}
 
     # Filter empty arrays
     return {k: v for k, v in children.items() if len(v) != 0}
@@ -113,3 +116,5 @@ def redirect_to_unit_page(unit_type: str, unit_id: str):
         return redirect(url_for('ch_bp.ch', id=unit_id))
     elif unit_type == "ENT":
         return redirect(url_for('ent_bp.ent', id=unit_id))
+    elif unit_type == "LU":
+        return redirect(url_for('lu_bp.lu', id=unit_id))
