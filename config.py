@@ -3,6 +3,7 @@ import os
 
 class DevConfig:
     ENVIRONMENT = 'DEV'
+    USE_FAKE_DATA = os.getenv('USE_FAKE_DATA', False)
     LOG_LEVEL = os.getenv('LOG_LEVEL', 'INFO')
     API_TIMEOUT = os.getenv('API_TIMEOUT', 10)
     AUTH_TIMEOUT = os.getenv('AUTH_TIMEOUT', 10)
@@ -24,6 +25,7 @@ class ProdConfig(DevConfig):
     used to fail the startup if any values are missing.
     """
     REQUIRED_VARS = ['AUTH_URL', 'API_URL', 'SECRET_KEY', 'ENVIRONMENT']
+    USE_FAKE_DATA = False
     ENVIRONMENT = 'PROD'
     LOG_LEVEL = os.getenv('LOG_LEVEL', 'WARNING')
     AUTH_URL = os.getenv('AUTH_URL')
