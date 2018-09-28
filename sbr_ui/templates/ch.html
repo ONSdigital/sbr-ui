@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<section>
+    <div class="main-content">
+		<div class="wrapper">
+			<div class="group">
+				<div class="col-12">
+					<h3 class="jupiter sml-margin">{{session['business']['vars']['businessName']}}</h3>
+					<div class="badge badge--teal ent-reference">Company House</div>
+					<div class="ent-reference u-mb-l">UBRN <strong>{{session['business']['id']}}</strong></div>
+					<div class="panel panel--simple panel--info u-mb-l">
+                        <table class="unit-info">
+                            <tr>
+                                <th class="mars">Postcode</th>
+                                <td class="venus">{{session['business']['vars']['postCode']}}</td>
+                            </tr>
+                                <tr>
+                                <th class="mars">Industry</th>
+                                <td class="venus">{{session['business']['vars']['industryCode']}}</td>
+                             </tr>
+                                <tr>
+                                <th class="mars">Legal status</th>
+                                <td class="venus">{{session['business']['vars']['legalStatus']}}</td>
+                             </tr>
+                                <tr>
+                                <th class="mars">Trading status</th>
+                                <td class="venus">{{session['business']['vars']['tradingStatus']}}</td>
+                             </tr>
+                                <tr>
+                                <th class="mars">Employment band</th>
+                                <td class="venus">{{session['business']['vars']['employmentBands']}}</td>
+                             </tr>
+                                <tr>
+                                <th class="mars">Turnover band</th>
+                                <td class="venus">{{session['business']['vars']['turnover']}}</td>
+                             </tr>
+                        </table>
+					<div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

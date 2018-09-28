@@ -1,0 +1,107 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<section>
+    <div class="main-content">
+		<div class="wrapper">
+			<div class="group">
+				<div class="col-12">
+					<h3 class="jupiter sml-margin">{{session['business']['vars']['businessName']}}</h3>
+					<div class="badge badge--teal ent-reference">Enterprise</div>
+					<div class="ent-reference u-mb-l">UBRN <strong>{{session['business']['id']}}</strong></div>
+					<div class="panel panel--simple panel--info u-mb-l">
+                        <table class="unit-info">
+                            <tr>
+                                <th class="mars">Postcode</th>
+                                <td class="venus">{{session['business']['vars']['postCode']}}</td>
+                            </tr>
+                                <tr>
+                                <th class="mars">Industry</th>
+                                <td class="venus">{{session['business']['vars']['industryCode']}}</td>
+                             </tr>
+                                <tr>
+                                <th class="mars">Legal status</th>
+                                <td class="venus">{{session['business']['vars']['legalStatus']}}</td>
+                             </tr>
+                                <tr>
+                                <th class="mars">Trading status</th>
+                                <td class="venus">{{session['business']['vars']['tradingStatus']}}</td>
+                             </tr>
+                                <tr>
+                                <th class="mars">Employment band</th>
+                                <td class="venus">{{session['business']['vars']['employmentBands']}}</td>
+                             </tr>
+                                <tr>
+                                <th class="mars">Turnover band</th>
+                                <td class="venus">{{session['business']['vars']['turnover']}}</td>
+                             </tr>
+                        </table>
+					<div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="wrapper">
+        <div class="group">
+            <div class="col-12">
+                <ul class="tabs clearfix u-mb-l" data-tabgroup="first-tab-group">
+                  <li><a href="#tab1" class="active">LEU ({{session['business']['children']['LEU'] | count}})</a></li>
+                  <li><a href="#tab2">CRN ({{session['business']['children']['CH'] | count}})</a></li>
+                  <li><a href="#tab3">PAYE ({{session['business']['children']['PAYE'] | count}})</a></li>
+                  <li><a href="#tab4">VAT ({{session['business']['children']['VAT'] | count}})</a></li>
+                </ul>
+                <section id="first-tab-group" class="tabgroup u-mb-l">
+                    <div id="tab1">
+                        <table class="unit-info">
+                            <tr>
+                                <th class="venus legal">LEU</th>
+                            </tr>
+                            {% for id in session['business']['children']['LEU'] %}
+                            <tr>
+                                <td class="mars legal"><a href="admin-unit.html" class="mars">{{id}}</a></td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    <div id="tab2">
+                        <table class="unit-info">
+                            <tr>
+                                <th class="venus legal">CRN</th>
+                            </tr>
+                            {% for id in session['business']['children']['CH'] %}
+                            <tr>
+                                <td class="mars legal"><a href="admin-unit.html" class="mars">{{id}}</a></td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    <div id="tab3">
+                        <table class="unit-info">
+                            <tr>
+                                <th class="venus legal">PAYE</th>
+                            </tr>
+                            {% for id in session['business']['children']['PAYE'] %}
+                            <tr>
+                                <td class="mars legal"><a href="admin-unit.html" class="mars">{{id}}</a></td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    <div id="tab4">
+                        <table class="unit-info">
+                            <tr>
+                                <th class="venus legal">VAT</th>
+                            </tr>
+                            {% for id in session['business']['children']['VAT'] %}
+                            <tr>
+                                <td class="mars legal"><a href="admin-unit.html" class="mars">{{id}}</a></td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
