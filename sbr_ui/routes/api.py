@@ -1,6 +1,6 @@
 import logging
 from structlog import wrap_logger
-from flask import Blueprint, request, redirect, url_for, session
+from flask import Blueprint, request, redirect, url_for, session, jsonify
 from flask_login import login_required
 from sbr_ui import app # For some reason, current_app won't work to get the config
 from sbr_ui.services.fake_search_service import FakeSearchService
