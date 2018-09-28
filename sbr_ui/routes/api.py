@@ -54,8 +54,9 @@ def get_unit_by_id(period, unit_type, unit_id):
     filtered_children = format_children(json['children'])
     json['children'] = filtered_children
     session['business'] = json
+    period = json.get("period")
 
-    return redirect_to_unit_page(unit_type, unit_id)
+    return redirect_to_unit_page(unit_type, unit_id, period)
 
 
 @api_bp.route('/search_reference_number', methods=['POST', 'GET'])
@@ -70,12 +71,13 @@ def search_reference_number():
         raise e
 
     unit_type = json.get("unitType")
+    period = json.get("period")
     formatted_children = format_children(json['children'])
     json['children'] = formatted_children
     session['business'] = json
     session['id'] = json.get("id")
 
-    return redirect_to_unit_page(unit_type, unit_id)
+    return redirect_to_unit_page(unit_type, unit_id, period)
 
 
 def format_children(children: dict):
@@ -105,16 +107,16 @@ def format_children(children: dict):
     return {k: v for k, v in children.items() if len(v) != 0}
 
 
-def redirect_to_unit_page(unit_type: str, unit_id: str):
+def redirect_to_unit_page(unit_type: str, unit_id: str, period: str):
     if unit_type == "LEU":
-        return redirect(url_for('leu_bp.leu', id=unit_id))
+        return redirect(url_for('leu_bp.leu', id=unit_id, period=period))
     elif unit_type == "VAT":
-        return redirect(url_for('vat_bp.vat', id=unit_id))
+        return redirect(url_for('vat_bp.vat', id=unit_id, period=period))
     elif unit_type == "PAYE":
-        return redirect(url_for('paye_bp.paye', id=unit_id))
+        return redirect(url_for('paye_bp.paye', id=unit_id, period=period))
     elif unit_type == "CH":
-        return redirect(url_for('ch_bp.ch', id=unit_id))
+        return redirect(url_for('ch_bp.ch', id=unit_id, period=period))
     elif unit_type == "ENT":
-        return redirect(url_for('ent_bp.ent', id=unit_id))
+        return redirect(url_for('ent_bp.ent', id=unit_id, period=period))
     elif unit_type == "LU":
-        return redirect(url_for('lu_bp.lu', id=unit_id))
+        return redirect(url_for('lu_bp.lu', id=unit_id, period=period))
