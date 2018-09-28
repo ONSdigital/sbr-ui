@@ -12,7 +12,7 @@
 							<span class="breadcrumb__chevron">&nbsp;&gt;&nbsp;</span>
 						</li>
 						<li class="breadcrumb__item">
-							<a href="/ENT/{{session['business']['parents']['ENT']}}" class="breadcrumb__link">ENT - {{session['business']['parents']['ENT']}}</a>
+							<a href="/api/periods/{{session['business']['period']}}/types/ENT/units/{{session['business']['parents']['ENT']}}" class="breadcrumb__link">ENT - {{session['business']['parents']['ENT']}}</a>
                             <span class="breadcrumb__chevron">&nbsp;&gt;&nbsp;</span>
 						</li>
                         <li class="breadcrumb__item breadcrumb__item--current">LEU - {{session['business']['id']}}</li>
@@ -78,7 +78,7 @@
                             </tr>
                             {% for id in session['business']['children']['CH'] %}
                             <tr>
-                                <td class="mars legal"><a href="/CH/{{id}}" class="mars">{{id}}</a></td>
+                                <td class="mars legal"><a href="/api/periods/{{session['business']['period']}}/types/CH/units/{{id}}" class="mars">{{id}}</a></td>
                             </tr>
                             {% endfor %}
                         </table>
@@ -90,7 +90,7 @@
                             </tr>
                             {% for id in session['business']['children']['PAYE'] %}
                             <tr>
-                                <td class="mars legal"><a href="/PAYE/{{id}}" class="mars">{{id}}</a></td>
+                                <td class="mars legal"><a href="/api/periods/{{session['business']['period']}}/types/PAYE/units/{{id}}" class="mars">{{id}}</a></td>
                             </tr>
                             {% endfor %}
                         </table>
@@ -102,7 +102,7 @@
                             </tr>
                             {% for id in session['business']['children']['VAT'] %}
                             <tr>
-                                <td class="mars legal"><a href="/VAT/{{id}}" class="mars">{{id}}</a></td>
+                                <td class="mars legal"><a href="/api/periods/{{session['business']['period']}}/types/VAT/units/{{id}}" class="mars">{{id}}</a></td>
                             </tr>
                             {% endfor %}
                         </table>

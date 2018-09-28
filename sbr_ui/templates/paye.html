@@ -11,12 +11,12 @@
 							<a href="/Home" class="breadcrumb__link">Search</a>
 							<span class="breadcrumb__chevron">&nbsp;&gt;&nbsp;</span>
 						</li>
-						<li class="breadcrumb__item">
-							<a href="/ENT/{{session['business']['parents']['ENT']}}" class="breadcrumb__link">ENT - {{session['business']['parents']['ENT']}}</a>
+                        <li class="breadcrumb__item">
+							<a href="/api/periods/{{session['business']['period']}}/types/ENT/units/{{session['business']['parents']['ENT']}}" class="breadcrumb__link">ENT - {{session['business']['parents']['ENT']}}</a>
                             <span class="breadcrumb__chevron">&nbsp;&gt;&nbsp;</span>
 						</li>
                         <li class="breadcrumb__item">
-							<a href="/LEU/{{session['business']['parents']['LEU']}}" class="breadcrumb__link">LEU - {{session['business']['parents']['LEU']}}</a>
+							<a href="/api/periods/{{session['business']['period']}}/types/LEU/units/{{session['business']['parents']['LEU']}}" class="breadcrumb__link">LEU - {{session['business']['parents']['LEU']}}</a>
                             <span class="breadcrumb__chevron">&nbsp;&gt;&nbsp;</span>
 						</li>
                         <li class="breadcrumb__item breadcrumb__item--current">PAYE - {{session['business']['id']}}</li>
