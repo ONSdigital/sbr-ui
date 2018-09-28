@@ -49,14 +49,14 @@ units = [{
         "entref": "879372942",
         "name": "Tesco",
         "tradingStyle": "3",
-        "sic07": "10000",
+        "sic07": "43120",
         "legalStatus": "1",
         "employees": "68",
         "jobs": "1038",
-        "turnover": "8362",
+        "turnover": "A",
         "prn": "0387",
         "workingProprietors": "8",
-        "employment": "334",
+        "employment": "A",
         "region": "Gwent",
         "address": {
             "line1": '6 Big House',
@@ -82,11 +82,11 @@ units = [{
     "vars": {
         "ubrn": "871827912739123",
         "name": "Asda Stores",
-        "legalStatus": "1",
-        "tradingStatus": "1",
+        "legalStatus": "7",
+        "tradingStatus": "A",
         "tradingStyle": "1",
-        "sic07": "10000",
-        "turnover": "3",
+        "sic07": "39000",
+        "turnover": "F",
         "payeJobs": "4",
         "birthDate": "2018",
         "deathDate": "2019",
@@ -116,9 +116,9 @@ units = [{
         "enterprise": { "ern": "1", "entref": "871823979123" },
         "reportingUnit": { "rurn": "234234234", "luref": "83749272479" },
         "tradingStyle": "2",
-        "sic07": "10000",
+        "sic07": "35230",
         "employees": "4",
-        "employment": "8",
+        "employment": "D",
         "prn": "0.22",
         "region": "Wales",
         "address": {
@@ -140,12 +140,12 @@ units = [{
     },
     "vars": {
         "businessName": "Waitrose",
-        "tradingStatus": "2",
-        "legalStatus": "7",
+        "tradingStatus": "D",
+        "legalStatus": "5",
         "postCode": "NP20 QQQ",
-        "industryCode": "4",
-        "employmentBands": "8",
-        "turnover": "2"
+        "industryCode": "32409",
+        "employmentBands": "F",
+        "turnover": "C"
     }
 },{
     "id": "5",
@@ -157,12 +157,12 @@ units = [{
     },
     "vars": {
         "businessName": "Booths",
-        "tradingStatus": "4",
+        "tradingStatus": "C",
         "legalStatus": "2",
         "postCode": "NP20 PPP",
-        "industryCode": "1",
-        "employmentBands": "7",
-        "turnover": "3"
+        "industryCode": "02200",
+        "employmentBands": "B",
+        "turnover": "E"
     }
 },{
     "id": "6",
@@ -174,11 +174,11 @@ units = [{
     },
     "vars": {
         "businessName": "Aldi",
-        "tradingStatus": "5",
+        "tradingStatus": "A",
         "legalStatus": "8",
         "postCode": "NP20 ZZZ",
-        "industryCode": "4",
-        "employmentBands": "6",
-        "turnover": "7"
+        "industryCode": "01160",
+        "employmentBands": "G",
+        "turnover": "A"
     }
 }]

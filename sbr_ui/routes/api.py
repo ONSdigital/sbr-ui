@@ -7,6 +7,10 @@ from sbr_ui import app # For some reason, current_app won't work to get the conf
 from sbr_ui.services.fake_search_service import FakeSearchService
 from sbr_ui.services.search_service import SearchService
 from sbr_ui.models.exceptions import ApiError
+from sbr_ui.utilities.sic_codes import industry_code_description
+from sbr_ui.utilities.convert_bands import employment_bands, legal_status_bands, turnover_bands, trading_status_bands
+from sbr_ui.utilities.helpers import compose, convert_band
+
 
 
 logger = wrap_logger(logging.getLogger(__name__))
@@ -46,6 +50,16 @@ def handle_error(error: ApiError):
     return redirect(url_for('error_bp.error'))
 
 
+sic = lambda unit: convert_band(unit, 'industryCode', 'industry code description', industry_code_description)
+sic07 = lambda unit: convert_band(unit, 'sic07', 'industry code description', industry_code_description)
+trading_status = lambda unit: convert_band(unit, 'tradingStatus', 'trading status', trading_status_bands)
+legal_status = lambda unit: convert_band(unit, 'legalStatus', 'legal status', legal_status_bands)
+employment_band = lambda unit: convert_band(unit, 'employmentBands', 'employment band', employment_bands)
+turnover_band = lambda unit: convert_band(unit, 'turnover', 'turnover band', turnover_bands)
+
+convert_bands = compose(sic, sic07, trading_status, legal_status, employment_band, turnover_band)
+
+
 @api_bp.route('/periods/<period>/types/<unit_type>/units/<unit_id>', methods=['GET'])
 @login_required
 def get_unit_by_id(period, unit_type, unit_id):
@@ -60,6 +74,9 @@ def get_unit_by_id(period, unit_type, unit_id):
         filtered_children = format_children(json['children'])
         json['children'] = filtered_children
 
+    json_with_band_conversion = convert_bands(json['vars'])
+
+    json['vars'] = json_with_band_conversion
     session['business'] = json
     period = json.get("period")
 
@@ -84,6 +101,10 @@ def search_reference_number():
         filtered_children = format_children(json['children'])
         json['children'] = filtered_children
 
+
+    json_with_band_conversion = convert_bands(json['vars'])
+
+    json['vars'] = json_with_band_conversion
     session['business'] = json
     session['id'] = json.get("id")
 
