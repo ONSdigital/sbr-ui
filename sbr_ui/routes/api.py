@@ -1,12 +1,13 @@
 import logging
 from structlog import wrap_logger
-from flask import Blueprint, request, redirect, url_for, session
+from flask import Blueprint, request, redirect, url_for, session, jsonify
 from flask_login import login_required
 from sbr_ui import app # For some reason, current_app won't work to get the config
 from sbr_ui.services.fake_search_service import FakeSearchService
 from sbr_ui.services.search_service import SearchService
 from sbr_ui.models.exceptions import ApiError
 from sbr_ui.utilities.helpers import convert_bands, format_children
+from sbr_ui.utilities.units import units
 
 
 logger = wrap_logger(logging.getLogger(__name__))
@@ -14,7 +15,7 @@ logger = wrap_logger(logging.getLogger(__name__))
 
 if app.config.get('USE_FAKE_DATA'):
     logger.warn("USE_FAKE_DATA set to true, using test data")
-    search_service = FakeSearchService()
+    search_service = FakeSearchService(units)
 else:
     search_service = SearchService()
 

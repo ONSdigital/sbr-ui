@@ -20,7 +20,7 @@ class GatewayAuthenticationService:
 
     def login(self, username: str, password: str) -> TokenAndRole:
         logger.debug("Logging user in", username=username)
-        headers = {'content-type': 'application/json', 'Authorization': base_64_encode(f'{username}:{password}')}
+        headers = {'content-type': 'application/json', 'Authorization': str(base_64_encode(f'{username}:{password}'))}
         response = requests.post(self.gateway_auth_url, headers=headers)
 
         try:
@@ -31,5 +31,17 @@ class GatewayAuthenticationService:
 
         # Potentially need to throw an exception here if we don't get back a token or role
         # Also, potentially need to match the BusinessService in terms of returning the response.json()
-        token, role = response.json()
+        try:
+            json = response.json()
+        except ValueError:
+            logger.error("Invalid Gateway response JSON, unable to parse")
+            raise ValueError(response)
+
+        token = json.get('token')
+        role = json.get('role')
+
+        if token is None or role is None:
+            logger.error("Returned Gateway JSON is in the wrong format")
+            raise ValueError(response)
+
         return token, role
