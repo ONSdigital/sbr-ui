@@ -1,0 +1,73 @@
+@charset "UTF-8";
+
+/* BI search results table list */
+
+table {
+    min-width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+    display: table;
+    margin: 0;
+    padding: 0;
+}
+
+th {
+  border: none;
+  text-align: left;
+  padding: 2px 0;
+  width: 200px;
+  line-height: 1.4;
+}
+
+td {
+  border-bottom: none;
+  padding: 2px 0;
+  line-height: 1.4;
+}
+
+
+.table-grey-text {
+  color: #999999;
+  font-weight: 400;
+}
+
+.table-grey-text-reveal {
+  width: 56px;
+  color: #999999;
+  font-weight: 400;
+}
+
+.legal {
+  border-bottom: 1px solid #cfcfcf;
+  padding: 0.75rem 0;
+}
+
+/* BI Table view */
+
+.business-name {
+  min-width: 228px;
+}
+
+.turnover {
+  min-width: 105px;
+}
+
+.postcode {
+  min-width: 90px;
+}
+
+.ubrn {
+  width: 123px;
+}
+
+.no-data {
+  color: #C1C1C1;
+}
+
+.table--cell {
+  font-size: 15px;
+}
+
+.download-results {
+  margin: 3.5rem 0 0 0;
+}

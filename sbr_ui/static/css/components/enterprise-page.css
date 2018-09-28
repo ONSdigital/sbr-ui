@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+.ent-reference {
+  margin-left: 0;
+  display: inline-block;
+}
+
+.unit-info {
+  margin-bottom: 1rem;
+}

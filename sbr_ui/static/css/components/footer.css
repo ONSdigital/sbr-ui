@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+.page__footer {
+  background-color: #E4E8EB;
+  padding: 16px 0 64px 0;
+  padding: 0.8889rem 0 3.555rem 0;
+}
+
+.page__footer ul li {
+  list-style-type: none;
+  color: #E4E8EB;
+}
+
+.page__footer a {
+  margin: 0;
+  margin: 0;
+}
+
+@media only screen and (max-width: 767px) {
+
+.page__footer {
+  background-color: #E4E8EB;
+  padding: 16px 0 64px 0;
+  padding: 0.8889rem 0 3.555rem 0;
+}
+
+}

@@ -1,0 +1,167 @@
+@charset "UTF-8";
+
+.remove-margin {
+  margin-bottom: 0;
+}
+
+.sml-margin {
+  margin-bottom: 9px;
+  margin-bottom: 0.5rem;
+}
+
+.lg-margin {
+  margin-bottom: 27px;
+  margin-bottom: 1.5rem;
+}
+
+.jupiter {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.saturn {
+  font-size: 1.556rem;
+  font-weight: 700;
+}
+
+.neptune {
+  font-size: 22px;
+  font-size: 1.222rem;
+  font-weight: 700;
+}
+
+.venus {
+  font-size: 18px;
+  font-size: 1rem;
+}
+
+.mars {
+  font-size: 18px;
+  font-size: 1rem;
+}
+
+.mercury {
+  font-size: 16px;
+  font-weight: 700;
+  font-size: 0.8889rem
+}
+
+.pluto {
+  font-size: 16px;
+  font-size: 0.8889rem;
+}
+
+@media only screen and (max-width: 1279px) {
+
+.jupiter {
+  font-size: 36px;
+  font-size: 2rem;
+}
+
+.saturn {
+  font-size: 28px;
+  font-size: 1.556rem;
+}
+
+.neptune {
+  font-size: 22px;
+  font-size: 1.222rem;
+}
+
+.venus {
+  font-size: 18px;
+  font-size: 1rem;
+}
+
+.mars {
+  font-size: 18px;
+  font-size: 1rem;
+}
+
+.mercury {
+  font-size: 16px;
+  font-size: 0.7778rem;
+}
+
+.pluto {
+  font-size: 16px;
+  font-size: 0.8889rem;
+}
+
+@media only screen and (max-width: 1007px) {
+
+.jupiter {
+  font-size: 28px;
+  font-size: 1.556rem;
+}
+
+.saturn {
+  font-size: 24px;
+  font-size: 1.333rem;
+}
+
+.neptune {
+  font-size: 20px;
+  font-size: 1.111rem;
+}
+
+.venus {
+  font-size: 16px;
+  font-size: 0.8889rem;
+}
+
+.mars {
+  font-size: 16px;
+  font-size: 0.8889rem;
+}
+
+.mercury {
+  font-size: 14px;
+  font-size: 0.7778rem;
+}
+
+.pluto {
+  font-size: 14px;
+  font-size: 0.7778rem;
+}
+
+}
+
+@media only screen and (max-width: 767px) {
+
+.jupiter {
+  font-size: 28px;
+  font-size: 1.556rem;
+}
+
+.saturn {
+  font-size: 24px;
+  font-size:  1.333rem;
+}
+
+.neptune {
+  font-size: 18px;
+  font-size: 1rem;
+}
+
+.venus {
+  font-size: 16px;
+  font-size: 0.8889rem;
+}
+
+.mars {
+  font-size: 16px;
+  font-size: 0.8889rem;
+}
+
+.mercury {
+  font-size: 14px;
+  font-size: 0.7778rem;
+}
+
+.pluto {
+  font-size: 14px;
+  font-size: 0.7778rem;
+}
+
+}
