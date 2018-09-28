@@ -1,9 +1,12 @@
 import logging
+from structlog import wrap_logger
 
 from flask import Blueprint, render_template, session
 
 
-logger = logging.getLogger(__name__)
+logger = wrap_logger(logging.getLogger(__name__))
+
+
 error_bp = Blueprint('error_bp', __name__, template_folder='templates/errors')
 
 
@@ -16,5 +19,6 @@ def error():
     title = session.get('title', 'Error')
     error_message = session.get('error_message', 'An error has occurred.')
     level = session.get('level', 'error')
+    logger.error("Displaying error to the user", error_message=error_message, level=level)
     return render_template('errors/error.html', title=title, error_message=error_message, level=level)
 

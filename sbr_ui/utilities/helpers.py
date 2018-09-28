@@ -3,6 +3,9 @@ import base64
 from structlog import wrap_logger
 from functools import reduce
 
+from sbr_ui.utilities.sic_codes import industry_code_description
+from sbr_ui.utilities.convert_bands import employment_bands, legal_status_bands, turnover_bands, trading_status_bands
+
 
 logger = wrap_logger(logging.getLogger(__name__))
 
@@ -13,7 +16,6 @@ def compose(*fns):
 
 
 def convert_band(unit: dict, key: str, not_found_key: str, bands: dict) -> dict:
-    logger.error("convert_band", unit=unit, key=key, not_found_key=not_found_key, bands=bands)
     initial_value = unit.get(key)
     if initial_value is None:
         return unit
@@ -36,7 +38,42 @@ def log_api_error(status: int, error_msg: str, query: str):
 
 
 def base_64_encode(to_encode: str) -> str:
-    """ Encode a something using base64, for Basic Authentication """
+    """ Encode something using base64, for Basic Authentication """
     return base64.b64encode(to_encode.encode())
 
-# {'id': '1', 'unitType': 'ENT', 'period': '201810', 'children': {'VAT': ['6'], 'CH': ['4'], 'PAYE': ['5'], 'LEU': ['2'], 'LU': ['3']}, 'vars': {'ern': '918237891237', 'entref': '879372942', 'name': 'Tesco', 'tradingStyle': '3', 'sic07': '10000', 'legalStatus': '1', 'employees': '68', 'jobs': '1038', 'turnover': 'A', 'prn': '0387', 'workingProprietors': '8', 'employment': 'A', 'region': 'Gwent', 'address': {'line1': '6 Big House', 'line2': 'Long Street', 'line3': 'Newport', 'line4': 'South Wales', 'line5': 'Wales', 'postcode': 'NP20 ABC'}}}
+
+def format_children(children: dict):
+    vats = []
+    chs = []
+    payes = []
+    leus = []
+    lus = []
+
+    # Rather than a dict of unitId:unitType, we want a dict of unitType:[unitId's], to make parsing them in the
+    # template easier
+    for child_id, child_type in children.items():
+        if child_type == "VAT":
+            vats.append(child_id)
+        elif child_type == "CH":
+            chs.append(child_id)
+        elif child_type == "PAYE":
+            payes.append(child_id)
+        elif child_type == "LEU":
+            leus.append(child_id)
+        elif child_type == "LU":
+            lus.append(child_id)
+
+    children = {"VAT": vats, "CH": chs, "PAYE": payes, "LEU": leus, "LU": lus}
+
+    # Filter empty arrays
+    return {k: v for k, v in children.items() if len(v) != 0}
+
+
+sic = lambda unit: convert_band(unit, 'industryCode', 'industry code description', industry_code_description)
+sic07 = lambda unit: convert_band(unit, 'sic07', 'industry code description', industry_code_description)
+trading_status = lambda unit: convert_band(unit, 'tradingStatus', 'trading status', trading_status_bands)
+legal_status = lambda unit: convert_band(unit, 'legalStatus', 'legal status', legal_status_bands)
+employment_band = lambda unit: convert_band(unit, 'employmentBands', 'employment band', employment_bands)
+turnover_band = lambda unit: convert_band(unit, 'turnover', 'turnover band', turnover_bands)
+
+convert_bands = compose(sic, sic07, trading_status, legal_status, employment_band, turnover_band)

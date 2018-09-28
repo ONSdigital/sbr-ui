@@ -18,6 +18,7 @@ class SearchService:
 
     def search_by_id(self, unit_id: str) -> Unit:
         url = f'{self.base_url}/{self.version}/search/{unit_id}'
+        logger.info("Sending search by id request", url=url)
         response = requests.get(url)
 
         try:
@@ -31,6 +32,7 @@ class SearchService:
 
     def get_unit_by_id_type_period(self, unit_id: str, unit_type: str, period: str) -> Unit:
         url = f'{self.base_url}/{self.version}/periods/{period}/types/{unit_type}/units/{unit_id}'
+        logger.info("Sending get by id, unit type and period request", url=url)
         response = requests.get(url)
 
         try:

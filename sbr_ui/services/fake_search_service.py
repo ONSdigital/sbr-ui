@@ -11,7 +11,7 @@ class FakeSearchService:
 
     @staticmethod
     def search_by_id(unit_id: str) -> Unit:
-        logger.info("Search by unit id", unit_id=unit_id)
+        logger.info("Searching test data by unit id", unit_id=unit_id)
 
         matches = list(filter(lambda x: x["id"] == unit_id, units))
         if len(matches) > 0:
@@ -21,7 +21,7 @@ class FakeSearchService:
 
     @staticmethod
     def get_unit_by_id_type_period(unit_id: str, unit_type: str, period: str) -> Unit:
-        logger.info("Search by unit id, unit type and period", unit_id=unit_id, unit_type=unit_type, period=period)
+        logger.info("Searching test data by unit id, unit type and period", unit_id=unit_id, unit_type=unit_type, period=period)
         matches = list(filter(lambda x:
                               x["id"] == unit_id and
                               x["period"] == period and
