@@ -78,7 +78,7 @@
                             </tr>
                             {% for id in session['business']['children']['CH'] %}
                             <tr>
-                                <td class="mars legal"><a href="admin-unit.html" class="mars">{{id}}</a></td>
+                                <td class="mars legal"><a href="/CH/{{id}}" class="mars">{{id}}</a></td>
                             </tr>
                             {% endfor %}
                         </table>
@@ -90,7 +90,7 @@
                             </tr>
                             {% for id in session['business']['children']['PAYE'] %}
                             <tr>
-                                <td class="mars legal"><a href="admin-unit.html" class="mars">{{id}}</a></td>
+                                <td class="mars legal"><a href="/PAYE/{{id}}" class="mars">{{id}}</a></td>
                             </tr>
                             {% endfor %}
                         </table>
@@ -102,7 +102,7 @@
                             </tr>
                             {% for id in session['business']['children']['VAT'] %}
                             <tr>
-                                <td class="mars legal"><a href="admin-unit.html" class="mars">{{id}}</a></td>
+                                <td class="mars legal"><a href="/VAT/{{id}}" class="mars">{{id}}</a></td>
                             </tr>
                             {% endfor %}
                         </table>
