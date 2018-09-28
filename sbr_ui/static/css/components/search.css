@@ -1,0 +1,148 @@
+@charset "UTF-8";
+
+/* BI Primary search page */
+
+.search-wrapper {
+    display: table;
+    padding: 9px 0 27px 0;
+    padding: 0.5rem 0 1.5rem 0;
+    width: 100%;
+    max-width: 20rem;
+    position: relative;
+}
+
+.bi-search-input {
+    width: 26rem;
+}
+
+.bi-postcode-input {
+    width: 12.57rem;
+    height: 45px;
+}
+
+.bi-sic-input {
+    width: 12.57rem;
+    float: left;
+    color: #222222;
+}
+
+.second {
+  margin-left: 16px;
+}
+
+#range {
+  display: none;
+  height: 45px;
+}
+
+.label__description {
+  padding-bottom: 4px;
+}
+
+#middle {
+    height:500px;
+    width:200px;
+    border:2px solid red;}
+
+/* BI Edit search right panel */
+
+.edit-search {
+  background-color: #E4E8EB;
+  padding: 10px 16px 0 16px;
+  padding: 0.5556rem 0.8889rem 0 0.8889rem ;
+}
+
+.edit-search {
+  line-height: 1.4;
+}
+
+.bi-search-input-edit {
+    width: 100%;
+}
+
+.bi-postcode-input-edit {
+    width: 100%;
+    height: 45px;
+}
+
+.bi-sic-input-edit {
+    width: 47.13%;
+    float: left;
+    color: #999999;
+}
+
+.edit {
+    width: 100% !important;
+}
+
+.float {
+    display: inline-block;
+}
+
+.float-right {
+    float: right;
+    margin-top: 9px;
+}
+
+/* BI Edit search right landscape top */
+
+.landscape-search {
+    background-color: #E4E8EB;
+    height: auto;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.input-margin {
+    margin-bottom: 3px;
+    margin-top: 29px;
+}
+
+.input-margin-sml {
+    margin-bottom: 3px;
+    margin-top: 6px;
+}
+
+.input-margin-sic {
+    margin-bottom: 2px;
+}
+
+.bi-search-input-wide {
+    width: 100%;
+    min-height: 45px;
+}
+
+.sml {
+    margin-bottom: .25em;
+}
+
+.bi-sic-input-edit-landscape {
+    width: 48%;
+    float: left;
+    color: #222222;
+    min-height: 45px;
+}
+
+.input--checkbox {
+    background-color: #ffffff;
+}
+
+.btn--secondary.btn--border {
+    padding: .75rem 2.5rem;
+    margin-left: 12px;
+}
+
+.btn-wide {
+    width: 100%;
+}
+.minus-margin {
+  margin-bottom: -1rem;
+}
+
+@media only screen and (max-width: 1279px) {
+
+.bi-sic-input-edit-landscape {
+    width: 47.4%;
+}
+
+}

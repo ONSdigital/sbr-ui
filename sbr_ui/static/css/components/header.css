@@ -1,0 +1,84 @@
+@charset "UTF-8";
+
+.logo_header {
+  padding: 18px 0 18px 0;
+  padding: 1rem 0 1rem 0;
+  font-size: 0;
+  line-height: 0;
+}
+
+.logo_container {
+  background-color: #033E58;
+}
+
+.logo__img {
+  height: 24px;
+  width: auto;
+}
+
+.page_title {
+  background-color: #3B7A9E;
+  height: auto;
+}
+
+.main_heading {
+  color: #FFFFFF;
+  padding: 27px 0 4px 0;
+  padding: 1.5rem 0 0.2222rem 0;
+  margin: 0;
+}
+
+.sub_heading {
+  color: #FFFFFF;
+  padding: 0 0 18px 0;
+  padding: 0 0 1rem 0;
+  margin-bottom: 1rem !important;
+
+}
+
+.header_links {
+  color: #FFFFFF;
+  padding: 14px 0 0 0;
+  padding: 0.7778rem 0 0 0;
+  margin-bottom: 0;
+  text-align: right;
+}
+
+.header_links ul li {
+  list-style-type: none;
+  display: inline;
+}
+
+.header_links a {
+  color: #E4E8EB;
+  text-decoration: underline;
+  margin: 0 0 0 18px;
+  margin: 0 0 0 1rem;
+}
+
+.header_links a:hover {
+  color: #FFFFFF;
+}
+
+.visuallyhidden {
+  display: none;
+}
+
+@media only screen and (max-width: 767px) {
+
+.header_links {
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
+
+.header_links a {
+  text-align: left;
+  margin: 0 0 0 0;
+}
+
+.menubar menu, ol, ul {
+  padding-left: 0;
+}
+
+}

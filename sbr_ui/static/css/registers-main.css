@@ -1,0 +1,72 @@
+@charset "UTF-8";
+
+/* Components that aren't from SDC */
+
+@import "components/registers-grid.css";
+@import "components/typography.css";
+@import "components/header.css";
+@import "components/sub-header.css";
+@import "components/badges.css";
+@import "components/footer.css";
+@import "components/navigation.css";
+@import "components/login.css";
+@import "components/search.css";
+@import "components/table.css";
+@import "components/multiple-select.css";
+@import "components/search-results.css";
+@import "components/breadcrumb.css";
+@import "components/enterprise-page.css";
+@import "components/style.css";
+@import "components/pagination.css";
+
+.panel--simple {
+    padding: 27px 27px 9px 27px;
+    padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+}
+
+.input--select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 10.799px 36px 10.799px 9px;
+    padding: .6rem 2rem .6rem .5rem;
+    background: #fff url(../img/icons--chevron-down.svg) no-repeat center right 6px;
+    background-size: 1.5rem;
+    line-height: 22.5px;
+    line-height: 1.25rem;
+}
+
+.main-content {
+  padding: 32px 0;
+  padding: 1.778rem 0;
+}
+
+.key-line {
+  border-bottom: 1px solid #CFCFCF;
+  margin-top: 18px;
+  margin-top: 1rem;
+  padding-left: 16px;
+  padding-left: 0.8889rem;
+}
+
+.guidance__link:before {
+    background: url(../img/icons--guidance.svg) no-repeat 50%;
+}
+
+.guidance__link:focus:before {
+    background: url(../img/icons--guidance-white.svg) no-repeat 50%;
+}
+
+.guidance {
+  margin-top: 6px;
+  margin-top: 0.333rem;
+}
+
+.guidance__content {
+  margin-top: 6px;
+  margin-top: 0.333rem;
+}
+
+a {
+  text-decoration: underline;
+}

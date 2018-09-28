@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+/* SBR Primary search page */
+
+.label__description {
+  padding-bottom: 0.5rem;
+}
+
+/* SBR search header */
+
+.search_bar {
+  background-color: #E4E8EB;
+  padding: 1rem 0 0 0;
+}
+
+.sbr-search-input {
+  width: 100%;
+}
+
+.three-col-button {
+  width: 100%;
+  padding: 0.5456rem 0.8889rem 0.5456rem 0.8889rem;
+  margin-top: 1.75rem;
+
+}

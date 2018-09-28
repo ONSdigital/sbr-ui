@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+.breadcrumb {
+  padding: 0;
+}
+
+.breadcrumb__items {
+  padding: 0;
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
+.breadcrumb__item--current {
+  color: #222222;
+}

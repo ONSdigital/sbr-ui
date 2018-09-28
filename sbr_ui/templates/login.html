@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  <div class="main-content">
+      <div class="wrapper">
+          <div class="group">
+              <div class="col-12">
+                  <form id="form-sign-in" action="http://localhost:5000/auth/login" class="form" method="POST">
+                      <h3 class="saturn">Sign in</h3>
+                      <div class="field u-mb-s">
+                          <label class="label">Username</label>
+                          <input autofocus class="input input--text input-type__input" name="username" required type="text">
+                      </div>
+                      <div class="field">
+                          <label class="label " for="inputPassword" id="inputPasswordLabel">Password</label>
+                          <div class="field--toggle">
+                              <label class="label label--inline venus field__label" for="showPasswordToggle">Show password</label>
+                              <input id="showPasswordToggle" class="field__input input input--checkbox" type="checkbox" />
+                          </div>
+                          <input id="inputPassword" required type="password" name="password" class="input input--text" aria-describedby="inputPasswordLabel" />
+                      </div>
+                      <p class="forgot-password"><a href="forgot-password.html">Forgot password?</a></p>
+                      <button class="btn btn--primary venus" type="submit">Sign in</button>
+                      {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for error in messages %}
+                                <div class="main-content">
+                                    <div class="wrapper">
+                                        <div class="group">
+                                            <div class="col-8">
+                                                <div class="panel panel--simple panel--error u-mb-l">
+                                                    <p class="mars">{{ error }}</p>
+                                                <div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                      {% endwith %}
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,44 @@
+.highlight {
+  background-color: #F0F762;
+}
+
+.search-item-container {
+  padding-top: 2.5rem;
+}
+
+.download-float {
+  display: inline-block;
+  margin-right: 9px;
+  margin-right: 0.5rem;
+}
+
+.key-line-download {
+  border-bottom: 1px solid #CFCFCF;
+  margin: 2.5rem 0;
+}
+
+/* SBR search filter */
+
+.filter-container {
+  display: inline-block;
+  width: 100%;
+  padding: 1rem 0 0.5556rem 0;
+  border-bottom: 1px solid #CFCFCF;
+  border-top: 1px solid #CFCFCF;
+  margin-top: 1rem;
+}
+
+.filter-results {
+  display: inline-block;
+  float: left;
+  margin-right: 2.2rem;
+}
+
+.float--left {
+  float: left;
+}
+
+.filter-label {
+  width: auto;
+  margin-right: 2.2rem;
+}
