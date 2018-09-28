@@ -1,5 +1,5 @@
 from flask import redirect, url_for, session
-
+import requests
 from sbr_ui import app
 
 
@@ -9,6 +9,7 @@ Generic errors are handled here, specific errors for the API are handled within 
 
 
 @app.errorhandler(404)
+@app.errorhandler(requests.exceptions.HTTPError)
 def not_found_error(error):
     session['level'] = 'warn'
     session['title'] = '404 - Not Found'
