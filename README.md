@@ -55,11 +55,15 @@ The user interface can be accessed on http://localhost:5000.
 
 ## Testing
 
+### Server Tests
+
 To run the `pytest` tests, use the following command:
 
 ```shell
 ENVIRONMENT=TEST pytest --ignore=tests/selenium
 ```
+
+### User Interface Selenium Tests
 
 To run the Selenium tests, use the following command:
 
@@ -68,11 +72,21 @@ pytest tests/selenium/
 ```
 
 For the Selenium user interface tests to work, you will need to do the following:
-- install Firefox
-- install the `geckodriver` used by Selenium: `brew install geckodriver`
-- run `sbr-ui`, making sure to pass in `USE_FAKE_DATA=True`
+- Install Firefox
+- Install the `geckodriver` used by Selenium: `brew install geckodriver`
+- Run `sbr-ui`, making sure to pass in `USE_FAKE_DATA=True`
 
 If you want to run the Selenium tests in headless mode, pass in `SELENIUM_HEADLESS=True`.
+
+### Test Coverage
+
+To generate test coverage using `pytest-cov``, use the following command:
+
+```shell
+ENVIRONMENT=TEST pytest --cov-report html --cov=sbr_ui --ignore=tests/selenium
+```
+
+Coverage reports are saved to `./htmlcov`. Open `./htmlcov/index.html` in a browser to inspect the results.
 
 ## Dependencies
 
