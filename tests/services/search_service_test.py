@@ -2,7 +2,7 @@ import pytest
 import responses
 
 from sbr_ui import ApiError
-from sbr_ui.utilities.units import enterprise, legal_unit, local_unit, value_added_tax, pay_as_you_earn, company_house
+from test_data import enterprise, legal_unit, local_unit, value_added_tax, pay_as_you_earn, company_house
 from sbr_ui.services.search_service import SearchService
 
 

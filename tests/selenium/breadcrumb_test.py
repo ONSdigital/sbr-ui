@@ -1,6 +1,8 @@
 import unittest
 from selenium import webdriver
 
+from tests.helper_methods import create_selenium_config
+
 from tests.constants import BASE_URL, HOME_URL
 from tests.constants import BREADCRUMB_SEARCH_ID, BREADCRUMB_SELECTED_ID, BREADCRUMB_ENT_ID, BREADCRUMB_LEU_ID
 from tests.constants import SEARCH_BUTTON_ID
@@ -16,7 +18,8 @@ class BreadcrumbTest(unittest.TestCase):
     """
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
+        self.options = create_selenium_config()
+        self.driver = webdriver.Firefox(firefox_options=self.options)
         self.driver.get(BASE_URL)
         self.driver.find_element_by_id(USERNAME_INPUT_ID).send_keys(ADMIN_USERNAME)
         self.driver.find_element_by_id(PASSWORD_INPUT_ID).send_keys(ADMIN_PASSWORD)

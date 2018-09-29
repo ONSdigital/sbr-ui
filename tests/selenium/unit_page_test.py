@@ -1,7 +1,7 @@
 import unittest
 from selenium import webdriver
 
-from tests.helper_methods import flatten
+from tests.helper_methods import flatten, create_selenium_config
 from test_data import enterprise, legal_unit, local_unit, company_house, value_added_tax, pay_as_you_earn
 
 from tests.constants import BASE_URL
@@ -21,7 +21,8 @@ class UnitPageTest(unittest.TestCase):
     """
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
+        self.options = create_selenium_config()
+        self.driver = webdriver.Firefox(firefox_options=self.options)
         self.driver.get(BASE_URL)
         self.driver.find_element_by_id(USERNAME_INPUT_ID).send_keys(ADMIN_USERNAME)
         self.driver.find_element_by_id(PASSWORD_INPUT_ID).send_keys(ADMIN_PASSWORD)

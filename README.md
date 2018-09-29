@@ -72,6 +72,8 @@ For the Selenium user interface tests to work, you will need to do the following
 - install the `geckodriver` used by Selenium: `brew install geckodriver`
 - run `sbr-ui`, making sure to pass in `USE_FAKE_DATA=True`
 
+If you want to run the Selenium tests in headless mode, pass in `SELENIUM_HEADLESS=True`.
+
 ## Dependencies
 
 * [flask-login](http://flask-login.readthedocs.io/en/latest/)

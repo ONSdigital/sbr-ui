@@ -2,6 +2,8 @@ import unittest
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 
+from tests.helper_methods import create_selenium_config
+
 from tests.constants import BASE_URL, ERROR_URL
 from tests.constants import SBR_DESCRIPTION_ID, SEARCH_BUTTON_ID
 from tests.constants import USERNAME_INPUT_ID, PASSWORD_INPUT_ID, SEARCH_INPUT_ID, LOGIN_BUTTON_ID, LOGOUT_BUTTON_ID
@@ -16,7 +18,8 @@ class SearchTest(unittest.TestCase):
     """
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
+        self.options = create_selenium_config()
+        self.driver = webdriver.Firefox(firefox_options=self.options)
         self.driver.get(BASE_URL)
         self.driver.find_element_by_id(USERNAME_INPUT_ID).send_keys(ADMIN_USERNAME)
         self.driver.find_element_by_id(PASSWORD_INPUT_ID).send_keys(ADMIN_PASSWORD)

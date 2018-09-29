@@ -1,6 +1,8 @@
 import unittest
 from selenium import webdriver
 
+from tests.helper_methods import create_selenium_config
+
 from tests.constants import BASE_URL
 from tests.constants import CHILD_LINKS_TABS_ID, LEU_TAB, LU_TAB, CH_TAB, PAYE_TAB, VAT_TAB
 from tests.constants import LEU_CHILD_TABLE, LU_CHILD_TABLE, CH_CHILD_TABLE, VAT_CHILD_TABLE, PAYE_CHILD_TABLE
@@ -14,7 +16,8 @@ class ChildLinksTest(unittest.TestCase):
     """ TODO: test that the number of units of a certain type is correct (need to make more test data) """
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
+        self.options = create_selenium_config()
+        self.driver = webdriver.Firefox(firefox_options=self.options)
         self.driver.get(BASE_URL)
         self.driver.find_element_by_id(USERNAME_INPUT_ID).send_keys(ADMIN_USERNAME)
         self.driver.find_element_by_id(PASSWORD_INPUT_ID).send_keys(ADMIN_PASSWORD)

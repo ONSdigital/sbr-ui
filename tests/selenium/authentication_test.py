@@ -1,6 +1,8 @@
 import unittest
 from selenium import webdriver
 
+from tests.helper_methods import create_selenium_config
+
 from tests.constants import BASE_URL, HOME_URL, ERROR_URL
 from tests.constants import LOGIN_TITLE_ID, HOME_TITLE_ID
 from tests.constants import USERNAME_INPUT_ID, PASSWORD_INPUT_ID, LOGIN_BUTTON_ID, LOGOUT_BUTTON_ID
@@ -10,7 +12,8 @@ from tests.constants import ADMIN_USERNAME, ADMIN_PASSWORD, INVALID_USERNAME, IN
 class AuthenticationTest(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
+        self.options = create_selenium_config()
+        self.driver = webdriver.Firefox(firefox_options=self.options)
         self.driver.get(BASE_URL)
 
     def tearDown(self):
