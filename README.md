@@ -67,6 +67,10 @@ The user interface can be accessed on http://localhost:5000.
 | API_URL              | http://localhost:9000      |
 | SECRET_KEY           | change_me                  |
 
+The server will not start unless you have set `ENVIRONMENT` to one of `DEV`/`TEST`/`PROD`.
+
+In `PROD` mode, the server will only start if you have set `AUTH_URL`, `API_URL` and `SECRET_KEY`.
+
 ## Testing
 
 ### Server Tests
