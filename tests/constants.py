@@ -26,6 +26,19 @@ BREADCRUMB_SELECTED_ID = 'breadcrumbCurrentUnit'
 BREADCRUMB_ENT_ID = 'breadcrumbEnt'
 BREADCRUMB_LEU_ID = 'breadcrumbLeu'
 
+# Child Links IDs
+CHILD_LINKS_TABS_ID = 'childLinksTabs'
+LEU_TAB = 'leuTab'
+LU_TAB = 'luTab'
+CH_TAB = 'chTab'
+VAT_TAB = 'vatTab'
+PAYE_TAB = 'payeTab'
+LEU_CHILD_TABLE = 'leuChildLinksTable'
+LU_CHILD_TABLE = 'luChildLinksTable'
+CH_CHILD_TABLE = 'chChildLinksTable'
+VAT_CHILD_TABLE = 'vatChildLinksTable'
+PAYE_CHILD_TABLE = 'payeChildLinksTable'
+
 # URLs
 PROTOCOL = 'http'
 PORT = '5000'

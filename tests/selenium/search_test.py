@@ -74,5 +74,6 @@ class SearchTest(unittest.TestCase):
         self.assertEqual(self.driver.current_url, ERROR_URL)
         self.assertTrue('404 - Not Found' in self.driver.page_source)
 
+
 if __name__ == '__main__':
     unittest.main()

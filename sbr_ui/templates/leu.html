@@ -101,14 +101,14 @@
     <div class="wrapper">
         <div class="group">
             <div class="col-12">
-                <ul class="tabs clearfix u-mb-l" data-tabgroup="first-tab-group">
-                  <li><a href="#tab1" class="active">CRN ({{session['business']['children']['CH'] | count}})</a></li>
-                  <li><a href="#tab2">PAYE ({{session['business']['children']['PAYE'] | count}})</a></li>
-                  <li><a href="#tab3">VAT ({{session['business']['children']['VAT'] | count}})</a></li>
+                <ul id="childLinksTabs" class="tabs clearfix u-mb-l" data-tabgroup="first-tab-group">
+                  <li><a id="chTab" href="#tab1" class="active">CRN ({{session['business']['children']['CH'] | count}})</a></li>
+                  <li><a id="payeTab" href="#tab2">PAYE ({{session['business']['children']['PAYE'] | count}})</a></li>
+                  <li><a id="vatTab" href="#tab3">VAT ({{session['business']['children']['VAT'] | count}})</a></li>
                 </ul>
                 <section id="first-tab-group" class="tabgroup u-mb-l">
                     <div id="tab1">
-                        <table class="unit-info">
+                        <table id="chChildLinksTable" class="unit-info">
                             <tr>
                                 <th class="venus legal">Company House</th>
                             </tr>
@@ -120,7 +120,7 @@
                         </table>
                     </div>
                     <div id="tab2">
-                        <table class="unit-info">
+                        <table id="payeChildLinksTable" class="unit-info">
                             <tr>
                                 <th class="venus legal">Pay As You Earn</th>
                             </tr>
@@ -132,7 +132,7 @@
                         </table>
                     </div>
                     <div id="tab3">
-                        <table class="unit-info">
+                        <table id="vatChildLinksTable" class="unit-info">
                             <tr>
                                 <th class="venus legal">Value Added Tax</th>
                             </tr>
