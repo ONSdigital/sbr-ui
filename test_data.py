@@ -10,7 +10,7 @@ enterprise = {
         "6": "VAT"
     },
     "vars": {
-        "ern": "918237891237",
+        "ern": "1",
         "entref": "879372942",
         "name": "Tesco",
         "tradingStyle": "3",
@@ -47,7 +47,7 @@ legal_unit = {
         "6": "VAT"
     },
     "vars": {
-        "ubrn": "871827912739123",
+        "ubrn": "2",
         "name": "Asda Stores",
         "legalStatus": "7",
         "tradingStatus": "A",
@@ -83,7 +83,7 @@ local_unit = {
         "lurn": "3",
         "luref": "82397243",
         "enterprise": { "ern": "1", "entref": "871823979123" },
-        "reportingUnit": { "rurn": "234234234", "luref": "83749272479" },
+        "reportingUnit": { "rurn": "234234234", "ruref": "83749272479" },
         "tradingStyle": "2",
         "sic07": "35230",
         "employees": "4",

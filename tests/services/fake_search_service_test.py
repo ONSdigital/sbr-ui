@@ -1,7 +1,7 @@
 import pytest
 
 from sbr_ui.services.fake_search_service import FakeSearchService
-from sbr_ui.utilities.units import units, enterprise, legal_unit
+from test_data import units, enterprise, legal_unit
 
 
 class TestFakeSearchService(object):

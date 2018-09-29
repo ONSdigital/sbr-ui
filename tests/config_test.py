@@ -11,7 +11,7 @@ class TestConfig(unittest.TestCase):
         with self.assertRaises(InvalidEnvironment):
             validate_environment()
 
-    # TODO: fix below test, need to sort out circular dependancies in the main __init__.py file
+    # TODO: fix below test, need to sort out circular dependencies in the main __init__.py file
     # def test_app_fails_if_env_vars_missing(self):
     #     os.environ['ENVIRONMENT'] = 'PROD'
     #     with self.assertRaises(MissingEnvironmentVariable):

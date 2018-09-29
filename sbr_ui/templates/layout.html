@@ -41,7 +41,7 @@
                                 {% if current_user.is_authenticated == True %}
                                     <form id="form-sign-out" action="http://localhost:5000/auth/logout" class="form" method="POST">
                                         <ul class="menubar" role="menubar" id="appmenu">
-                                            <li class="menubar" role="menuitem"><button class="logout">Sign out</button></li>
+                                            <li class="menubar" role="menuitem"><button id="logoutButton" class="logout">Sign out</button></li>
                                         </ul>
                                     </form>
                                 {% endif %}
@@ -56,7 +56,7 @@
                         <div class="col-12">
                             {%- if request.path == "/Home" or request.path == "/" %}
                             <h1 class="jupiter main_heading">Statistical Business Register</h1>
-                            <h2 class="neptune sub_heading">A comprehensive list of UK businesses used by government for statistical purposes</h2>
+                            <h2 id="sbrDescriptionText" class="neptune sub_heading">A comprehensive list of UK businesses used by government for statistical purposes</h2>
                             {% else %}
                             <p class="saturn main_heading_sub_page">Statistical Business Register</p>
                             {% endif %}

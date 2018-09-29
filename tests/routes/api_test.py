@@ -17,3 +17,4 @@ def test_search():
     with app.test_client() as c:
         api_response = c.get('/api/search_reference_number/1', follow_redirects=True)
         assert api_response.status_code == 200
+
