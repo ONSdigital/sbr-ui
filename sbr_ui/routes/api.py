@@ -7,8 +7,7 @@ from sbr_ui.services.fake_search_service import FakeSearchService
 from sbr_ui.services.search_service import SearchService
 from sbr_ui.models.exceptions import ApiError
 from sbr_ui.utilities.helpers import convert_bands, format_children
-from sbr_ui.utilities.units import units
-
+from test_data import units
 
 logger = wrap_logger(logging.getLogger(__name__))
 

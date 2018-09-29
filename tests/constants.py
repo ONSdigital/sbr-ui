@@ -39,6 +39,11 @@ CH_CHILD_TABLE = 'chChildLinksTable'
 VAT_CHILD_TABLE = 'vatChildLinksTable'
 PAYE_CHILD_TABLE = 'payeChildLinksTable'
 
+# Unit Page Content
+UNIT_NAME_ID = 'unitName'
+UNIT_BADGE_ID = 'unitBadge'
+UNIT_ID_ID = 'unitId'
+
 # URLs
 PROTOCOL = 'http'
 PORT = '5000'
