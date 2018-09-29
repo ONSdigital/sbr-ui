@@ -9,11 +9,12 @@ Previous repository: https://github.com/ONSdigital/sbr-ui
 ### Table of Contents
 **[1. Environment Setup](#environment-setup)**<br>
 **[2. Running Instructions](#running-instructions)**<br>
-**[3. Testing](#testing)**<br>
-**[4. Dependencies](#dependencies)**<br>
-**[5. Troubleshooting](#troubleshooting)**<br>
-**[6. Contributing](#contributing)**<br>
-**[7. License](#license)**<br>
+**[3. Environment Variables](#environment-variables)**<br>
+**[4. Testing](#testing)**<br>
+**[5. Dependencies](#dependencies)**<br>
+**[6. Troubleshooting](#troubleshooting)**<br>
+**[7. Contributing](#contributing)**<br>
+**[8. License](#license)**<br>
 
 ## Environment Setup
 
@@ -52,6 +53,19 @@ FLASK_APP=run.py FLASK_DEBUG=1 ENVIRONMENT=DEV python3 -m flask run
 Note: `USE_FAKE_DATA=True` can be passed in to allow the application to run without `sbr-api`. The test data is held [here](./sbr_ui/utilities/units.py).
 
 The user interface can be accessed on http://localhost:5000.
+
+## Environment Variables
+
+| Environment Variable | Default Value              |
+|----------------------|----------------------------|
+| ENVIRONMENT          | DEV                        |
+| USE_FAKE_DATA        | False                      |
+| LOG_LEVEL            | INFO                       |
+| API_TIMEOUT          | 10 (seconds)               |
+| AUTH_TIMEOUT         | 10 (seconds)               |
+| AUTH_URL             | http://localhost:3002/auth |
+| API_URL              | http://localhost:9000      |
+| SECRET_KEY           | change_me                  |
 
 ## Testing
 
