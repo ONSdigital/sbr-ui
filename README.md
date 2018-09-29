@@ -49,7 +49,7 @@ Run the server in development mode, with hot-reloading:
 FLASK_APP=run.py FLASK_DEBUG=1 ENVIRONMENT=DEV python3 -m flask run
 ```
 
-Note: `USE_FAKE_DATA=True` can be passed in to allow the application to run without `sbr-api`. The test data is held [here](./sbr_ui/services/fake_search_service.py).
+Note: `USE_FAKE_DATA=True` can be passed in to allow the application to run without `sbr-api`. The test data is held [here](./sbr_ui/utilities/units.py).
 
 The user interface can be accessed on http://localhost:5000.
 
@@ -58,8 +58,19 @@ The user interface can be accessed on http://localhost:5000.
 To run the `pytest` tests, use the following command:
 
 ```shell
-ENVIRONMENT=TEST pytest
+ENVIRONMENT=TEST pytest --ignore=tests/selenium
 ```
+
+To run the Selenium tests, use the following command:
+
+```shell
+pytest tests/selenium/
+```
+
+For the Selenium user interface tests to work, you will need to do the following:
+- install Firefox
+- install the `geckodriver` used by Selenium: `brew install geckodriver`
+- run `sbr-ui`, making sure to pass in `USE_FAKE_DATA=True`
 
 ## Dependencies
 

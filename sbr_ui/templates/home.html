@@ -6,7 +6,7 @@
             <div class="wrapper">
                 <div class="group">
                     <div class="col-8">
-                        <h2 class="saturn">Search the UK business population</h2>
+                        <h2 id="homeTitle" class="saturn">Search the UK business population</h2>
                         <div class="panel panel--simple panel--info u-mb-l">
                             <p class="mars">To get started, search using one or more of the options below.</p>
                         <div>
@@ -21,9 +21,9 @@
                         <div class="field u-mb-s">
                             <label class="label">Reference Number</label>
                             <span class="label__description pluto">ERN, UBRN, CRN, VAT or PAYE</span>
-                            <input autofocus name="ReferenceNumber" class="input input--text input-type__input bi-search-input" type="text" id="ReferenceNumber">
+                            <input id="referenceNumberInput" autofocus name="ReferenceNumber" class="input input--text input-type__input bi-search-input" type="text">
                         </div>
-                        <button class="btn btn--primary venus" type="submit">Search</button>
+                        <button id="searchButton" class="btn btn--primary venus" type="submit">Search</button>
                     </form>
                 </div>
             </div>
