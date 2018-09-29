@@ -20,6 +20,12 @@ HOME_TITLE_ID = 'homeTitle'
 LOGIN_TITLE_ID = 'loginTitle'
 SBR_DESCRIPTION_ID = 'sbrDescriptionText'
 
+# Breadcrumb IDs
+BREADCRUMB_SEARCH_ID = 'breadcrumbSearchLink'
+BREADCRUMB_SELECTED_ID = 'breadcrumbCurrentUnit'
+BREADCRUMB_ENT_ID = 'breadcrumbEnt'
+BREADCRUMB_LEU_ID = 'breadcrumbLeu'
+
 # URLs
 PROTOCOL = 'http'
 PORT = '5000'
@@ -36,4 +42,6 @@ LURN = '3'
 CRN = '4'
 PAYEREF = '5'
 VATREF = '6'
+
+
 
