@@ -16,54 +16,54 @@ class AuthenticationTest(unittest.TestCase):
     def tearDown(self):
         self.driver.quit()
 
-    def test_login(self):
+    def input_username_password_and_login(self, username, password):
+        self.driver.find_element_by_id(USERNAME_INPUT_ID).send_keys(username)
+        self.driver.find_element_by_id(PASSWORD_INPUT_ID).send_keys(password)
+        self.driver.find_element_by_id(LOGIN_BUTTON_ID).click()
+
+    def assert_home_page_title(self):
+        home_title = self.driver.find_element_by_id(HOME_TITLE_ID).text
+        self.assertEqual(home_title, 'Search the UK business population')
+
+    def assert_login_page_title(self):
         login_title = self.driver.find_element_by_id(LOGIN_TITLE_ID).text
         self.assertEqual(login_title, 'Sign in')
-        self.driver.find_element_by_id(USERNAME_INPUT_ID).send_keys(ADMIN_USERNAME)
-        self.driver.find_element_by_id(PASSWORD_INPUT_ID).send_keys(ADMIN_PASSWORD)
-        self.driver.find_element_by_id(LOGIN_BUTTON_ID).click()
+
+    def test_login(self):
+        self.assert_login_page_title()
+        self.input_username_password_and_login(ADMIN_USERNAME, ADMIN_PASSWORD)
         self.assertEqual(self.driver.current_url, HOME_URL)
         title = self.driver.find_element_by_id(HOME_TITLE_ID).text
         self.assertEqual(title, 'Search the UK business population')
 
     def test_login_and_logout(self):
-        self.driver.find_element_by_id(USERNAME_INPUT_ID).send_keys(ADMIN_USERNAME)
-        self.driver.find_element_by_id(PASSWORD_INPUT_ID).send_keys(ADMIN_PASSWORD)
-        self.driver.find_element_by_id(LOGIN_BUTTON_ID).click()
+        self.input_username_password_and_login(ADMIN_USERNAME, ADMIN_PASSWORD)
         self.assertEqual(self.driver.current_url, HOME_URL)
-        home_title = self.driver.find_element_by_id(HOME_TITLE_ID).text
-        self.assertEqual(home_title, 'Search the UK business population')
+        self.assert_home_page_title()
         self.driver.find_element_by_id(LOGOUT_BUTTON_ID).click()
-        login_title = self.driver.find_element_by_id(LOGIN_TITLE_ID).text
-        self.assertEqual(login_title, 'Sign in')
+        self.assert_login_page_title()
 
     def test_login_and_refresh(self):
         """ This is just to ensure the session continues after a refresh """
-        self.driver.find_element_by_id(USERNAME_INPUT_ID).send_keys(ADMIN_USERNAME)
-        self.driver.find_element_by_id(PASSWORD_INPUT_ID).send_keys(ADMIN_PASSWORD)
-        self.driver.find_element_by_id(LOGIN_BUTTON_ID).click()
-        home_title = self.driver.find_element_by_id(HOME_TITLE_ID).text
-        self.assertEqual(home_title, 'Search the UK business population')
+        self.input_username_password_and_login(ADMIN_USERNAME, ADMIN_PASSWORD)
+        self.assert_home_page_title()
         self.assertEqual(self.driver.current_url, HOME_URL)
         self.driver.refresh()
         self.assertEqual(self.driver.current_url, HOME_URL)
 
+    def test_invalid_credentials(self):
+        self.input_username_password_and_login(INVALID_USERNAME, INVALID_PASSWORD)
+        self.assertTrue('Invalid Credentials. Please try again.' in self.driver.page_source)
+        # For some reason, Firefox shows the URL with a trailing '/'
+        self.assertEqual(self.driver.current_url, f'{BASE_URL}/')
+
     def test_private_routes(self):
         """ We need to ensure that an unauthenticated user cannot get past the login page """
-        login_title = self.driver.find_element_by_id(LOGIN_TITLE_ID).text
-        self.assertEqual(login_title, 'Sign in')
+        self.assert_login_page_title()
         self.driver.get(HOME_URL)
         self.assertTrue('401 - Not Authenticated' in self.driver.page_source)
         self.assertTrue('Please login before navigating to the Home or Results pages.' in self.driver.page_source)
         self.assertEqual(self.driver.current_url, ERROR_URL)
-
-    def test_invalid_credentials(self):
-        self.driver.find_element_by_id(USERNAME_INPUT_ID).send_keys(INVALID_USERNAME)
-        self.driver.find_element_by_id(PASSWORD_INPUT_ID).send_keys(INVALID_PASSWORD)
-        self.driver.find_element_by_id(LOGIN_BUTTON_ID).click()
-        self.assertTrue('Invalid Credentials. Please try again.' in self.driver.page_source)
-        # For some reason, Firefox shows the URL with a trailing '/'
-        self.assertEqual(self.driver.current_url, f'{BASE_URL}/')
 
 
 if __name__ == '__main__':
