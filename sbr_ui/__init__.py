@@ -79,6 +79,6 @@ def clear_trailing():
         return redirect(rp[:-1])
 
 
-import sbr_ui.views  # NOQA # pylint: disable=wrong-import-position
 import sbr_ui.routes  # NOQA # pylint: disable=wrong-import-position
+# import sbr_ui.routes  # NOQA # pylint: disable=wrong-import-position
 import sbr_ui.error_handlers  # NOQA # pylint: disable=wrong-import-position
