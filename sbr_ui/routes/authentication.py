@@ -1,8 +1,9 @@
 import uuid
 
-from flask import Blueprint, render_template, redirect, url_for, request, current_app, flash
+from flask import Blueprint, render_template, redirect, url_for, request, flash, current_app
 from flask_login import current_user, login_required, logout_user, login_user
-from sbr_ui import authentication_service, User, users
+from sbr_ui import User, users
+from sbr_ui.services.gateway_authentication_service import GatewayAuthenticationService
 
 authentication_bp = Blueprint('authentication_bp', __name__, static_folder='static', template_folder='templates')
 
@@ -26,7 +27,7 @@ def login():
 
     # If we are in PROD, we need to authenticate via the API Gateway
     if current_app.config['ENVIRONMENT'] == 'PROD':
-        token, role = authentication_service.login()
+        token, role = GatewayAuthenticationService.login()
         user_id = str(uuid.uuid4())
         user = User(user_id, token, role)
         login_user(user)
@@ -41,7 +42,6 @@ def login():
             return redirect(url_for('search_bp.search'))
         else:
             flash('Invalid Credentials. Please try again.')
-            # return redirect(url_for('login_bp.login'))
             return render_template('login.html')
 
 

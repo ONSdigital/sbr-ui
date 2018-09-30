@@ -3,15 +3,17 @@ from structlog import wrap_logger
 from flask import Blueprint, render_template, session, request, redirect, url_for
 from flask_login import login_required
 
-from sbr_ui import search_service
 from sbr_ui.utilities.helpers import format_children, convert_bands
-
+from sbr_ui.utilities.server_startup import initialise_search_service
 
 logger = wrap_logger(logging.getLogger(__name__))
 
 
 unit_pages_bp = Blueprint('unit_pages_bp', __name__, static_folder='static', template_folder='templates')
 search_bp = Blueprint('search_bp', __name__, static_folder='static', template_folder='templates')
+
+
+search_service = initialise_search_service()
 
 
 @search_bp.route('/Search', methods=['GET', 'POST'])

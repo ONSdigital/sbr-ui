@@ -10,13 +10,13 @@ from sbr_ui.utilities.convert_bands import employment_bands, legal_status_bands,
 logger = wrap_logger(logging.getLogger(__name__))
 
 
-# https://mathieularose.com/function-composition-in-python/
 def compose(*fns):
+    """ https://mathieularose.com/function-composition-in-python/ """
     return reduce(lambda g, f: lambda x: f(g(x)), fns, lambda x: x)
 
 
 def acronym_to_sbr_api_format(acronym):
-    return {"ENT": "ents", "LEU": "leus", "LU": "lous", "VAT": "vats", "PAYE": "payes", "CH": "crns"}.get(acronym)
+    return {'ENT': 'ents', 'LEU': 'leus', 'LU': 'lous', 'VAT': 'vats', 'PAYE': 'payes', 'CH': 'crns'}.get(acronym)
 
 
 def convert_band(unit: dict, key: str, not_found_key: str, bands: dict) -> dict:

@@ -1,5 +1,5 @@
 #!flask/bin/python
-from sbr_ui import app
+from sbr_ui import create_application
 
-if __name__ == "__main__":
-    app.run()
+app = create_application()
+app.run()

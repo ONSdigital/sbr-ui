@@ -1,84 +1,79 @@
-import os
 import logging
 
+import requests
 from structlog import wrap_logger
 
-from flask import Flask, redirect, request
+from flask import Flask, redirect, request, url_for, session
 from flask_login import LoginManager
-
 from flask_session import Session
+
 from sbr_ui.models.user import User, users
 from sbr_ui.models.exceptions import InvalidEnvironment, MissingEnvironmentVariable, ApiError
+from sbr_ui.routes.authentication import authentication_bp
+from sbr_ui.routes.errors import error_bp
+from sbr_ui.routes.unit_pages import search_bp, unit_pages_bp
 from sbr_ui.services.fake_search_service import FakeSearchService
-from sbr_ui.services.gateway_authentication_service import GatewayAuthenticationService
 from sbr_ui.services.search_service import SearchService
-from test_data import units
+from sbr_ui.utilities.logger import initialise_logger
+from sbr_ui.utilities.server_startup import get_and_validate_environment, check_required_environment_variables_present
+
 
 logger = wrap_logger(logging.getLogger(__name__))
 
 
-app = Flask(__name__)
+def create_application():
+    app = Flask(__name__)
 
+    environment = get_and_validate_environment()
+    formatted_env = environment.lower().title()  # DEV -> Dev, use same format as class name
 
-# Exit the program if an invalid environment is passed in
-def validate_environment():
-    env = os.getenv('ENVIRONMENT')  # DEV/TEST/PROD
-    if env is None or env not in ['DEV', 'TEST', 'PROD']:
-        raise InvalidEnvironment(env)
-    else:
-        return env
+    app_config_path = f'config.{formatted_env}Config'
+    app.config.from_object(app_config_path)
 
+    log_level = app.config['LOG_LEVEL']
+    logging.basicConfig(level=log_level, format='%(message)s')
+    logger.info('Log level set', log_level=log_level)
 
-environment = validate_environment()
-formatted_env = environment.lower().title()  # DEV -> Dev, use same format as class name
-app_config = f"config.{formatted_env}Config"
-app.config.from_object(app_config)  # Load config class from root of repository
+    check_required_environment_variables_present(environment, app.config)
+    initialise_logger(app.config)
 
+    login_manager = LoginManager()
+    login_manager.init_app(app)
 
-# If we are in PROD, we want to fail fast if any config is missing
-def check_required_env_vars(env):
-    if env == 'PROD':
-        missing_vars = [var for var in app.config['REQUIRED_VARS'] if app.config.get(var) is None]
-        if missing_vars:
-            raise MissingEnvironmentVariable(missing_vars)
+    app.url_map.strict_slashes = False
+    app.config['SESSION_TYPE'] = 'filesystem'
+    Session(app)
 
+    app.register_blueprint(authentication_bp, url_prefix='/')
+    app.register_blueprint(error_bp, url_prefix='/Error')
+    app.register_blueprint(search_bp)
+    app.register_blueprint(unit_pages_bp, url_prefix='/Search')
 
-check_required_env_vars(environment)
+    @app.errorhandler(404)
+    @app.errorhandler(requests.exceptions.HTTPError)
+    def not_found_error(error):
+        session['level'] = 'warn'
+        session['title'] = '404 - Not Found'
+        session['error_message'] = 'The URL you have navigated to cannot be found.'
+        return redirect(url_for('error_bp.error'))
 
-log_level = app.config['LOG_LEVEL']
-logging.basicConfig(level=log_level, format='%(message)s')
-logger.info('Log level set', log_level=log_level)
-logger.info('Loaded configuration successfully', app_config=app_config)
+    @app.errorhandler(401)
+    def not_authenticated_error(error):
+        session['level'] = 'error'
+        session['title'] = '401 - Not Authenticated'
+        session['error_message'] = 'Please login before navigating to the Home or Results pages.'
+        return redirect(url_for('error_bp.error'))
 
-login_manager = LoginManager()
-login_manager.init_app(app)
-app.url_map.strict_slashes = False
-app.config['SESSION_TYPE'] = 'filesystem'
-Session(app)
+    @login_manager.user_loader
+    def load_user(user_id) -> User:
+        maybe_user = next((user for user in users if user.id == user_id), None)
+        return maybe_user
 
-authentication_service = GatewayAuthenticationService(app.config['AUTH_URL'])
+    @app.before_request
+    def clear_trailing():
+        """ Remove trailing slashes: https://stackoverflow.com/a/40365514 """
+        rp = request.path
+        if rp != '/' and rp.endswith('/'):
+            return redirect(rp[:-1])
 
-if app.config.get('USE_FAKE_DATA'):
-    logger.warn("USE_FAKE_DATA set to true, using test data")
-    search_service = FakeSearchService(units)
-else:
-    search_service = SearchService()
-
-
-@login_manager.user_loader
-def load_user(user_id) -> User:
-    maybe_user = next((user for user in users if user.id == user_id), None)
-    return maybe_user
-
-
-@app.before_request
-def clear_trailing():
-    """ Remove trailing slashes: https://stackoverflow.com/a/40365514 """
-    rp = request.path
-    if rp != '/' and rp.endswith('/'):
-        return redirect(rp[:-1])
-
-
-import sbr_ui.routes  # NOQA # pylint: disable=wrong-import-position
-# import sbr_ui.routes  # NOQA # pylint: disable=wrong-import-position
-import sbr_ui.error_handlers  # NOQA # pylint: disable=wrong-import-position
+    return app
