@@ -8,14 +8,14 @@
 				<nav class="breadcrumb">
 					<ul class="breadcrumb__items pluto">
 						<li class="breadcrumb__item">
-							<a id="breadcrumbSearchLink" href="/Home" class="breadcrumb__link">Search</a>
+							<a id="breadcrumbSearchLink" href="/Search" class="breadcrumb__link">Search</a>
 							<span class="breadcrumb__chevron">&nbsp;&gt;&nbsp;</span>
 						</li>
 						<li class="breadcrumb__item">
-							<a id="breadcrumbEnt" href="/api/periods/{{session['business']['period']}}/types/ENT/units/{{session['business']['parents']['ENT']}}" class="breadcrumb__link">ENT - {{session['business']['parents']['ENT']}}</a>
+							<a id="breadcrumbEnt" href="/Search/periods/{{json['period']}}/types/ENT/units/{{json['parents']['ENT']}}" class="breadcrumb__link">ENT - {{json['parents']['ENT']}}</a>
                             <span class="breadcrumb__chevron">&nbsp;&gt;&nbsp;</span>
 						</li>
-                        <li id="breadcrumbCurrentUnit" class="breadcrumb__item breadcrumb__item--current">LU - {{session['business']['id']}}</li>
+                        <li id="breadcrumbCurrentUnit" class="breadcrumb__item breadcrumb__item--current">LU - {{json['id']}}</li>
 					</ul>
 				</nav>
 			</div>
@@ -27,65 +27,65 @@
 		<div class="wrapper">
 			<div class="group">
 				<div class="col-12">
-					<h3 id="unitName" class="jupiter sml-margin">{{session['business']['vars']['name']}}</h3>
+					<h3 id="unitName" class="jupiter sml-margin">{{json['vars']['name']}}</h3>
 					<div id="unitBadge" class="badge badge--teal ent-reference">Local Unit</div>
-					<div id="unitId" class="ent-reference u-mb-l">LURN <strong>{{session['business']['id']}}</strong></div>
+					<div id="unitId" class="ent-reference u-mb-l">LURN <strong>{{json['id']}}</strong></div>
 					<div class="panel panel--simple panel--info u-mb-l">
                         <table class="unit-info">
                             <tr>
                                 <th class="mars">Local Unit Reference</th>
-                                <td class="venus">{{session['business']['vars']['luref']}}</td>
+                                <td class="venus">{{json['vars']['luref']}}</td>
                             <tr>
                                 <th class="mars">Trading Style</th>
-                                <td class="venus">{{session['business']['vars']['tradingStyle']}}</td>
+                                <td class="venus">{{json['vars']['tradingStyle']}}</td>
                              </tr>
                                 <tr>
                                 <th class="mars">Sic 07</th>
-                                <td class="venus">{{session['business']['vars']['sic07']}}</td>
+                                <td class="venus">{{json['vars']['sic07']}}</td>
                              </tr>
                                 <tr>
                                 <th class="mars">Employees</th>
-                                <td class="venus">{{session['business']['vars']['employees']}}</td>
+                                <td class="venus">{{json['vars']['employees']}}</td>
                              </tr>
                             </tr>
                                 <tr>
                                 <th class="mars">Employment</th>
-                                <td class="venus">{{session['business']['vars']['employment']}}</td>
+                                <td class="venus">{{json['vars']['employment']}}</td>
                              </tr>
                             </tr>
                                 <tr>
                                 <th class="mars">PRN</th>
-                                <td class="venus">{{session['business']['vars']['prn']}}</td>
+                                <td class="venus">{{json['vars']['prn']}}</td>
                              </tr>
                             </tr>
                                 <tr>
                                 <th class="mars">Region</th>
-                                <td class="venus">{{session['business']['vars']['region']}}</td>
+                                <td class="venus">{{json['vars']['region']}}</td>
                              </tr>
                             </tr>
                                 <tr>
                                 <th class="mars">Reporting Unit Ref Number</th>
-                                <td class="venus">{{session['business']['vars']['reportingUnit']['rurn']}}</td>
+                                <td class="venus">{{json['vars']['reportingUnit']['rurn']}}</td>
                              </tr>
                             </tr>
                                 <tr>
                                 <th class="mars">Reporting Unit Ref</th>
-                                <td class="venus">{{session['business']['vars']['reportingUnit']['ruref']}}</td>
+                                <td class="venus">{{json['vars']['reportingUnit']['ruref']}}</td>
                              </tr>
                             </tr>
                                 <tr>
                                 <th class="mars">Enterprise Ref Number</th>
-                                <td class="venus">{{session['business']['vars']['enterprise']['ern']}}</td>
+                                <td class="venus">{{json['vars']['enterprise']['ern']}}</td>
                              </tr>
                             </tr>
                                 <tr>
                                 <th class="mars">Enterprise Reference</th>
-                                <td class="venus">{{session['business']['vars']['enterprise']['entref']}}</td>
+                                <td class="venus">{{json['vars']['enterprise']['entref']}}</td>
                              </tr>
                             </tr>
                                 <tr>
                                 <th class="mars">Address</th>
-                                <td class="venus">{{", ".join(session['business']['vars']['address'].values())}}</td>
+                                <td class="venus">{{", ".join(json['vars']['address'].values())}}</td>
                              </tr>
                         </table>
 					<div>

@@ -29,14 +29,7 @@ class GatewayAuthenticationService:
             log_api_error(response.status_code, 'Failed to authorize via the API Gateway', self.gateway_auth_url)
             raise ApiError(response)
 
-        # Potentially need to throw an exception here if we don't get back a token or role
-        # Also, potentially need to match the BusinessService in terms of returning the response.json()
-        try:
-            json = response.json()
-        except ValueError:
-            logger.error("Invalid Gateway response JSON, unable to parse")
-            raise ValueError(response)
-
+        json = response.json()
         token = json.get('token')
         role = json.get('role')
 

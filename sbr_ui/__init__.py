@@ -3,14 +3,16 @@ import logging
 
 from structlog import wrap_logger
 
-from flask import Flask, redirect, request, url_for
+from flask import Flask, redirect, request
 from flask_login import LoginManager
 
 from flask_session import Session
 from sbr_ui.models.user import User, users
 from sbr_ui.models.exceptions import InvalidEnvironment, MissingEnvironmentVariable, ApiError
+from sbr_ui.services.fake_search_service import FakeSearchService
 from sbr_ui.services.gateway_authentication_service import GatewayAuthenticationService
-
+from sbr_ui.services.search_service import SearchService
+from test_data import units
 
 logger = wrap_logger(logging.getLogger(__name__))
 
@@ -53,6 +55,14 @@ login_manager.init_app(app)
 app.url_map.strict_slashes = False
 app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
+
+authentication_service = GatewayAuthenticationService(app.config['AUTH_URL'])
+
+if app.config.get('USE_FAKE_DATA'):
+    logger.warn("USE_FAKE_DATA set to true, using test data")
+    search_service = FakeSearchService(units)
+else:
+    search_service = SearchService()
 
 
 @login_manager.user_loader

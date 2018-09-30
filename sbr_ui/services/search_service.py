@@ -30,7 +30,6 @@ class SearchService:
 
         return response.json()
 
-
     def get_unit_by_id_type_period(self, unit_id: str, unit_type: str, period: str) -> Unit:
         formatted_unit_type = acronym_to_sbr_api_format(unit_type)
         url = f'{self.base_url}/{self.version}/periods/{period}/{formatted_unit_type}/{unit_id}'

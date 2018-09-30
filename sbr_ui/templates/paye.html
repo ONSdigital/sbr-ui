@@ -8,18 +8,18 @@
 				<nav class="breadcrumb">
 					<ul class="breadcrumb__items pluto">
 						<li class="breadcrumb__item">
-							<a id="breadcrumbSearchLink" href="/Home" class="breadcrumb__link">Search</a>
+							<a id="breadcrumbSearchLink" href="/Search" class="breadcrumb__link">Search</a>
 							<span class="breadcrumb__chevron">&nbsp;&gt;&nbsp;</span>
 						</li>
                         <li class="breadcrumb__item">
-							<a id="breadcrumbEnt" href="/api/periods/{{session['business']['period']}}/types/ENT/units/{{session['business']['parents']['ENT']}}" class="breadcrumb__link">ENT - {{session['business']['parents']['ENT']}}</a>
+							<a id="breadcrumbEnt" href="/Search/periods/{{json['period']}}/types/ENT/units/{{json['parents']['ENT']}}" class="breadcrumb__link">ENT - {{json['parents']['ENT']}}</a>
                             <span class="breadcrumb__chevron">&nbsp;&gt;&nbsp;</span>
 						</li>
                         <li class="breadcrumb__item">
-							<a id="breadcrumbLeu" href="/api/periods/{{session['business']['period']}}/types/LEU/units/{{session['business']['parents']['LEU']}}" class="breadcrumb__link">LEU - {{session['business']['parents']['LEU']}}</a>
+							<a id="breadcrumbLeu" href="/Search/periods/{{json['period']}}/types/LEU/units/{{json['parents']['LEU']}}" class="breadcrumb__link">LEU - {{json['parents']['LEU']}}</a>
                             <span class="breadcrumb__chevron">&nbsp;&gt;&nbsp;</span>
 						</li>
-                        <li id="breadcrumbCurrentUnit" class="breadcrumb__item breadcrumb__item--current">PAYE - {{session['business']['id']}}</li>
+                        <li id="breadcrumbCurrentUnit" class="breadcrumb__item breadcrumb__item--current">PAYE - {{json['id']}}</li>
 					</ul>
 				</nav>
 			</div>
@@ -31,34 +31,34 @@
 		<div class="wrapper">
 			<div class="group">
 				<div class="col-12">
-					<h3 id="unitName" class="jupiter sml-margin">{{session['business']['vars']['businessName']}}</h3>
+					<h3 id="unitName" class="jupiter sml-margin">{{json['vars']['businessName']}}</h3>
 					<div id="unitBadge" class="badge badge--teal ent-reference">Pay As You Earn</div>
-					<div id="unitId" class="ent-reference u-mb-l">PAYEREF <strong>{{session['business']['id']}}</strong></div>
+					<div id="unitId" class="ent-reference u-mb-l">PAYEREF <strong>{{json['id']}}</strong></div>
 					<div class="panel panel--simple panel--info u-mb-l">
                         <table class="unit-info">
                             <tr>
                                 <th class="mars">Postcode</th>
-                                <td class="venus">{{session['business']['vars']['postCode']}}</td>
+                                <td class="venus">{{json['vars']['postCode']}}</td>
                             </tr>
                                 <tr>
                                 <th class="mars">Industry</th>
-                                <td class="venus">{{session['business']['vars']['industryCode']}}</td>
+                                <td class="venus">{{json['vars']['industryCode']}}</td>
                              </tr>
                                 <tr>
                                 <th class="mars">Legal status</th>
-                                <td class="venus">{{session['business']['vars']['legalStatus']}}</td>
+                                <td class="venus">{{json['vars']['legalStatus']}}</td>
                              </tr>
                                 <tr>
                                 <th class="mars">Trading status</th>
-                                <td class="venus">{{session['business']['vars']['tradingStatus']}}</td>
+                                <td class="venus">{{json['vars']['tradingStatus']}}</td>
                              </tr>
                                 <tr>
                                 <th class="mars">Employment band</th>
-                                <td class="venus">{{session['business']['vars']['employmentBands']}}</td>
+                                <td class="venus">{{json['vars']['employmentBands']}}</td>
                              </tr>
                                 <tr>
                                 <th class="mars">Turnover band</th>
-                                <td class="venus">{{session['business']['vars']['turnover']}}</td>
+                                <td class="venus">{{json['vars']['turnover']}}</td>
                              </tr>
                         </table>
 					<div>

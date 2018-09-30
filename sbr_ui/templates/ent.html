@@ -8,10 +8,10 @@
 				<nav class="breadcrumb">
 					<ul class="breadcrumb__items pluto">
 						<li class="breadcrumb__item">
-							<a id="breadcrumbSearchLink" href="/Home" class="breadcrumb__link">Search</a>
+							<a id="breadcrumbSearchLink" href="/Search" class="breadcrumb__link">Search</a>
 							<span class="breadcrumb__chevron">&nbsp;&gt;&nbsp;</span>
 						</li>
-                        <li id="breadcrumbCurrentUnit" class="breadcrumb__item breadcrumb__item--current">ENT - {{session['business']['id']}}</li>
+                        <li id="breadcrumbCurrentUnit" class="breadcrumb__item breadcrumb__item--current">ENT - {{json['id']}}</li>
 					</ul>
 				</nav>
 			</div>
@@ -23,62 +23,62 @@
 		<div class="wrapper">
 			<div class="group">
 				<div class="col-12">
-					<h3 id="unitName" class="jupiter sml-margin">{{session['business']['vars']['name']}}</h3>
+					<h3 id="unitName" class="jupiter sml-margin">{{json['vars']['name']}}</h3>
 					<div id="unitBadge" class="badge badge--teal ent-reference">Enterprise</div>
-					<div id="unitId" class="ent-reference u-mb-l">ERN <strong>{{session['business']['id']}}</strong></div>
+					<div id="unitId" class="ent-reference u-mb-l">ERN <strong>{{json['id']}}</strong></div>
 					<div class="panel panel--simple panel--info u-mb-l">
                         <table class="unit-info">
                             <tr>
                                 <th class="mars">Enterprise Reference Number</th>
-                                <td class="venus">{{session['business']['vars']['entref']}}</td>
+                                <td class="venus">{{json['vars']['entref']}}</td>
                             </tr>
                             <tr>
                                 <th class="mars">Trading Style</th>
-                                <td class="venus">{{session['business']['vars']['tradingStyle']}}</td>
+                                <td class="venus">{{json['vars']['tradingStyle']}}</td>
                             </tr>
                             <tr>
                                 <th class="mars">Sic 07</th>
-                                <td class="venus">{{session['business']['vars']['sic07']}}</td>
+                                <td class="venus">{{json['vars']['sic07']}}</td>
                             </tr>
                                 <tr>
                                 <th class="mars">Legal Status</th>
-                                <td class="venus">{{session['business']['vars']['legalStatus']}}</td>
+                                <td class="venus">{{json['vars']['legalStatus']}}</td>
                              </tr>
                                 <tr>
                                 <th class="mars">Employees</th>
-                                <td class="venus">{{session['business']['vars']['employees']}}</td>
+                                <td class="venus">{{json['vars']['employees']}}</td>
                              </tr>
                                 <tr>
                                 <th class="mars">Jobs</th>
-                                <td class="venus">{{session['business']['vars']['jobs']}}</td>
+                                <td class="venus">{{json['vars']['jobs']}}</td>
                              </tr>
                                 <tr>
                                 <th class="mars">Turnover</th>
-                                <td class="venus">{{session['business']['vars']['turnover']}}</td>
+                                <td class="venus">{{json['vars']['turnover']}}</td>
                              </tr>
                                 <tr>
                                 <th class="mars">PRN</th>
-                                <td class="venus">{{session['business']['vars']['prn']}}</td>
+                                <td class="venus">{{json['vars']['prn']}}</td>
                              </tr>
                             </tr>
                                 <tr>
                                 <th class="mars">Working Proprietors</th>
-                                <td class="venus">{{session['business']['vars']['workingProprietors']}}</td>
+                                <td class="venus">{{json['vars']['workingProprietors']}}</td>
                              </tr>
                             </tr>
                                 <tr>
                                 <th class="mars">Employment</th>
-                                <td class="venus">{{session['business']['vars']['employment']}}</td>
+                                <td class="venus">{{json['vars']['employment']}}</td>
                              </tr>
                             </tr>
                                 <tr>
                                 <th class="mars">Region</th>
-                                <td class="venus">{{session['business']['vars']['region']}}</td>
+                                <td class="venus">{{json['vars']['region']}}</td>
                              </tr>
                             </tr>
                                 <tr>
                                 <th class="mars">Address</th>
-                                <td class="venus">{{", ".join(session['business']['vars']['address'].values())}}</td>
+                                <td class="venus">{{", ".join(json['vars']['address'].values())}}</td>
                              </tr>
                         </table>
 					<div>
@@ -90,11 +90,11 @@
         <div class="group">
             <div class="col-12">
                 <ul id="childLinksTabs" class="tabs clearfix u-mb-l" data-tabgroup="first-tab-group">
-                  <li><a id="leuTab" href="#tab1" class="active">LEU ({{session['business']['children']['LEU'] | count}})</a></li>
-                  <li><a id="luTab" href="#tab2">LU ({{session['business']['children']['LU'] | count}})</a></li>
-                  <li><a id="chTab" href="#tab3">CRN ({{session['business']['children']['CH'] | count}})</a></li>
-                  <li><a id="payeTab" href="#tab4">PAYE ({{session['business']['children']['PAYE'] | count}})</a></li>
-                  <li><a id="vatTab" href="#tab5">VAT ({{session['business']['children']['VAT'] | count}})</a></li>
+                  <li><a id="leuTab" href="#tab1" class="active">LEU ({{json['children']['LEU'] | count}})</a></li>
+                  <li><a id="luTab" href="#tab2">LU ({{json['children']['LU'] | count}})</a></li>
+                  <li><a id="chTab" href="#tab3">CRN ({{json['children']['CH'] | count}})</a></li>
+                  <li><a id="payeTab" href="#tab4">PAYE ({{json['children']['PAYE'] | count}})</a></li>
+                  <li><a id="vatTab" href="#tab5">VAT ({{json['children']['VAT'] | count}})</a></li>
                 </ul>
                 <section id="first-tab-group" class="tabgroup u-mb-l">
                     <div id="tab1">
@@ -102,9 +102,9 @@
                             <tr>
                                 <th class="venus legal">Legal Unit</th>
                             </tr>
-                            {% for id in session['business']['children']['LEU'] %}
+                            {% for id in json['children']['LEU'] %}
                             <tr>
-                                <td class="mars legal"><a href="/api/periods/{{session['business']['period']}}/types/LEU/units/{{id}}" class="mars">{{id}}</a></td>
+                                <td class="mars legal"><a href="/Search/periods/{{json['period']}}/types/LEU/units/{{id}}" class="mars">{{id}}</a></td>
                             </tr>
                             {% endfor %}
                         </table>
@@ -114,9 +114,9 @@
                             <tr>
                                 <th class="venus legal">Local Unit</th>
                             </tr>
-                            {% for id in session['business']['children']['LU'] %}
+                            {% for id in json['children']['LU'] %}
                             <tr>
-                                <td class="mars legal"><a href="/api/periods/{{session['business']['period']}}/types/LU/units/{{id}}" class="mars">{{id}}</a></td>
+                                <td class="mars legal"><a href="/Search/periods/{{json['period']}}/types/LU/units/{{id}}" class="mars">{{id}}</a></td>
                             </tr>
                             {% endfor %}
                         </table>
@@ -126,9 +126,9 @@
                             <tr>
                                 <th class="venus legal">Company House</th>
                             </tr>
-                            {% for id in session['business']['children']['CH'] %}
+                            {% for id in json['children']['CH'] %}
                             <tr>
-                                <td class="mars legal"><a href="/api/periods/{{session['business']['period']}}/types/CH/units/{{id}}" class="mars">{{id}}</a></td>
+                                <td class="mars legal"><a href="/Search/periods/{{json['period']}}/types/CH/units/{{id}}" class="mars">{{id}}</a></td>
                             </tr>
                             {% endfor %}
                         </table>
@@ -138,9 +138,9 @@
                             <tr>
                                 <th class="venus legal">Pay As You Earn</th>
                             </tr>
-                            {% for id in session['business']['children']['PAYE'] %}
+                            {% for id in json['children']['PAYE'] %}
                             <tr>
-                                <td class="mars legal"><a href="/api/periods/{{session['business']['period']}}/types/PAYE/units/{{id}}" class="mars">{{id}}</a></td>
+                                <td class="mars legal"><a href="/Search/periods/{{json['period']}}/types/PAYE/units/{{id}}" class="mars">{{id}}</a></td>
                             </tr>
                             {% endfor %}
                         </table>
@@ -150,9 +150,9 @@
                             <tr>
                                 <th class="venus legal">Value Added Tax</th>
                             </tr>
-                            {% for id in session['business']['children']['VAT'] %}
+                            {% for id in json['children']['VAT'] %}
                             <tr>
-                                <td class="mars legal"><a href="/api/periods/{{session['business']['period']}}/types/VAT/units/{{id}}" class="mars">{{id}}</a></td>
+                                <td class="mars legal"><a href="/Search/periods/{{json['period']}}/types/VAT/units/{{id}}" class="mars">{{id}}</a></td>
                             </tr>
                             {% endfor %}
                         </table>
