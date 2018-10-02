@@ -1,20 +1,20 @@
-from sbr_ui import app
+from sbr_ui import create_application
 
-
+app = create_application()
 app.testing = True
 
 
-# TODO: fix the tests below, they pass but they shouldn't as the routes are restrictred to logged in users
+# TODO: fix the tests to login first
 
 
 def test_get_by_id_type_period():
     with app.test_client() as c:
-        api_response = c.get('/api/periods/201810/types/ENT/units/1', follow_redirects=True)
+        api_response = c.get('/Search/periods/201810/types/ENT/units/1', follow_redirects=True)
         assert api_response.status_code == 200
 
 
 def test_search():
     with app.test_client() as c:
-        api_response = c.get('/api/search_reference_number/1', follow_redirects=True)
+        api_response = c.get('/Search', follow_redirects=True)
         assert api_response.status_code == 200
 

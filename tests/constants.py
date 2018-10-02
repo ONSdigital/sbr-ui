@@ -16,7 +16,7 @@ LOGOUT_BUTTON_ID = 'logoutButton'
 SEARCH_BUTTON_ID = 'searchButton'
 
 # Text IDs
-HOME_TITLE_ID = 'homeTitle'
+SEARCH_TITLE_ID = 'homeTitle'
 LOGIN_TITLE_ID = 'loginTitle'
 SBR_DESCRIPTION_ID = 'sbrDescriptionText'
 
@@ -49,7 +49,8 @@ PROTOCOL = 'http'
 PORT = '5000'
 HOST_NAME = 'localhost'
 BASE_URL = f'{PROTOCOL}://{HOST_NAME}:{PORT}'
-HOME_URL = f'{BASE_URL}/Home'
+LOGIN_URL = f'{BASE_URL}/Login'
+SEARCH_URL = f'{BASE_URL}/Search'
 ERROR_URL = f'{BASE_URL}/Error'
 
 # Search

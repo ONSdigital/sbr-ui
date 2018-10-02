@@ -4,7 +4,7 @@ from selenium import webdriver
 from tests.helper_methods import flatten, create_selenium_config
 from test_data import enterprise, legal_unit, local_unit, company_house, value_added_tax, pay_as_you_earn
 
-from tests.constants import BASE_URL
+from tests.constants import BASE_URL, SEARCH_URL
 from tests.constants import SEARCH_BUTTON_ID, UNIT_NAME_ID, UNIT_BADGE_ID, UNIT_ID_ID
 from tests.constants import USERNAME_INPUT_ID, PASSWORD_INPUT_ID, SEARCH_INPUT_ID, LOGIN_BUTTON_ID, LOGOUT_BUTTON_ID
 from tests.constants import ENTREF, UBRN, LURN, VATREF, PAYEREF, CRN, PERIOD
@@ -51,7 +51,7 @@ class UnitPageTest(unittest.TestCase):
 
     def test_ent_page_contents(self):
         self.search_by_unit_id(ENTREF)
-        self.assertEqual(self.driver.current_url, f'{BASE_URL}/periods/{PERIOD}/types/ENT/units/{ENTREF}')
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/ENT/units/{ENTREF}')
         self.assert_title(UNIT_NAME_ID, enterprise.get('vars').get('name'))
         self.assertEqual(self.driver.find_element_by_id(UNIT_BADGE_ID).text, 'ENTERPRISE')
         self.assertEqual(self.driver.find_element_by_id(UNIT_ID_ID).text, f'ERN {ENTREF}')
@@ -59,7 +59,7 @@ class UnitPageTest(unittest.TestCase):
 
     def test_leu_page_contents(self):
         self.search_by_unit_id(UBRN)
-        self.assertEqual(self.driver.current_url, f'{BASE_URL}/periods/{PERIOD}/types/LEU/units/{UBRN}')
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/LEU/units/{UBRN}')
         self.assert_title(UNIT_NAME_ID, legal_unit.get('vars').get('name'))
         self.assertEqual(self.driver.find_element_by_id(UNIT_BADGE_ID).text, 'LEGAL UNIT')
         self.assertEqual(self.driver.find_element_by_id(UNIT_ID_ID).text, f'UBRN {UBRN}')
@@ -67,7 +67,7 @@ class UnitPageTest(unittest.TestCase):
 
     def test_lu_page_contents(self):
         self.search_by_unit_id(LURN)
-        self.assertEqual(self.driver.current_url, f'{BASE_URL}/periods/{PERIOD}/types/LU/units/{LURN}')
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/LU/units/{LURN}')
         self.assert_title(UNIT_NAME_ID, local_unit.get('vars').get('name'))
         self.assertEqual(self.driver.find_element_by_id(UNIT_BADGE_ID).text, 'LOCAL UNIT')
         self.assertEqual(self.driver.find_element_by_id(UNIT_ID_ID).text, f'LURN {LURN}')
@@ -75,7 +75,7 @@ class UnitPageTest(unittest.TestCase):
 
     def test_ch_page_contents(self):
         self.search_by_unit_id(CRN)
-        self.assertEqual(self.driver.current_url, f'{BASE_URL}/periods/{PERIOD}/types/CH/units/{CRN}')
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/CH/units/{CRN}')
         self.assert_title(UNIT_NAME_ID, company_house.get('vars').get('businessName'))
         self.assertEqual(self.driver.find_element_by_id(UNIT_BADGE_ID).text, 'COMPANY HOUSE')
         self.assertEqual(self.driver.find_element_by_id(UNIT_ID_ID).text, f'CRN {CRN}')
@@ -83,7 +83,7 @@ class UnitPageTest(unittest.TestCase):
 
     def test_vat_page_contents(self):
         self.search_by_unit_id(VATREF)
-        self.assertEqual(self.driver.current_url, f'{BASE_URL}/periods/{PERIOD}/types/VAT/units/{VATREF}')
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/VAT/units/{VATREF}')
         self.assert_title(UNIT_NAME_ID, value_added_tax.get('vars').get('businessName'))
         self.assertEqual(self.driver.find_element_by_id(UNIT_BADGE_ID).text, 'VALUE ADDED TAX')
         self.assertEqual(self.driver.find_element_by_id(UNIT_ID_ID).text, f'VATREF {VATREF}')
@@ -91,7 +91,7 @@ class UnitPageTest(unittest.TestCase):
 
     def test_paye_page_contents(self):
         self.search_by_unit_id(PAYEREF)
-        self.assertEqual(self.driver.current_url, f'{BASE_URL}/periods/{PERIOD}/types/PAYE/units/{PAYEREF}')
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/PAYE/units/{PAYEREF}')
         self.assert_title(UNIT_NAME_ID, pay_as_you_earn.get('vars').get('businessName'))
         self.assertEqual(self.driver.find_element_by_id(UNIT_BADGE_ID).text, 'PAY AS YOU EARN')
         self.assertEqual(self.driver.find_element_by_id(UNIT_ID_ID).text, f'PAYEREF {PAYEREF}')
