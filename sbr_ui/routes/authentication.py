@@ -3,7 +3,7 @@ import uuid
 from flask import Blueprint, render_template, redirect, url_for, request, flash, current_app, abort
 from flask_login import current_user, login_required, logout_user, login_user
 
-from sbr_ui import User, users
+from sbr_ui.models.user import User, users
 from sbr_ui.services.gateway_authentication_service import GatewayAuthenticationService
 
 authentication_bp = Blueprint('authentication_bp', __name__, static_folder='static', template_folder='templates')

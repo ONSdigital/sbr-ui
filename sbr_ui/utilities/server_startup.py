@@ -3,7 +3,7 @@ import os
 
 from structlog import wrap_logger
 
-from sbr_ui import InvalidEnvironment, MissingEnvironmentVariable
+from sbr_ui.models.exceptions import InvalidEnvironment, MissingEnvironmentVariable
 
 
 logger = wrap_logger(logging.getLogger(__name__))

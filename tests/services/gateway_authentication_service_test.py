@@ -2,7 +2,7 @@ import pytest
 import responses
 
 from sbr_ui import create_application
-from sbr_ui import ApiError
+from sbr_ui.models.exceptions import ApiError
 from sbr_ui.services.gateway_authentication_service import GatewayAuthenticationService
 
 
