@@ -1,11 +1,10 @@
 import logging
 from structlog import wrap_logger
-from flask import Blueprint, render_template, session, request, redirect, url_for, current_app
+from flask import Blueprint, render_template, session, request, redirect, url_for
 from flask_login import login_required
 
+from sbr_ui import get_search_service, app
 from sbr_ui.utilities.helpers import format_children, convert_bands
-from sbr_ui.services.search_service import SearchService
-from sbr_ui.services.fake_search_service import FakeSearchService
 
 logger = wrap_logger(logging.getLogger(__name__))
 
@@ -14,13 +13,16 @@ unit_pages_bp = Blueprint('unit_pages_bp', __name__, static_folder='static', tem
 search_bp = Blueprint('search_bp', __name__, static_folder='static', template_folder='templates')
 
 
+search_service = get_search_service(app.config)
+
+
 @search_bp.route('/Search', methods=['GET', 'POST'])
 @login_required
 def search():
     if request.method == 'GET':
         return render_template('search.html')
     unit_id = request.form['UnitId']
-    json = search_service().search_by_id(unit_id)
+    json = search_service.search_by_id(unit_id)
     json_with_converted_bands = {**json, 'vars': convert_bands(json['vars'])}
     period = json_with_converted_bands['period']
     unit_type = json_with_converted_bands['unitType']
@@ -78,7 +80,7 @@ def get_json_from_session_or_api(unit_id, unit_type, period):
         session.pop('json', None)
         return json
     else:
-        json = search_service().get_unit_by_id_type_period(unit_id, unit_type, period)
+        json = search_service.get_unit_by_id_type_period(unit_id, unit_type, period)
         return {**json, 'vars': convert_bands(json['vars'])}
 
 
@@ -95,10 +97,3 @@ def redirect_to_unit_page(unit_id, unit_type, period):
         return redirect(url_for('unit_pages_bp.ent', unit_id=unit_id, period=period))
     elif unit_type == "LU":
         return redirect(url_for('unit_pages_bp.lu', unit_id=unit_id, period=period))
-
-
-def search_service():
-    """ TODO: get the service once at runtime, not on every search """
-    if current_app.config['USE_FAKE_DATA']:
-        return FakeSearchService
-    return SearchService

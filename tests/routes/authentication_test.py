@@ -1,7 +1,6 @@
-from sbr_ui import create_application
+from sbr_ui import app
 
 
-app = create_application()
 app.testing = True
 
 

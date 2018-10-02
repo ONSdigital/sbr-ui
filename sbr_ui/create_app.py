@@ -8,9 +8,6 @@ from flask_login import LoginManager
 from flask_session import Session
 
 from sbr_ui.models.user import User, users
-from sbr_ui.routes.authentication import authentication_bp
-from sbr_ui.routes.errors import error_bp
-from sbr_ui.routes.unit_pages import search_bp, unit_pages_bp
 from sbr_ui.utilities.logger import initialise_logger
 from sbr_ui.utilities.server_startup import get_and_validate_environment, check_required_environment_variables_present
 
@@ -40,11 +37,6 @@ def create_application():
     app.url_map.strict_slashes = False
     app.config['SESSION_TYPE'] = 'filesystem'
     Session(app)
-
-    app.register_blueprint(authentication_bp, url_prefix='/')
-    app.register_blueprint(error_bp, url_prefix='/Error')
-    app.register_blueprint(search_bp)
-    app.register_blueprint(unit_pages_bp, url_prefix='/Search')
 
     @app.errorhandler(404)
     @app.errorhandler(requests.exceptions.HTTPError)

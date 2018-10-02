@@ -28,7 +28,7 @@ def login():
 
     # If we are in PROD, we need to authenticate via the API Gateway
     if current_app.config['ENVIRONMENT'] == 'PROD':
-        token, role = GatewayAuthenticationService.login()
+        token, role = GatewayAuthenticationService.login(username, password)
         user_id = str(uuid.uuid4())
         user = User(user_id, token, role)
         login_user(user)
