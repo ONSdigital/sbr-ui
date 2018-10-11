@@ -5,6 +5,7 @@ enterprise = {
     "children": {
         "2": "LEU",
         "3": "LOU",
+        "7": "REU",
         "4": "CH",
         "5": "PAYE",
         "6": "VAT"
@@ -158,4 +159,36 @@ value_added_tax = {
     }
 }
 
-units = [enterprise, legal_unit, local_unit, company_house, pay_as_you_earn, value_added_tax]
+reporting_unit = {
+    "id": "7",
+    "unitType": "REU",
+    "period": "201810",
+    "parents": {
+        "ENT": "1"
+    },
+    "vars": {
+        "rurn": "7",
+        "ruref": "123837",
+        "ern": "1",
+        "entref": "334112",
+        "name": "Booths",
+        "tradingStyle": "Booths Limited",
+        "legalStatus": "1",
+        "sic07": "60000",
+        "employees": "5",
+        "employment": "9",
+        "turnover": "839",
+        "prn": "0.016587362",
+        "region": "South",
+        "address": {
+            "line1": "27 Titchfield Street",
+            "line2": "Southampton Road",
+            "line3": "London",
+            "line4": "Greater London",
+            "line5": "England",
+            "postcode": "ABCD EFG"
+        }
+    }
+}
+
+units = [enterprise, legal_unit, local_unit, reporting_unit, company_house, pay_as_you_earn, value_added_tax]

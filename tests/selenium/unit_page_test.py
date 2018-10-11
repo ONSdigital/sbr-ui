@@ -2,9 +2,10 @@ import unittest
 from selenium import webdriver
 
 from tests.helper_methods import flatten, create_selenium_config
-from test_data import enterprise, legal_unit, local_unit, company_house, value_added_tax, pay_as_you_earn
+from test_data import enterprise, legal_unit, local_unit, company_house, value_added_tax, pay_as_you_earn, \
+    reporting_unit
 
-from tests.constants import BASE_URL, SEARCH_URL
+from tests.constants import BASE_URL, SEARCH_URL, RURN
 from tests.constants import SEARCH_BUTTON_ID, UNIT_NAME_ID, UNIT_BADGE_ID, UNIT_ID_ID
 from tests.constants import USERNAME_INPUT_ID, PASSWORD_INPUT_ID, SEARCH_INPUT_ID, LOGIN_BUTTON_ID, LOGOUT_BUTTON_ID
 from tests.constants import ENTREF, UBRN, LURN, VATREF, PAYEREF, CRN, PERIOD
@@ -72,6 +73,14 @@ class UnitPageTest(unittest.TestCase):
         self.assertEqual(self.driver.find_element_by_id(UNIT_BADGE_ID).text, 'LOCAL UNIT')
         self.assertEqual(self.driver.find_element_by_id(UNIT_ID_ID).text, f'LURN {LURN}')
         self.assert_dict_values_present_on_page(local_unit.get('vars'))
+
+    def test_reu_page_contents(self):
+        self.search_by_unit_id(RURN)
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/REU/units/{RURN}')
+        self.assert_title(UNIT_NAME_ID, reporting_unit.get('vars').get('name'))
+        self.assertEqual(self.driver.find_element_by_id(UNIT_BADGE_ID).text, 'REPORTING UNIT')
+        self.assertEqual(self.driver.find_element_by_id(UNIT_ID_ID).text, f'RURN {RURN}')
+        self.assert_dict_values_present_on_page(reporting_unit.get('vars'))
 
     def test_ch_page_contents(self):
         self.search_by_unit_id(CRN)

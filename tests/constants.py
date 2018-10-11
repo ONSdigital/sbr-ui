@@ -29,11 +29,13 @@ BREADCRUMB_LEU_ID = 'breadcrumbLeu'
 # Child Links IDs
 CHILD_LINKS_TABS_ID = 'childLinksTabs'
 LEU_TAB = 'leuTab'
+REU_TAB = 'reuTab'
 LOU_TAB = 'louTab'
 CH_TAB = 'chTab'
 VAT_TAB = 'vatTab'
 PAYE_TAB = 'payeTab'
 LEU_CHILD_TABLE = 'leuChildLinksTable'
+REU_CHILD_TABLE = 'reuChildLinksTable'
 LOU_CHILD_TABLE = 'louChildLinksTable'
 CH_CHILD_TABLE = 'chChildLinksTable'
 VAT_CHILD_TABLE = 'vatChildLinksTable'
@@ -61,6 +63,7 @@ LURN = '3'
 CRN = '4'
 PAYEREF = '5'
 VATREF = '6'
+RURN = '7'
 
 
 

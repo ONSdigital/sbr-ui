@@ -3,8 +3,8 @@ from selenium import webdriver
 
 from tests.helper_methods import create_selenium_config
 
-from tests.constants import BASE_URL, SEARCH_URL
-from tests.constants import CHILD_LINKS_TABS_ID, LEU_TAB, LOU_TAB, CH_TAB, PAYE_TAB, VAT_TAB
+from tests.constants import BASE_URL, SEARCH_URL, REU_CHILD_TABLE, RURN
+from tests.constants import CHILD_LINKS_TABS_ID, LEU_TAB, LOU_TAB, REU_TAB, CH_TAB, PAYE_TAB, VAT_TAB
 from tests.constants import LEU_CHILD_TABLE, LOU_CHILD_TABLE, CH_CHILD_TABLE, VAT_CHILD_TABLE, PAYE_CHILD_TABLE
 from tests.constants import SEARCH_BUTTON_ID
 from tests.constants import USERNAME_INPUT_ID, PASSWORD_INPUT_ID, SEARCH_INPUT_ID, LOGIN_BUTTON_ID, LOGOUT_BUTTON_ID
@@ -54,9 +54,9 @@ class ChildLinksTest(unittest.TestCase):
     def test_changing_tabs_ent(self):
         self.search_by_unit_id(ENTREF)
         self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/ENT/units/{ENTREF}')
-        tabs = self.assert_tabs_length_and_return_tabs(5, LEU_TAB)
-        tab_ids = [LEU_TAB, LOU_TAB, CH_TAB, PAYE_TAB, VAT_TAB]  # Actual order of tabs
-        expected_tabs_text = ['LEU (1)', 'LOU (1)', 'CRN (1)', 'PAYE (1)', 'VAT (1)']  # Expected tab text
+        tabs = self.assert_tabs_length_and_return_tabs(6, LEU_TAB)
+        tab_ids = [LEU_TAB, LOU_TAB, REU_TAB, CH_TAB, PAYE_TAB, VAT_TAB]  # Actual order of tabs
+        expected_tabs_text = ['LEU (1)', 'LOU (1)', 'REU (1)', 'CRN (1)', 'PAYE (1)', 'VAT (1)']  # Expected tab text
         for tab, tab_id, expected_tab_text in zip(tabs, tab_ids, expected_tabs_text):
             tab.click()
             self.assert_tab_is_selected(tab_id)
@@ -78,6 +78,9 @@ class ChildLinksTest(unittest.TestCase):
 
     def test_lou_child_table_links(self):
         self.assert_child_links_table_urls(LOU_CHILD_TABLE, 'LOU', LURN)
+
+    def test_reu_child_table_links(self):
+        self.assert_child_links_table_urls(REU_CHILD_TABLE, 'REU', RURN)
 
     def test_ch_child_table_links(self):
         self.assert_child_links_table_urls(CH_CHILD_TABLE, 'CH', CRN)

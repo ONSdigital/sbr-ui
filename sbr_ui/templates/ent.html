@@ -92,9 +92,10 @@
                 <ul id="childLinksTabs" class="tabs clearfix u-mb-l" data-tabgroup="first-tab-group">
                   <li><a id="leuTab" href="#tab1" class="active">LEU ({{json['children']['LEU'] | count}})</a></li>
                   <li><a id="louTab" href="#tab2">LOU ({{json['children']['LOU'] | count}})</a></li>
-                  <li><a id="chTab" href="#tab3">CRN ({{json['children']['CH'] | count}})</a></li>
-                  <li><a id="payeTab" href="#tab4">PAYE ({{json['children']['PAYE'] | count}})</a></li>
-                  <li><a id="vatTab" href="#tab5">VAT ({{json['children']['VAT'] | count}})</a></li>
+                  <li><a id="reuTab" href="#tab3">REU ({{json['children']['REU'] | count}})</a></li>
+                  <li><a id="chTab" href="#tab4">CRN ({{json['children']['CH'] | count}})</a></li>
+                  <li><a id="payeTab" href="#tab5">PAYE ({{json['children']['PAYE'] | count}})</a></li>
+                  <li><a id="vatTab" href="#tab6">VAT ({{json['children']['VAT'] | count}})</a></li>
                 </ul>
                 <section id="first-tab-group" class="tabgroup u-mb-l">
                     <div id="tab1">
@@ -122,6 +123,18 @@
                         </table>
                     </div>
                     <div id="tab3">
+                        <table id="reuChildLinksTable" class="unit-info">
+                            <tr>
+                                <th class="venus legal">Reporting Unit</th>
+                            </tr>
+                            {% for id in json['children']['REU'] %}
+                            <tr>
+                                <td class="mars legal"><a href="/Search/periods/{{json['period']}}/types/REU/units/{{id}}" class="mars">{{id}}</a></td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    <div id="tab4">
                         <table id="chChildLinksTable" class="unit-info">
                             <tr>
                                 <th class="venus legal">Company House</th>
@@ -133,7 +146,7 @@
                             {% endfor %}
                         </table>
                     </div>
-                    <div id="tab4">
+                    <div id="tab5">
                         <table id="payeChildLinksTable" class="unit-info">
                             <tr>
                                 <th class="venus legal">Pay As You Earn</th>
@@ -145,7 +158,7 @@
                             {% endfor %}
                         </table>
                     </div>
-                    <div id="tab5">
+                    <div id="tab6">
                         <table id="vatChildLinksTable" class="unit-info">
                             <tr>
                                 <th class="venus legal">Value Added Tax</th>

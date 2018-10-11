@@ -16,7 +16,7 @@ def compose(*fns):
 
 
 def acronym_to_sbr_api_format(acronym):
-    return {'ENT': 'ents', 'LEU': 'leus', 'LOU': 'lous', 'VAT': 'vats', 'PAYE': 'payes', 'CH': 'crns'}.get(acronym)
+    return {'ENT': 'ents', 'LEU': 'leus', 'REU': 'reus', 'LOU': 'lous', 'VAT': 'vats', 'PAYE': 'payes', 'CH': 'crns'}.get(acronym)
 
 
 def convert_band(unit: dict, key: str, not_found_key: str, bands: dict) -> dict:
@@ -51,6 +51,7 @@ def format_children(children: dict):
     payes = []
     leus = []
     lous = []
+    reus = []
 
     # Rather than a dict of unitId:unitType, we want a dict of unitType:[unitId's], to make parsing them in the
     # template easier
@@ -65,8 +66,10 @@ def format_children(children: dict):
             leus.append(child_id)
         elif child_type == "LOU":
             lous.append(child_id)
+        elif child_type == "REU":
+            reus.append(child_id)
 
-    children = {"VAT": vats, "CH": chs, "PAYE": payes, "LEU": leus, "LOU": lous}
+    children = {"VAT": vats, "CH": chs, "PAYE": payes, "LEU": leus, "LOU": lous, "REU": reus}
 
     # Filter empty arrays
     return {k: v for k, v in children.items() if len(v) != 0}
