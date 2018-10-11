@@ -1,6 +1,6 @@
 import uuid
 
-from flask import Blueprint, render_template, redirect, url_for, request, flash, current_app, abort
+from flask import Blueprint, render_template, redirect, url_for, request, flash, current_app
 from flask_login import current_user, login_required, logout_user, login_user
 
 from sbr_ui.models.user import User, users

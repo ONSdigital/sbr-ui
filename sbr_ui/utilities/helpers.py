@@ -33,12 +33,8 @@ def convert_band(unit: dict, key: str, not_found_key: str, bands: dict) -> dict:
 
 def log_api_error(status: int, error_msg: str, query: str):
     """ Depending on the severity of the response, log at an appropriate level """
-    if status == 401:
+    if status in [400, 401, 404]:
         logger.info(error_msg, status=status, query=query)
-    if status == 404:
-        logger.info(error_msg, status=status, query=query)
-    elif status == 400:
-        logger.warning(error_msg, status=status, query=query)
     elif status == 500:
         logger.error(error_msg, status=status, query=query)
 
@@ -49,6 +45,7 @@ def base_64_encode(to_encode: str) -> str:
 
 
 def format_children(children: dict):
+    """ TODO: do this immutably """
     vats = []
     chs = []
     payes = []

@@ -3,7 +3,7 @@ from sbr_ui import app
 app.testing = True
 
 
-# TODO: fix the tests to login first
+# TODO: fix the tests to login first, 200 is returned as a template is rendered but an error message is shown
 
 
 def test_get_by_id_type_period():
