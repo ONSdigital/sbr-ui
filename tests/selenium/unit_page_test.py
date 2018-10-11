@@ -65,9 +65,9 @@ class UnitPageTest(unittest.TestCase):
         self.assertEqual(self.driver.find_element_by_id(UNIT_ID_ID).text, f'UBRN {UBRN}')
         self.assert_dict_values_present_on_page(legal_unit.get('vars'))
 
-    def test_lu_page_contents(self):
+    def test_lou_page_contents(self):
         self.search_by_unit_id(LURN)
-        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/LU/units/{LURN}')
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/LOU/units/{LURN}')
         self.assert_title(UNIT_NAME_ID, local_unit.get('vars').get('name'))
         self.assertEqual(self.driver.find_element_by_id(UNIT_BADGE_ID).text, 'LOCAL UNIT')
         self.assertEqual(self.driver.find_element_by_id(UNIT_ID_ID).text, f'LURN {LURN}')

@@ -4,7 +4,7 @@ enterprise = {
     "period": "201810",
     "children": {
         "2": "LEU",
-        "3": "LU",
+        "3": "LOU",
         "4": "CH",
         "5": "PAYE",
         "6": "VAT"
@@ -73,7 +73,7 @@ legal_unit = {
 
 local_unit = {
     "id": "3",
-    "unitType": "LU",
+    "unitType": "LOU",
     "period": "201810",
     "parents": {
         "ENT": "1"
