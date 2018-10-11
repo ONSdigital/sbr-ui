@@ -4,7 +4,7 @@ from selenium.common.exceptions import NoSuchElementException
 
 from tests.helper_methods import create_selenium_config
 
-from tests.constants import BASE_URL, ERROR_URL
+from tests.constants import BASE_URL, ERROR_URL, SEARCH_URL
 from tests.constants import SBR_DESCRIPTION_ID, SEARCH_BUTTON_ID
 from tests.constants import USERNAME_INPUT_ID, PASSWORD_INPUT_ID, SEARCH_INPUT_ID, LOGIN_BUTTON_ID, LOGOUT_BUTTON_ID
 from tests.constants import ENTREF, UBRN, LURN, VATREF, PAYEREF, CRN, PERIOD
@@ -44,32 +44,32 @@ class SearchTest(unittest.TestCase):
     def test_search_ent(self):
         self.driver.find_element_by_id(SEARCH_INPUT_ID).send_keys(ENTREF)
         self.driver.find_element_by_id(SEARCH_BUTTON_ID).click()
-        self.assertEqual(self.driver.current_url, f'{BASE_URL}/periods/{PERIOD}/types/ENT/units/{ENTREF}')
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/ENT/units/{ENTREF}')
 
     def test_search_lu(self):
         self.driver.find_element_by_id(SEARCH_INPUT_ID).send_keys(LURN)
         self.driver.find_element_by_id(SEARCH_BUTTON_ID).click()
-        self.assertEqual(self.driver.current_url, f'{BASE_URL}/periods/{PERIOD}/types/LU/units/{LURN}')
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/LU/units/{LURN}')
 
     def test_search_leu(self):
         self.driver.find_element_by_id(SEARCH_INPUT_ID).send_keys(UBRN)
         self.driver.find_element_by_id(SEARCH_BUTTON_ID).click()
-        self.assertEqual(self.driver.current_url, f'{BASE_URL}/periods/{PERIOD}/types/LEU/units/{UBRN}')
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/LEU/units/{UBRN}')
 
     def test_search_ch(self):
         self.driver.find_element_by_id(SEARCH_INPUT_ID).send_keys(CRN)
         self.driver.find_element_by_id(SEARCH_BUTTON_ID).click()
-        self.assertEqual(self.driver.current_url, f'{BASE_URL}/periods/{PERIOD}/types/CH/units/{CRN}')
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/CH/units/{CRN}')
 
     def test_search_vat(self):
         self.driver.find_element_by_id(SEARCH_INPUT_ID).send_keys(VATREF)
         self.driver.find_element_by_id(SEARCH_BUTTON_ID).click()
-        self.assertEqual(self.driver.current_url, f'{BASE_URL}/periods/{PERIOD}/types/VAT/units/{VATREF}')
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/VAT/units/{VATREF}')
 
     def test_search_paye(self):
         self.driver.find_element_by_id(SEARCH_INPUT_ID).send_keys(PAYEREF)
         self.driver.find_element_by_id(SEARCH_BUTTON_ID).click()
-        self.assertEqual(self.driver.current_url, f'{BASE_URL}/periods/{PERIOD}/types/PAYE/units/{PAYEREF}')
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/PAYE/units/{PAYEREF}')
 
     def test_unit_not_found(self):
         self.driver.find_element_by_id(SEARCH_INPUT_ID).send_keys('Tesco')

@@ -1,14 +1,14 @@
 import pytest
 
 from sbr_ui.services.fake_search_service import FakeSearchService
-from test_data import units, enterprise, legal_unit
+from test_data import enterprise, legal_unit
 
 
 class TestFakeSearchService(object):
 
     @pytest.fixture
     def search(self):
-        return FakeSearchService(units)
+        return FakeSearchService
 
     def test_search_by_id(self, search):
         target_id = "1"

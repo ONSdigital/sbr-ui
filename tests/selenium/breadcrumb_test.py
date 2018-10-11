@@ -3,7 +3,7 @@ from selenium import webdriver
 
 from tests.helper_methods import create_selenium_config
 
-from tests.constants import BASE_URL, HOME_URL
+from tests.constants import BASE_URL, SEARCH_URL
 from tests.constants import BREADCRUMB_SEARCH_ID, BREADCRUMB_SELECTED_ID, BREADCRUMB_ENT_ID, BREADCRUMB_LEU_ID
 from tests.constants import SEARCH_BUTTON_ID
 from tests.constants import USERNAME_INPUT_ID, PASSWORD_INPUT_ID, SEARCH_INPUT_ID, LOGIN_BUTTON_ID, LOGOUT_BUTTON_ID
@@ -36,7 +36,7 @@ class BreadcrumbTest(unittest.TestCase):
     def assert_breadcrumb_item_text_and_url(self, breadcrumb_id, unit_id, unit_type, period):
         breadcrumb_item = self.driver.find_element_by_id(breadcrumb_id)
         self.assertEqual(breadcrumb_item.text, f'{unit_type} - {unit_id}')
-        target_url = f'{BASE_URL}/api/periods/{period}/types/{unit_type}/units/{unit_id}'
+        target_url = f'{SEARCH_URL}/periods/{period}/types/{unit_type}/units/{unit_id}'
         self.assertEqual(breadcrumb_item.get_attribute('href'), target_url)
 
     def assert_current_breadcrumb_item_text(self, expected_text):
@@ -45,32 +45,32 @@ class BreadcrumbTest(unittest.TestCase):
 
     def assert_breadcrumb_search_href(self):
         href = self.driver.find_element_by_id(BREADCRUMB_SEARCH_ID).get_attribute('href')
-        self.assertEqual(href, HOME_URL)
+        self.assertEqual(href, SEARCH_URL)
 
     def test_ent_breadcrumb(self):
         self.search_by_unit_id(ENTREF)
-        self.assertEqual(self.driver.current_url, f'{BASE_URL}/periods/{PERIOD}/types/ENT/units/{ENTREF}')
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/ENT/units/{ENTREF}')
         self.assert_breadcrumb_search_href()
         self.assert_current_breadcrumb_item_text(f'ENT - {ENTREF}')
 
     def test_lu_breadcrumb(self):
         self.driver.find_element_by_id(SEARCH_INPUT_ID).send_keys(LURN)
         self.driver.find_element_by_id(SEARCH_BUTTON_ID).click()
-        self.assertEqual(self.driver.current_url, f'{BASE_URL}/periods/{PERIOD}/types/LU/units/{LURN}')
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/LU/units/{LURN}')
         self.assert_breadcrumb_search_href()
         self.assert_current_breadcrumb_item_text(f'LU - {LURN}')
         self.assert_breadcrumb_item_text_and_url(BREADCRUMB_ENT_ID, ENTREF, 'ENT', PERIOD)
 
     def test_leu_breadcrumb(self):
         self.search_by_unit_id(UBRN)
-        self.assertEqual(self.driver.current_url, f'{BASE_URL}/periods/{PERIOD}/types/LEU/units/{UBRN}')
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/LEU/units/{UBRN}')
         self.assert_breadcrumb_search_href()
         self.assert_current_breadcrumb_item_text(f'LEU - {UBRN}')
         self.assert_breadcrumb_item_text_and_url(BREADCRUMB_ENT_ID, ENTREF, 'ENT', PERIOD)
 
     def test_ch_breadcrumb(self):
         self.search_by_unit_id(CRN)
-        self.assertEqual(self.driver.current_url, f'{BASE_URL}/periods/{PERIOD}/types/CH/units/{CRN}')
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/CH/units/{CRN}')
         self.assert_breadcrumb_search_href()
         self.assert_current_breadcrumb_item_text(f'CRN - {CRN}')
         self.assert_breadcrumb_item_text_and_url(BREADCRUMB_ENT_ID, ENTREF, 'ENT', PERIOD)
@@ -78,7 +78,7 @@ class BreadcrumbTest(unittest.TestCase):
 
     def test_vat_breadcrumb(self):
         self.search_by_unit_id(VATREF)
-        self.assertEqual(self.driver.current_url, f'{BASE_URL}/periods/{PERIOD}/types/VAT/units/{VATREF}')
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/VAT/units/{VATREF}')
         self.assert_breadcrumb_search_href()
         self.assert_current_breadcrumb_item_text(f'VAT - {VATREF}')
         self.assert_breadcrumb_item_text_and_url(BREADCRUMB_ENT_ID, ENTREF, 'ENT', PERIOD)
@@ -86,7 +86,7 @@ class BreadcrumbTest(unittest.TestCase):
 
     def test_paye_breadcrumb(self):
         self.search_by_unit_id(PAYEREF)
-        self.assertEqual(self.driver.current_url, f'{BASE_URL}/periods/{PERIOD}/types/PAYE/units/{PAYEREF}')
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/PAYE/units/{PAYEREF}')
         self.assert_breadcrumb_search_href()
         self.assert_current_breadcrumb_item_text(f'PAYE - {PAYEREF}')
         self.assert_breadcrumb_item_text_and_url(BREADCRUMB_ENT_ID, ENTREF, 'ENT', PERIOD)

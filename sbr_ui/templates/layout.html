@@ -26,11 +26,11 @@
                         <div class="col-7">
                             <div class="logo_header">
                                 {% if current_user.is_authenticated == True %}
-                                    <a href="{{ url_for('home_bp.home') }}">
+                                    <a href="{{ url_for('search_bp.search') }}">
                                         <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Office for National Statistics" class="logo__img"/>
                                     </a>
                                 {% else %}
-                                    <a href="{{ url_for('login_bp.login') }}">
+                                    <a href="{{ url_for('authentication_bp.login') }}">
                                         <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Office for National Statistics" class="logo__img"/>
                                     </a>
                                 {% endif %}
@@ -39,7 +39,7 @@
                         <div class="col-5">
                             <div class="header_links">
                                 {% if current_user.is_authenticated == True %}
-                                    <form id="form-sign-out" action="http://localhost:5000/auth/logout" class="form" method="POST">
+                                    <form id="form-sign-out" action="http://localhost:5000/Logout" class="form" method="POST">
                                         <ul class="menubar" role="menubar" id="appmenu">
                                             <li class="menubar" role="menuitem"><button id="logoutButton" class="logout">Sign out</button></li>
                                         </ul>
@@ -54,7 +54,7 @@
                 <div class="wrapper">
                     <div class="group">
                         <div class="col-12">
-                            {%- if request.path == "/Home" or request.path == "/" %}
+                            {%- if request.path == "/Search" or request.path == "/Login" %}
                             <h1 class="jupiter main_heading">Statistical Business Register</h1>
                             <h2 id="sbrDescriptionText" class="neptune sub_heading">A comprehensive list of UK businesses used by government for statistical purposes</h2>
                             {% else %}

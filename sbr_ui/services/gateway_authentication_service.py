@@ -2,6 +2,7 @@ import logging
 import requests
 from structlog import wrap_logger
 from typing import Tuple
+from flask import current_app
 
 from sbr_ui.models.exceptions import ApiError
 from sbr_ui.utilities.helpers import log_api_error, base_64_encode
@@ -15,28 +16,20 @@ class GatewayAuthenticationService:
     Token = str  # A uuid from the API Gateway
     TokenAndRole = Tuple[Token, Role]
 
-    def __init__(self, gateway_auth_url: str):
-        self.gateway_auth_url = gateway_auth_url
-
-    def login(self, username: str, password: str) -> TokenAndRole:
+    @staticmethod
+    def login(username: str, password: str) -> TokenAndRole:
+        gateway_auth_url = current_app.config['AUTH_URL']
         logger.debug("Logging user in", username=username)
         headers = {'content-type': 'application/json', 'Authorization': str(base_64_encode(f'{username}:{password}'))}
-        response = requests.post(self.gateway_auth_url, headers=headers)
+        response = requests.post(gateway_auth_url, headers=headers)
 
         try:
             response.raise_for_status()
         except requests.exceptions.HTTPError:
-            log_api_error(response.status_code, 'Failed to authorize via the API Gateway', self.gateway_auth_url)
+            log_api_error(response.status_code, 'Failed to authorize via the API Gateway', gateway_auth_url)
             raise ApiError(response)
 
-        # Potentially need to throw an exception here if we don't get back a token or role
-        # Also, potentially need to match the BusinessService in terms of returning the response.json()
-        try:
-            json = response.json()
-        except ValueError:
-            logger.error("Invalid Gateway response JSON, unable to parse")
-            raise ValueError(response)
-
+        json = response.json()
         token = json.get('token')
         role = json.get('role')
 

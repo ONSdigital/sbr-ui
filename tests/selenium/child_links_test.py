@@ -3,7 +3,7 @@ from selenium import webdriver
 
 from tests.helper_methods import create_selenium_config
 
-from tests.constants import BASE_URL
+from tests.constants import BASE_URL, SEARCH_URL
 from tests.constants import CHILD_LINKS_TABS_ID, LEU_TAB, LU_TAB, CH_TAB, PAYE_TAB, VAT_TAB
 from tests.constants import LEU_CHILD_TABLE, LU_CHILD_TABLE, CH_CHILD_TABLE, VAT_CHILD_TABLE, PAYE_CHILD_TABLE
 from tests.constants import SEARCH_BUTTON_ID
@@ -39,10 +39,10 @@ class ChildLinksTest(unittest.TestCase):
     def assert_child_links_table_urls(self, child_table_id, unit_type, unit_id):
         """ TODO: update this method to handle multiple child links in each table """
         self.search_by_unit_id(ENTREF)
-        self.assertEqual(self.driver.current_url, f'{BASE_URL}/periods/{PERIOD}/types/ENT/units/{ENTREF}')
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/ENT/units/{ENTREF}')
         child_table = self.driver.find_element_by_id(child_table_id)
         url = child_table.find_elements_by_tag_name('a')[0].get_attribute('href')
-        self.assertEqual(url, f'{BASE_URL}/api/periods/{PERIOD}/types/{unit_type}/units/{unit_id}')
+        self.assertEqual(url, f'{SEARCH_URL}/periods/{PERIOD}/types/{unit_type}/units/{unit_id}')
 
     def assert_tabs_length_and_return_tabs(self, num_tabs, selected_tab):
         child_link_tabs = self.driver.find_element_by_id(CHILD_LINKS_TABS_ID)
@@ -53,7 +53,7 @@ class ChildLinksTest(unittest.TestCase):
 
     def test_changing_tabs_ent(self):
         self.search_by_unit_id(ENTREF)
-        self.assertEqual(self.driver.current_url, f'{BASE_URL}/periods/{PERIOD}/types/ENT/units/{ENTREF}')
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/ENT/units/{ENTREF}')
         tabs = self.assert_tabs_length_and_return_tabs(5, LEU_TAB)
         tab_ids = [LEU_TAB, LU_TAB, CH_TAB, PAYE_TAB, VAT_TAB]  # Actual order of tabs
         expected_tabs_text = ['LEU (1)', 'LU (1)', 'CRN (1)', 'PAYE (1)', 'VAT (1)']  # Expected tab text
@@ -64,7 +64,7 @@ class ChildLinksTest(unittest.TestCase):
 
     def test_changing_tabs_leu(self):
         self.search_by_unit_id(UBRN)
-        self.assertEqual(self.driver.current_url, f'{BASE_URL}/periods/{PERIOD}/types/LEU/units/{UBRN}')
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/LEU/units/{UBRN}')
         tabs = self.assert_tabs_length_and_return_tabs(3, CH_TAB)
         tab_ids = [CH_TAB, PAYE_TAB, VAT_TAB]  # Actual order of tabs
         expected_tabs_text = ['CRN (1)', 'PAYE (1)', 'VAT (1)']  # Expected tab text
