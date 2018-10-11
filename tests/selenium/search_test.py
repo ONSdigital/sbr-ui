@@ -46,10 +46,10 @@ class SearchTest(unittest.TestCase):
         self.driver.find_element_by_id(SEARCH_BUTTON_ID).click()
         self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/ENT/units/{ENTREF}')
 
-    def test_search_lu(self):
+    def test_search_lou(self):
         self.driver.find_element_by_id(SEARCH_INPUT_ID).send_keys(LURN)
         self.driver.find_element_by_id(SEARCH_BUTTON_ID).click()
-        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/LU/units/{LURN}')
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/LOU/units/{LURN}')
 
     def test_search_leu(self):
         self.driver.find_element_by_id(SEARCH_INPUT_ID).send_keys(UBRN)

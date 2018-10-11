@@ -53,12 +53,12 @@ class BreadcrumbTest(unittest.TestCase):
         self.assert_breadcrumb_search_href()
         self.assert_current_breadcrumb_item_text(f'ENT - {ENTREF}')
 
-    def test_lu_breadcrumb(self):
+    def test_lou_breadcrumb(self):
         self.driver.find_element_by_id(SEARCH_INPUT_ID).send_keys(LURN)
         self.driver.find_element_by_id(SEARCH_BUTTON_ID).click()
-        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/LU/units/{LURN}')
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/LOU/units/{LURN}')
         self.assert_breadcrumb_search_href()
-        self.assert_current_breadcrumb_item_text(f'LU - {LURN}')
+        self.assert_current_breadcrumb_item_text(f'LOU - {LURN}')
         self.assert_breadcrumb_item_text_and_url(BREADCRUMB_ENT_ID, ENTREF, 'ENT', PERIOD)
 
     def test_leu_breadcrumb(self):

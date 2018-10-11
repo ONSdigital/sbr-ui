@@ -36,7 +36,7 @@ def test_search_by_id_leu(search, app):
     assert json == legal_unit
 
 @responses.activate
-def test_search_by_id_lu(search, app):
+def test_search_by_id_lou(search, app):
     target_id = "3"
     url = f'http://localhost:9000/v1/search/{target_id}'
     responses.add(responses.GET, url, json=local_unit, status=200)
@@ -116,9 +116,9 @@ def test_search_by_id_type_period_leu(search, app):
     assert json == legal_unit
 
 @responses.activate
-def test_search_by_id_type_period_lu(search, app):
+def test_search_by_id_type_period_lou(search, app):
     target_id = "3"
-    target_unit_type = "LU"
+    target_unit_type = "LOU"
     target_period = "201810"
     url = f'http://localhost:9000/v1/periods/{target_period}/lous/{target_id}'
     responses.add(responses.GET, url, json=local_unit, status=200)

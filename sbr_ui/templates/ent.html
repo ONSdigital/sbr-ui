@@ -91,7 +91,7 @@
             <div class="col-12">
                 <ul id="childLinksTabs" class="tabs clearfix u-mb-l" data-tabgroup="first-tab-group">
                   <li><a id="leuTab" href="#tab1" class="active">LEU ({{json['children']['LEU'] | count}})</a></li>
-                  <li><a id="luTab" href="#tab2">LU ({{json['children']['LU'] | count}})</a></li>
+                  <li><a id="louTab" href="#tab2">LOU ({{json['children']['LOU'] | count}})</a></li>
                   <li><a id="chTab" href="#tab3">CRN ({{json['children']['CH'] | count}})</a></li>
                   <li><a id="payeTab" href="#tab4">PAYE ({{json['children']['PAYE'] | count}})</a></li>
                   <li><a id="vatTab" href="#tab5">VAT ({{json['children']['VAT'] | count}})</a></li>
@@ -110,13 +110,13 @@
                         </table>
                     </div>
                     <div id="tab2">
-                        <table id="luChildLinksTable" class="unit-info">
+                        <table id="louChildLinksTable" class="unit-info">
                             <tr>
                                 <th class="venus legal">Local Unit</th>
                             </tr>
-                            {% for id in json['children']['LU'] %}
+                            {% for id in json['children']['LOU'] %}
                             <tr>
-                                <td class="mars legal"><a href="/Search/periods/{{json['period']}}/types/LU/units/{{id}}" class="mars">{{id}}</a></td>
+                                <td class="mars legal"><a href="/Search/periods/{{json['period']}}/types/LOU/units/{{id}}" class="mars">{{id}}</a></td>
                             </tr>
                             {% endfor %}
                         </table>

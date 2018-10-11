@@ -46,11 +46,11 @@ def leu(unit_id, period):
     return render_template('leu.html', json=formatted_json)
 
 
-@unit_pages_bp.route('/periods/<period>/types/LU/units/<unit_id>', methods=['GET'])
+@unit_pages_bp.route('/periods/<period>/types/LOU/units/<unit_id>', methods=['GET'])
 @login_required
-def lu(unit_id, period):
-    json = get_json_from_session_or_api(unit_id, 'LU', period)
-    return render_template('lu.html', json=json)
+def lou(unit_id, period):
+    json = get_json_from_session_or_api(unit_id, 'LOU', period)
+    return render_template('lou.html', json=json)
 
 
 @unit_pages_bp.route('/periods/<period>/types/CH/units/<unit_id>', methods=['GET'])
@@ -95,5 +95,5 @@ def redirect_to_unit_page(unit_id, unit_type, period):
         return redirect(url_for('unit_pages_bp.ch', unit_id=unit_id, period=period))
     elif unit_type == "ENT":
         return redirect(url_for('unit_pages_bp.ent', unit_id=unit_id, period=period))
-    elif unit_type == "LU":
-        return redirect(url_for('unit_pages_bp.lu', unit_id=unit_id, period=period))
+    elif unit_type == "LOU":
+        return redirect(url_for('unit_pages_bp.lou', unit_id=unit_id, period=period))
