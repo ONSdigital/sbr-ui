@@ -34,9 +34,10 @@ class TestHelperMethods(object):
         assert base_64_encode("abcd") == b'YWJjZA=='
 
     def test_format_children_single(self):
-        assert format_children({"2": "LEU","3": "LOU","4": "CH","5": "PAYE","6": "VAT"}) == {
+        assert format_children({"2": "LEU","3": "LOU","4": "CH","5": "PAYE","6": "VAT", "7": "REU"}) == {
             "LEU": ["2"],
             "LOU": ["3"],
+            "REU": ["7"],
             "CH": ["4"],
             "PAYE": ["5"],
             "VAT": ["6"]

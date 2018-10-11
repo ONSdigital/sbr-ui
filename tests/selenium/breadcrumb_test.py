@@ -7,7 +7,7 @@ from tests.constants import BASE_URL, SEARCH_URL
 from tests.constants import BREADCRUMB_SEARCH_ID, BREADCRUMB_SELECTED_ID, BREADCRUMB_ENT_ID, BREADCRUMB_LEU_ID
 from tests.constants import SEARCH_BUTTON_ID
 from tests.constants import USERNAME_INPUT_ID, PASSWORD_INPUT_ID, SEARCH_INPUT_ID, LOGIN_BUTTON_ID, LOGOUT_BUTTON_ID
-from tests.constants import ENTREF, UBRN, LURN, VATREF, PAYEREF, CRN, PERIOD
+from tests.constants import ENTREF, UBRN, RURN, LURN, VATREF, PAYEREF, CRN, PERIOD
 from tests.constants import ADMIN_USERNAME, ADMIN_PASSWORD
 
 
@@ -59,6 +59,14 @@ class BreadcrumbTest(unittest.TestCase):
         self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/LOU/units/{LURN}')
         self.assert_breadcrumb_search_href()
         self.assert_current_breadcrumb_item_text(f'LOU - {LURN}')
+        self.assert_breadcrumb_item_text_and_url(BREADCRUMB_ENT_ID, ENTREF, 'ENT', PERIOD)
+
+    def test_reu_breadcrumb(self):
+        self.driver.find_element_by_id(SEARCH_INPUT_ID).send_keys(RURN)
+        self.driver.find_element_by_id(SEARCH_BUTTON_ID).click()
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/REU/units/{RURN}')
+        self.assert_breadcrumb_search_href()
+        self.assert_current_breadcrumb_item_text(f'REU - {RURN}')
         self.assert_breadcrumb_item_text_and_url(BREADCRUMB_ENT_ID, ENTREF, 'ENT', PERIOD)
 
     def test_leu_breadcrumb(self):

@@ -4,7 +4,7 @@ from selenium.common.exceptions import NoSuchElementException
 
 from tests.helper_methods import create_selenium_config
 
-from tests.constants import BASE_URL, ERROR_URL, SEARCH_URL
+from tests.constants import BASE_URL, ERROR_URL, SEARCH_URL, RURN
 from tests.constants import SBR_DESCRIPTION_ID, SEARCH_BUTTON_ID
 from tests.constants import USERNAME_INPUT_ID, PASSWORD_INPUT_ID, SEARCH_INPUT_ID, LOGIN_BUTTON_ID, LOGOUT_BUTTON_ID
 from tests.constants import ENTREF, UBRN, LURN, VATREF, PAYEREF, CRN, PERIOD
@@ -50,6 +50,11 @@ class SearchTest(unittest.TestCase):
         self.driver.find_element_by_id(SEARCH_INPUT_ID).send_keys(LURN)
         self.driver.find_element_by_id(SEARCH_BUTTON_ID).click()
         self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/LOU/units/{LURN}')
+
+    def test_search_reu(self):
+        self.driver.find_element_by_id(SEARCH_INPUT_ID).send_keys(RURN)
+        self.driver.find_element_by_id(SEARCH_BUTTON_ID).click()
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/REU/units/{RURN}')
 
     def test_search_leu(self):
         self.driver.find_element_by_id(SEARCH_INPUT_ID).send_keys(UBRN)
