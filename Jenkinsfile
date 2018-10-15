@@ -41,8 +41,8 @@ pipeline {
             agent { label "build.python_3.3.0" }
             steps {
                 unstash name: 'Checkout'
-                sh "python -m venv venv"
-                sh "source venv/bin/activate"
+                //sh "python -m venv venv"
+                //sh "source venv/bin/activate"
                 sh "pip install -r requirements.txt"
             }
             post {
