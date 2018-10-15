@@ -42,6 +42,7 @@ pipeline {
             steps {
                 unstash name: 'Checkout'
                 sh 'python --version'
+                sh 'python3 --version'
                 sh 'pip --version'
                 //sh "python -m venv venv"
                 //sh "source venv/bin/activate"
