@@ -14,7 +14,6 @@ pipeline {
         SVC_NAME = "sbr-ui"
         ORG = "SBR"
         LANG = "en_US.UTF-8"
-        PYTHON_VERSION = "3.3.0"
     }
     options {
         skipDefaultCheckout()
@@ -39,7 +38,7 @@ pipeline {
         }
 
         stage('Build'){
-            agent { label "build.python_${PYTHON_VERSION}" }
+            agent { label "build.python_3.3.0" }
             steps {
                 unstash name: 'Checkout'
                 sh "python3 -m venv venv"
@@ -60,7 +59,7 @@ pipeline {
             failFast true
             parallel {
                 stage('Test: Unit'){
-                    agent { label "build.python_${PYTHON_VERSION}" }
+                    agent { label "build.python_3.3.0" }
                     steps {
                         unstash name: 'Checkout'
                         sh 'ENVIRONMENT=TEST pytest --ignore=tests/selenium'
@@ -87,7 +86,7 @@ pipeline {
         }
 
         stage('Test: Acceptance') {
-            agent { label "build.python_${PYTHON_VERSION}" }
+            agent { label "build.python_3.3.0" }
             steps {
                 unstash name: 'Checkout'
                 sh "pytest tests/selenium/"
@@ -103,7 +102,7 @@ pipeline {
         }
 
         stage ('Publish') {
-            agent { label "build.python_${PYTHON_VERSION}" }
+            agent { label "build.python_3.3.0" }
             when {
                 branch "master"
                 // evaluate the when condition before entering this stage's agent, if any
