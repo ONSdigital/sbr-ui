@@ -41,6 +41,8 @@ pipeline {
             agent { label "build.python_3.3.0" }
             steps {
                 unstash name: 'Checkout'
+                sh 'python --version'
+                sh 'pip --version'
                 //sh "python -m venv venv"
                 //sh "source venv/bin/activate"
                 sh "source .envrc"
