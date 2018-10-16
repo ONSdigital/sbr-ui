@@ -46,7 +46,7 @@ pipeline {
                 //sh 'pip --version'
                 //sh "python -m venv venv"
                 //sh "source venv/bin/activate"
-                sh "source .envrc"
+                //sh "source .envrc"
                 sh "pip install -r requirements.txt"
             }
             post {
