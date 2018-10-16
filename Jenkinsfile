@@ -42,6 +42,9 @@ pipeline {
             steps {
                 unstash name: 'Checkout'
                 sh 'python --version'
+                sh 'echo $PATH'
+                sh "echo $PATH | tr ':' '\n'  || true"
+                sh "which python"
                 sh 'python3 --version'
                 //sh 'pip --version'
                 //sh "python -m venv venv"
