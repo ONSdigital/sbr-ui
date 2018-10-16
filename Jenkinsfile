@@ -38,7 +38,7 @@ pipeline {
         }
 
         stage('Build'){
-            agent { label "build.python_3.3.0" }
+            agent { label "build.python_3-3-0" }
             steps {
                 unstash name: 'Checkout'
                 sh 'python --version'
@@ -63,7 +63,7 @@ pipeline {
             failFast true
             parallel {
                 stage('Test: Unit'){
-                    agent { label "build.python_3.3.0" }
+                    agent { label "build.python_3-3-0" }
                     steps {
                         unstash name: 'Checkout'
                         sh 'ENVIRONMENT=TEST pytest --ignore=tests/selenium'
