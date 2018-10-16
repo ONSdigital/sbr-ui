@@ -43,6 +43,7 @@ pipeline {
                 unstash name: 'Checkout'
                 sh 'python --version'
                 sh '/usr/local/bin/python3.3 --version'
+                sh 'chmod 777 /usr/local/lib/python3.3/'
                 sh '/usr/local/bin/python3.3 get-pip.py'
                 sh 'pip --version'
                 //sh $echo $PATH | tr ':' '\n'  | xargs -I %  sh -c "echo \"Checking %\";  ls -l % 2>/dev/null | grep -i 'py\|python\|pip'$
