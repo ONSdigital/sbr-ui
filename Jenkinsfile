@@ -42,6 +42,7 @@ pipeline {
             steps {
                 unstash name: 'Checkout'
                 sh 'python --version'
+                sh """echo $PATH | tr ':' '\n'  | xargs -I %  sh -c "echo \"Checking %\";  ls -l % 2>/dev/null | grep -i 'py\|python\|pip'""""
                 sh 'echo $PATH'
                 sh "echo $PATH | tr ':' '\n'  || true"
                 sh "which python"
