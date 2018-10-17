@@ -50,9 +50,10 @@ Run the server in development mode, with hot-reloading:
 FLASK_APP=run.py FLASK_DEBUG=1 ENVIRONMENT=DEV python3 -m flask run
 ```
 
-Note: `USE_FAKE_DATA=True` can be passed in to allow the application to run without `sbr-api`. The test data is held [here](./sbr_ui/utilities/units.py).
+Note: `USE_FAKE_DATA=True` can be passed in to allow the application to run without `sbr-api`. The test data is held [here](./test_data.py).
 
 The user interface can be accessed on http://localhost:5000.
+With the default `ENVIRONMENT` (`DEV`), login with `admin/admin`
 
 ## Environment Variables
 
