@@ -3,12 +3,13 @@ from selenium import webdriver
 
 from tests.helper_methods import create_selenium_config
 
-from tests.constants import BASE_URL, SEARCH_URL, REU_CHILD_TABLE, RURN, UNIT_TYPE_INPUT_ID, PERIOD_INPUT_ID
+from tests.constants import BASE_URL, SEARCH_URL
+from tests.constants import LEGAL_UNIT, LOCAL_UNIT, REPORTING_UNIT, COMPANY_HOUSE, VALUE_ADDED_TAX, PAY_AS_YOU_EARN, ENTERPRISE
 from tests.constants import CHILD_LINKS_TABS_ID, LEU_TAB, LOU_TAB, REU_TAB, CH_TAB, PAYE_TAB, VAT_TAB
 from tests.constants import LEU_CHILD_TABLE, LOU_CHILD_TABLE, CH_CHILD_TABLE, VAT_CHILD_TABLE, PAYE_CHILD_TABLE
-from tests.constants import SEARCH_BUTTON_ID
+from tests.constants import SEARCH_BUTTON_ID, REU_CHILD_TABLE, UNIT_TYPE_INPUT_ID, PERIOD_INPUT_ID
 from tests.constants import USERNAME_INPUT_ID, PASSWORD_INPUT_ID, SEARCH_INPUT_ID, LOGIN_BUTTON_ID, LOGOUT_BUTTON_ID
-from tests.constants import ENTREF, UBRN, LURN, VATREF, PAYEREF, CRN, PERIOD
+from tests.constants import ERN, UBRN, LURN, VATREF, PAYEREF, CRN, RURN, PERIOD
 from tests.constants import ADMIN_USERNAME, ADMIN_PASSWORD
 
 
@@ -40,8 +41,8 @@ class ChildLinksTest(unittest.TestCase):
 
     def assert_child_links_table_urls(self, child_table_id, unit_type, unit_id):
         """ TODO: update this method to handle multiple child links in each table """
-        self.search_by_unit_id_type_period(ENTREF, 'ENT', '201810')
-        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/ENT/units/{ENTREF}')
+        self.search_by_unit_id_type_period(ERN, ENTERPRISE, '201810')
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/{ENTERPRISE}/units/{ERN}')
         child_table = self.driver.find_element_by_id(child_table_id)
         url = child_table.find_elements_by_tag_name('a')[0].get_attribute('href')
         self.assertEqual(url, f'{SEARCH_URL}/periods/{PERIOD}/types/{unit_type}/units/{unit_id}')
@@ -54,8 +55,8 @@ class ChildLinksTest(unittest.TestCase):
         return tabs
 
     def test_changing_tabs_ent(self):
-        self.search_by_unit_id_type_period(ENTREF, 'ENT', '201810')
-        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/ENT/units/{ENTREF}')
+        self.search_by_unit_id_type_period(ERN, ENTERPRISE, '201810')
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/{ENTERPRISE}/units/{ERN}')
         tabs = self.assert_tabs_length_and_return_tabs(6, LEU_TAB)
         tab_ids = [LEU_TAB, LOU_TAB, REU_TAB, CH_TAB, PAYE_TAB, VAT_TAB]  # Actual order of tabs
         expected_tabs_text = ['LEU (1)', 'LOU (1)', 'REU (1)', 'CRN (1)', 'PAYE (1)', 'VAT (1)']  # Expected tab text
@@ -65,8 +66,8 @@ class ChildLinksTest(unittest.TestCase):
             self.assertEqual(tab.text, expected_tab_text)
 
     def test_changing_tabs_leu(self):
-        self.search_by_unit_id_type_period(UBRN, 'LEU', '201810')
-        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/LEU/units/{UBRN}')
+        self.search_by_unit_id_type_period(UBRN, LEGAL_UNIT, '201810')
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/{LEGAL_UNIT}/units/{UBRN}')
         tabs = self.assert_tabs_length_and_return_tabs(3, CH_TAB)
         tab_ids = [CH_TAB, PAYE_TAB, VAT_TAB]  # Actual order of tabs
         expected_tabs_text = ['CRN (1)', 'PAYE (1)', 'VAT (1)']  # Expected tab text
@@ -76,22 +77,22 @@ class ChildLinksTest(unittest.TestCase):
             self.assertEqual(tab.text, expected_tab_text)
 
     def test_leu_child_table_links(self):
-        self.assert_child_links_table_urls(LEU_CHILD_TABLE, 'LEU', UBRN)
+        self.assert_child_links_table_urls(LEU_CHILD_TABLE, LEGAL_UNIT, UBRN)
 
     def test_lou_child_table_links(self):
-        self.assert_child_links_table_urls(LOU_CHILD_TABLE, 'LOU', LURN)
+        self.assert_child_links_table_urls(LOU_CHILD_TABLE, LOCAL_UNIT, LURN)
 
     def test_reu_child_table_links(self):
-        self.assert_child_links_table_urls(REU_CHILD_TABLE, 'REU', RURN)
+        self.assert_child_links_table_urls(REU_CHILD_TABLE, REPORTING_UNIT, RURN)
 
     def test_ch_child_table_links(self):
-        self.assert_child_links_table_urls(CH_CHILD_TABLE, 'CH', CRN)
+        self.assert_child_links_table_urls(CH_CHILD_TABLE, COMPANY_HOUSE, CRN)
 
     def test_vat_child_table_links(self):
-        self.assert_child_links_table_urls(VAT_CHILD_TABLE, 'VAT', VATREF)
+        self.assert_child_links_table_urls(VAT_CHILD_TABLE, VALUE_ADDED_TAX, VATREF)
 
     def test_paye_child_table_links(self):
-        self.assert_child_links_table_urls(PAYE_CHILD_TABLE, 'PAYE', PAYEREF)
+        self.assert_child_links_table_urls(PAYE_CHILD_TABLE, PAY_AS_YOU_EARN, PAYEREF)
 
 
 if __name__ == '__main__':

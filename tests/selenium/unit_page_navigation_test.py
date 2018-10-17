@@ -5,9 +5,10 @@ from tests.helper_methods import flatten, create_selenium_config
 from test_data import enterprise, legal_unit
 
 from tests.constants import BASE_URL, SEARCH_URL, UNIT_TYPE_INPUT_ID, PERIOD_INPUT_ID, BREADCRUMB_ENT_ID
+from tests.constants import ENTERPRISE, LEGAL_UNIT
 from tests.constants import SEARCH_BUTTON_ID
 from tests.constants import USERNAME_INPUT_ID, PASSWORD_INPUT_ID, SEARCH_INPUT_ID, LOGIN_BUTTON_ID, LOGOUT_BUTTON_ID
-from tests.constants import ENTREF, UBRN, PERIOD
+from tests.constants import ERN, UBRN, PERIOD
 from tests.constants import ADMIN_USERNAME, ADMIN_PASSWORD
 
 
@@ -46,14 +47,14 @@ class UnitPageNavigationTest(unittest.TestCase):
 
     def test_browser_back_button_leu_to_ent(self):
         """ To ensure there aren't caching issues, we need to test the browser back button. """
-        self.search_by_unit_id_type_period(UBRN, 'LEU', PERIOD)
-        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/LEU/units/{UBRN}')
+        self.search_by_unit_id_type_period(UBRN, LEGAL_UNIT, PERIOD)
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/{LEGAL_UNIT}/units/{UBRN}')
         self.assert_dict_values_present_on_page(legal_unit.get('vars'))
         self.driver.find_element_by_id(BREADCRUMB_ENT_ID).click()
-        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/ENT/units/{ENTREF}')
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/{ENTERPRISE}/units/{ERN}')
         self.assert_dict_values_present_on_page(enterprise.get('vars'))
         self.driver.back()
-        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/LEU/units/{UBRN}')
+        self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/{LEGAL_UNIT}/units/{UBRN}')
         self.assert_dict_values_present_on_page(legal_unit.get('vars'))
 
 

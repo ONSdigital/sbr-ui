@@ -1,17 +1,17 @@
 enterprise = {
-    "id": "1",
+    "id": "1234567890",
     "unitType": "ENT",
     "period": "201810",
     "children": {
-        "2": "LEU",
-        "3": "LOU",
-        "7": "REU",
-        "4": "CH",
-        "5": "PAYE",
-        "6": "VAT"
+        "7584930284759231": "LEU",
+        "849204991": "LOU",
+        "78391432987": "REU",
+        "44599148": "CH",
+        "736FB28947": "PAYE",
+        "663828891038": "VAT"
     },
     "vars": {
-        "ern": "1",
+        "ern": "1234567890",
         "entref": "879372942",
         "name": "Tesco",
         "tradingStyle": "3",
@@ -40,19 +40,19 @@ enterprise = {
 }
 
 legal_unit = {
-    "id": "2",
+    "id": "7584930284759231",
     "unitType": "LEU",
     "period": "201810",
     "parents": {
-        "ENT": "1"
+        "ENT": "1234567890"
     },
     "children": {
-        "4": "CH",
-        "5": "PAYE",
-        "6": "VAT"
+        "44599148": "CH",
+        "736FB28947": "PAYE",
+        "663828891038": "VAT"
     },
     "vars": {
-        "ubrn": "2",
+        "ubrn": "7584930284759231",
         "name": "Asda Stores",
         "legalStatus": "7",
         "tradingStatus": "A",
@@ -77,18 +77,18 @@ legal_unit = {
 }
 
 local_unit = {
-    "id": "3",
+    "id": "849204991",
     "unitType": "LOU",
     "period": "201810",
     "parents": {
-        "ENT": "1"
+        "ENT": "1234567890"
     },
     "vars": {
         "name": "Morrisons",
-        "lurn": "3",
+        "lurn": "849204991",
         "luref": "82397243",
-        "enterprise": { "ern": "1", "entref": "871823979123" },
-        "reportingUnit": { "rurn": "234234234", "ruref": "83749272479" },
+        "enterprise": { "ern": "1234567890", "entref": "871823979123" },
+        "reportingUnit": { "rurn": "78391432987", "ruref": "83749272479" },
         "tradingStyle": "2",
         "sic07": "35230",
         "employees": "4",
@@ -107,12 +107,12 @@ local_unit = {
 }
 
 company_house = {
-    "id": "4",
+    "id": "44599148",
     "unitType": "CH",
     "period": "201810",
     "parents": {
-        "ENT": "1",
-        "LEU": "2"
+        "ENT": "1234567890",
+        "LEU": "7584930284759231"
     },
     "vars": {
         "businessName": "Waitrose",
@@ -126,12 +126,12 @@ company_house = {
 }
 
 pay_as_you_earn = {
-    "id": "5",
+    "id": "736FB28947",
     "unitType": "PAYE",
     "period": "201810",
     "parents": {
-        "ENT": "1",
-        "LEU": "2"
+        "ENT": "1234567890",
+        "LEU": "7584930284759231"
     },
     "vars": {
         "businessName": "Booths",
@@ -145,12 +145,12 @@ pay_as_you_earn = {
 }
 
 value_added_tax = {
-    "id": "6",
+    "id": "663828891038",
     "unitType": "VAT",
     "period": "201810",
     "parents": {
-        "ENT": "1",
-        "LEU": "2"
+        "ENT": "1234567890",
+        "LEU": "7584930284759231"
     },
     "vars": {
         "businessName": "Aldi",
@@ -164,16 +164,16 @@ value_added_tax = {
 }
 
 reporting_unit = {
-    "id": "7",
+    "id": "78391432987",
     "unitType": "REU",
     "period": "201810",
     "parents": {
-        "ENT": "1"
+        "ENT": "1234567890"
     },
     "vars": {
-        "rurn": "7",
+        "rurn": "78391432987",
         "ruref": "123837",
-        "ern": "1",
+        "ern": "1234567890",
         "entref": "334112",
         "name": "Booths",
         "tradingStyle": "Booths Limited",
