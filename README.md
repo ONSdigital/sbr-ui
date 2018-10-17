@@ -61,8 +61,8 @@ The user interface can be accessed on http://localhost:5000.
 | ENVIRONMENT          | DEV                        |
 | USE_FAKE_DATA        | False                      |
 | LOG_LEVEL            | INFO                       |
-| API_TIMEOUT          | 10 (seconds)               |
-| AUTH_TIMEOUT         | 10 (seconds)               |
+| API_TIMEOUT          | 2 (seconds)                |
+| AUTH_TIMEOUT         | 2 (seconds)                |
 | AUTH_URL             | http://localhost:3002/auth |
 | API_URL              | http://localhost:9000      |
 | SECRET_KEY           | change_me                  |
