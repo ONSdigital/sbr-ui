@@ -5,7 +5,7 @@ from tests.helper_methods import flatten, create_selenium_config
 from test_data import enterprise, legal_unit, local_unit, company_house, value_added_tax, pay_as_you_earn, \
     reporting_unit
 
-from tests.constants import BASE_URL, SEARCH_URL, RURN
+from tests.constants import BASE_URL, SEARCH_URL, RURN, UNIT_TYPE_INPUT_ID, PERIOD_INPUT_ID
 from tests.constants import SEARCH_BUTTON_ID, UNIT_NAME_ID, UNIT_BADGE_ID, UNIT_ID_ID
 from tests.constants import USERNAME_INPUT_ID, PASSWORD_INPUT_ID, SEARCH_INPUT_ID, LOGIN_BUTTON_ID, LOGOUT_BUTTON_ID
 from tests.constants import ENTREF, UBRN, LURN, VATREF, PAYEREF, CRN, PERIOD
@@ -33,8 +33,10 @@ class UnitPageTest(unittest.TestCase):
         self.driver.find_element_by_id(LOGOUT_BUTTON_ID).click()
         self.driver.quit()
 
-    def search_by_unit_id(self, unit_id):
+    def search_by_unit_id_type_period(self, unit_id, unit_type, period):
         self.driver.find_element_by_id(SEARCH_INPUT_ID).send_keys(unit_id)
+        self.driver.find_element_by_id(UNIT_TYPE_INPUT_ID).send_keys(unit_type)
+        self.driver.find_element_by_id(PERIOD_INPUT_ID).send_keys(period)
         self.driver.find_element_by_id(SEARCH_BUTTON_ID).click()
 
     def assert_title(self, title_id, expected_title):
@@ -51,7 +53,7 @@ class UnitPageTest(unittest.TestCase):
             self.assertTrue(unit_variable in self.driver.page_source)
 
     def test_ent_page_contents(self):
-        self.search_by_unit_id(ENTREF)
+        self.search_by_unit_id_type_period(ENTREF, 'ENT', '201810')
         self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/ENT/units/{ENTREF}')
         self.assert_title(UNIT_NAME_ID, enterprise.get('vars').get('name'))
         self.assertEqual(self.driver.find_element_by_id(UNIT_BADGE_ID).text, 'ENTERPRISE')
@@ -59,7 +61,7 @@ class UnitPageTest(unittest.TestCase):
         self.assert_dict_values_present_on_page(enterprise.get('vars'))
 
     def test_leu_page_contents(self):
-        self.search_by_unit_id(UBRN)
+        self.search_by_unit_id_type_period(UBRN, 'LEU', '201810')
         self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/LEU/units/{UBRN}')
         self.assert_title(UNIT_NAME_ID, legal_unit.get('vars').get('name'))
         self.assertEqual(self.driver.find_element_by_id(UNIT_BADGE_ID).text, 'LEGAL UNIT')
@@ -67,7 +69,7 @@ class UnitPageTest(unittest.TestCase):
         self.assert_dict_values_present_on_page(legal_unit.get('vars'))
 
     def test_lou_page_contents(self):
-        self.search_by_unit_id(LURN)
+        self.search_by_unit_id_type_period(LURN, 'LOU', '201810')
         self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/LOU/units/{LURN}')
         self.assert_title(UNIT_NAME_ID, local_unit.get('vars').get('name'))
         self.assertEqual(self.driver.find_element_by_id(UNIT_BADGE_ID).text, 'LOCAL UNIT')
@@ -75,7 +77,7 @@ class UnitPageTest(unittest.TestCase):
         self.assert_dict_values_present_on_page(local_unit.get('vars'))
 
     def test_reu_page_contents(self):
-        self.search_by_unit_id(RURN)
+        self.search_by_unit_id_type_period(RURN, 'REU', '201810')
         self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/REU/units/{RURN}')
         self.assert_title(UNIT_NAME_ID, reporting_unit.get('vars').get('name'))
         self.assertEqual(self.driver.find_element_by_id(UNIT_BADGE_ID).text, 'REPORTING UNIT')
@@ -83,7 +85,7 @@ class UnitPageTest(unittest.TestCase):
         self.assert_dict_values_present_on_page(reporting_unit.get('vars'))
 
     def test_ch_page_contents(self):
-        self.search_by_unit_id(CRN)
+        self.search_by_unit_id_type_period(CRN, 'CH', '201810')
         self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/CH/units/{CRN}')
         self.assert_title(UNIT_NAME_ID, company_house.get('vars').get('businessName'))
         self.assertEqual(self.driver.find_element_by_id(UNIT_BADGE_ID).text, 'COMPANY HOUSE')
@@ -91,7 +93,7 @@ class UnitPageTest(unittest.TestCase):
         self.assert_dict_values_present_on_page(company_house.get('vars'))
 
     def test_vat_page_contents(self):
-        self.search_by_unit_id(VATREF)
+        self.search_by_unit_id_type_period(VATREF, 'VAT', '201810')
         self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/VAT/units/{VATREF}')
         self.assert_title(UNIT_NAME_ID, value_added_tax.get('vars').get('businessName'))
         self.assertEqual(self.driver.find_element_by_id(UNIT_BADGE_ID).text, 'VALUE ADDED TAX')
@@ -99,7 +101,7 @@ class UnitPageTest(unittest.TestCase):
         self.assert_dict_values_present_on_page(value_added_tax.get('vars'))
 
     def test_paye_page_contents(self):
-        self.search_by_unit_id(PAYEREF)
+        self.search_by_unit_id_type_period(PAYEREF, 'PAYE', '201810')
         self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/PAYE/units/{PAYEREF}')
         self.assert_title(UNIT_NAME_ID, pay_as_you_earn.get('vars').get('businessName'))
         self.assertEqual(self.driver.find_element_by_id(UNIT_BADGE_ID).text, 'PAY AS YOU EARN')
