@@ -34,7 +34,7 @@
                         <table class="unit-info">
                             <tr>
                                 <th class="mars">Reporting Unit Ref</th>
-                                <td class="venus">{{json['vars']['ruref']}}</td>
+                                <td class="venus">{{json['vars'].get('ruref', '')}}</td>
                             </tr>
                             <tr>
                                 <th class="mars">Enterprise Reference Number</th>
@@ -42,11 +42,11 @@
                              </tr>
                             <tr>
                                 <th class="mars">Enterprise Ref</th>
-                                <td class="venus">{{json['vars']['entref']}}</td>
+                                <td class="venus">{{json['vars'].get('entref', '')}}</td>
                              </tr>
                             <tr>
                                 <th class="mars">Trading Style</th>
-                                <td class="venus">{{json['vars']['tradingStyle']}}</td>
+                                <td class="venus">{{json['vars'].get('tradingStyle', '')}}</td>
                              </tr>
                             <tr>
                                 <th class="mars">Legal Status</th>

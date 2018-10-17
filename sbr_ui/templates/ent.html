@@ -29,12 +29,12 @@
 					<div class="panel panel--simple panel--info u-mb-l">
                         <table class="unit-info">
                             <tr>
-                                <th class="mars">Enterprise Reference Number</th>
-                                <td class="venus">{{json['vars']['entref']}}</td>
+                                <th class="mars">Enterprise Reference</th>
+                                <td class="venus">{{json['vars'].get('entref', '')}}</td>
                             </tr>
                             <tr>
                                 <th class="mars">Trading Style</th>
-                                <td class="venus">{{json['vars']['tradingStyle']}}</td>
+                                <td class="venus">{{json['vars'].get('tradingStyle', '')}}</td>
                             </tr>
                             <tr>
                                 <th class="mars">Sic 07</th>
@@ -46,15 +46,15 @@
                              </tr>
                                 <tr>
                                 <th class="mars">Employees</th>
-                                <td class="venus">{{json['vars']['employees']}}</td>
+                                <td class="venus">{{json['vars'].get('employees', '')}}</td>
                              </tr>
                                 <tr>
                                 <th class="mars">Jobs</th>
-                                <td class="venus">{{json['vars']['jobs']}}</td>
+                                <td class="venus">{{json['vars'].get('jobs', '')}}</td>
                              </tr>
                                 <tr>
                                 <th class="mars">Turnover</th>
-                                <td class="venus">{{json['vars']['turnover']}}</td>
+                                <td class="venus">{{json['vars'].get('turnover', '')}}</td>
                              </tr>
                                 <tr>
                                 <th class="mars">PRN</th>
@@ -77,6 +77,15 @@
                              </tr>
                             </tr>
                                 <tr>
+                                <th class="mars">Imputed Employees</th>
+                                <td class="venus">{{json['vars'].get('imputed').get('employees')}}</td>
+                             </tr>
+                            </tr>
+                                <tr>
+                                <th class="mars">Imputed Turnover</th>
+                                <td class="venus">{{json['vars'].get('imputed').get('turnover')}}</td>
+                             </tr>
+                            <tr>
                                 <th class="mars">Address</th>
                                 <td class="venus">{{", ".join(json['vars']['address'].values())}}</td>
                              </tr>
