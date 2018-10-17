@@ -3,7 +3,7 @@ from selenium import webdriver
 
 from tests.helper_methods import create_selenium_config
 
-from tests.constants import BASE_URL, SEARCH_URL, REU_CHILD_TABLE, RURN
+from tests.constants import BASE_URL, SEARCH_URL, REU_CHILD_TABLE, RURN, UNIT_TYPE_INPUT_ID, PERIOD_INPUT_ID
 from tests.constants import CHILD_LINKS_TABS_ID, LEU_TAB, LOU_TAB, REU_TAB, CH_TAB, PAYE_TAB, VAT_TAB
 from tests.constants import LEU_CHILD_TABLE, LOU_CHILD_TABLE, CH_CHILD_TABLE, VAT_CHILD_TABLE, PAYE_CHILD_TABLE
 from tests.constants import SEARCH_BUTTON_ID
@@ -27,8 +27,10 @@ class ChildLinksTest(unittest.TestCase):
         self.driver.find_element_by_id(LOGOUT_BUTTON_ID).click()
         self.driver.quit()
 
-    def search_by_unit_id(self, unit_id):
+    def search_by_unit_id_type_period(self, unit_id, unit_type, period):
         self.driver.find_element_by_id(SEARCH_INPUT_ID).send_keys(unit_id)
+        self.driver.find_element_by_id(UNIT_TYPE_INPUT_ID).send_keys(unit_type)
+        self.driver.find_element_by_id(PERIOD_INPUT_ID).send_keys(period)
         self.driver.find_element_by_id(SEARCH_BUTTON_ID).click()
 
     def assert_tab_is_selected(self, tab_id):
@@ -38,7 +40,7 @@ class ChildLinksTest(unittest.TestCase):
 
     def assert_child_links_table_urls(self, child_table_id, unit_type, unit_id):
         """ TODO: update this method to handle multiple child links in each table """
-        self.search_by_unit_id(ENTREF)
+        self.search_by_unit_id_type_period(ENTREF, 'ENT', '201810')
         self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/ENT/units/{ENTREF}')
         child_table = self.driver.find_element_by_id(child_table_id)
         url = child_table.find_elements_by_tag_name('a')[0].get_attribute('href')
@@ -52,7 +54,7 @@ class ChildLinksTest(unittest.TestCase):
         return tabs
 
     def test_changing_tabs_ent(self):
-        self.search_by_unit_id(ENTREF)
+        self.search_by_unit_id_type_period(ENTREF, 'ENT', '201810')
         self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/ENT/units/{ENTREF}')
         tabs = self.assert_tabs_length_and_return_tabs(6, LEU_TAB)
         tab_ids = [LEU_TAB, LOU_TAB, REU_TAB, CH_TAB, PAYE_TAB, VAT_TAB]  # Actual order of tabs
@@ -63,7 +65,7 @@ class ChildLinksTest(unittest.TestCase):
             self.assertEqual(tab.text, expected_tab_text)
 
     def test_changing_tabs_leu(self):
-        self.search_by_unit_id(UBRN)
+        self.search_by_unit_id_type_period(UBRN, 'LEU', '201810')
         self.assertEqual(self.driver.current_url, f'{SEARCH_URL}/periods/{PERIOD}/types/LEU/units/{UBRN}')
         tabs = self.assert_tabs_length_and_return_tabs(3, CH_TAB)
         tab_ids = [CH_TAB, PAYE_TAB, VAT_TAB]  # Actual order of tabs

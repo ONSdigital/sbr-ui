@@ -20,8 +20,18 @@
                     <form class="form" action="http://localhost:5000/Search" method="POST">
                         <div class="field u-mb-s">
                             <label class="label">Reference Number</label>
-                            <span class="label__description pluto">ERN, UBRN, CRN, VAT or PAYE</span>
-                            <input id="referenceNumberInput" autofocus name="UnitId" class="input input--text input-type__input bi-search-input" type="text">
+                            <span class="label__description pluto">ERN, UBRN, LURN, RURN, CRN, VATREF or PAYEREF</span>
+                            <input required id="referenceNumberInput" autofocus name="UnitId" class="input input--text input-type__input bi-search-input" type="text">
+                        </div>
+                        <div class="field u-mb-s">
+                            <label class="label">Unit Type</label>
+                            <span class="label__description pluto">ENT (Enterprise), LEU (Legal Unit), LOU (Local Unit), REU (Reporting Unit), CH (Company House), VAT (Value Added Tax), PAYE (Pay As You Earn)</span>
+                            <input required id="unitTypeInput" autofocus name="UnitType" class="input input--text input-type__input bi-search-input" type="text">
+                        </div>
+                        <div class="field u-mb-s">
+                            <label class="label">Period</label>
+                            <span class="label__description pluto">Period in YYYYMM format e.g. 201810</span>
+                            <input required id="periodInput" autofocus name="UnitPeriod" class="input input--text input-type__input bi-search-input" type="text">
                         </div>
                         <button id="searchButton" class="btn btn--primary venus" type="submit">Search</button>
                     </form>
