@@ -19,9 +19,10 @@ class GatewayAuthenticationService:
     @staticmethod
     def login(username: str, password: str) -> TokenAndRole:
         gateway_auth_url = current_app.config['AUTH_URL']
+        timeout = current_app.config['AUTH_TIMEOUT']
         logger.debug("Logging user in", username=username)
         headers = {'content-type': 'application/json', 'Authorization': str(base_64_encode(f'{username}:{password}'))}
-        response = requests.post(gateway_auth_url, headers=headers)
+        response = requests.post(gateway_auth_url, headers=headers, timeout=timeout)
 
         try:
             response.raise_for_status()
