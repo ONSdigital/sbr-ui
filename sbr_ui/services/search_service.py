@@ -18,9 +18,10 @@ class SearchService:
     @staticmethod
     def search_by_id(unit_id: str) -> Unit:
         base_url = current_app.config['API_URL']
+        timeout = current_app.config['API_TIMEOUT']
         url = f'{base_url}/v1/search/{unit_id}'
         logger.info("Sending search by id request", url=url)
-        response = requests.get(url)
+        response = requests.get(url, timeout=timeout)
 
         try:
             response.raise_for_status()
@@ -33,10 +34,11 @@ class SearchService:
     @staticmethod
     def get_unit_by_id_type_period(unit_id: str, unit_type: str, period: str) -> Unit:
         base_url = current_app.config['API_URL']
+        timeout = current_app.config['API_TIMEOUT']
         formatted_unit_type = acronym_to_sbr_api_format(unit_type)
         url = f'{base_url}/v1/periods/{period}/{formatted_unit_type}/{unit_id}'
         logger.info("Sending get by id, unit type and period request", url=url)
-        response = requests.get(url)
+        response = requests.get(url, timeout=timeout)
 
         try:
             response.raise_for_status()
