@@ -26,10 +26,10 @@ def search():
     unit_period = request.form['UnitPeriod']
     json = get_json_from_session_or_api(unit_id, unit_type, unit_period)
     # json = search_service.search_by_id(unit_id)
-    json_with_converted_bands = {**json, 'vars': convert_bands(json['vars'])}
+    # json_with_converted_bands = {**json, 'vars': convert_bands(json['vars'])}
     # period = json_with_converted_bands['period']
     # unit_type = json_with_converted_bands['unitType']
-    session['json'] = json_with_converted_bands
+    session['json'] = json
     return redirect_to_unit_page(unit_id, unit_type, unit_period)
 
 

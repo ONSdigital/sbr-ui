@@ -42,12 +42,12 @@
                              </tr>
                                 <tr>
                                 <th class="mars">Trading Status</th>
-                                <td class="venus">{{json['vars']['tradingStatus']}}</td>
+                                <td class="venus">{{json['vars'].get('tradingStatus', '')}}</td>
                              </tr>
                             </tr>
                                 <tr>
                                 <th class="mars">Trading Style</th>
-                                <td class="venus">{{json['vars']['tradingStyle']}}</td>
+                                <td class="venus">{{json['vars'].get('tradingStyle', '')}}</td>
                              </tr>
                             </tr>
                                 <tr>
@@ -55,17 +55,13 @@
                                 <td class="venus">{{json['vars']['sic07']}}</td>
                              </tr>
                                 <tr>
-                                <th class="mars">Employment</th>
-                                <td class="venus">{{json['vars']['employmentBands']}}</td>
-                             </tr>
-                                <tr>
                                 <th class="mars">Turnover</th>
-                                <td class="venus">{{json['vars']['turnover']}}</td>
+                                <td class="venus">{{json['vars'].get('turnover', '')}}</td>
                              </tr>
                             </tr>
                                 <tr>
                                 <th class="mars">PAYE Jobs</th>
-                                <td class="venus">{{json['vars']['payeJobs']}}</td>
+                                <td class="venus">{{json['vars'].get('payeJobs', '')}}</td>
                              </tr>
                             </tr>
                                 <tr>
@@ -75,17 +71,21 @@
                             </tr>
                                 <tr>
                                 <th class="mars">Death Date</th>
-                                <td class="venus">{{json['vars']['deathDate']}}</td>
+                                <td class="venus">{{json['vars'].get('deathDate', '')}}</td>
+                             </tr>
+                            <tr>
+                                <th class="mars">Death Code</th>
+                                <td class="venus">{{json['vars'].get('deathCode', '')}}</td>
                              </tr>
                             </tr>
                                 <tr>
                                 <th class="mars">CRN</th>
-                                <td class="venus">{{json['vars']['crn']}}</td>
+                                <td class="venus">{{json['vars'].get('crn', '')}}</td>
                              </tr>
                             </tr>
                                 <tr>
                                 <th class="mars">UPRN</th>
-                                <td class="venus">{{json['vars']['uprn']}}</td>
+                                <td class="venus">{{json['vars'].get('uprn', '')}}</td>
                              </tr>
                             </tr>
                                 <tr>

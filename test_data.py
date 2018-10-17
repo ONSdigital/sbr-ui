@@ -32,6 +32,10 @@ enterprise = {
             "line5": 'Wales',
             "postcode": 'NP20 ABC',
         },
+        "imputed": {
+            "employees": "4",
+            "turnover": "2"
+        }
     }
 }
 
@@ -68,7 +72,7 @@ legal_unit = {
             "line4": 'South Wales',
             "line5": 'Wales',
             "postcode": 'NP20 DEF',
-        },
+        }
     }
 }
 

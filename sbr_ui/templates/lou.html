@@ -34,10 +34,10 @@
                         <table class="unit-info">
                             <tr>
                                 <th class="mars">Local Unit Reference</th>
-                                <td class="venus">{{json['vars']['luref']}}</td>
+                                <td class="venus">{{json['vars'].get('luref', '')}}</td>
                             <tr>
                                 <th class="mars">Trading Style</th>
-                                <td class="venus">{{json['vars']['tradingStyle']}}</td>
+                                <td class="venus">{{json['vars'].get('tradingStyle', '')}}</td>
                              </tr>
                                 <tr>
                                 <th class="mars">Sic 07</th>
@@ -70,7 +70,7 @@
                             </tr>
                                 <tr>
                                 <th class="mars">Reporting Unit Ref</th>
-                                <td class="venus">{{json['vars']['reportingUnit']['ruref']}}</td>
+                                <td class="venus">{{json['vars']['reportingUnit'].get('ruref', '')}}</td>
                              </tr>
                             </tr>
                                 <tr>
@@ -80,7 +80,7 @@
                             </tr>
                                 <tr>
                                 <th class="mars">Enterprise Reference</th>
-                                <td class="venus">{{json['vars']['enterprise']['entref']}}</td>
+                                <td class="venus">{{json['vars']['enterprise'].get('entref', '')}}</td>
                              </tr>
                             </tr>
                                 <tr>
