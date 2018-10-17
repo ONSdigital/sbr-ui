@@ -4,7 +4,7 @@
 
 A proof of concept of the Statistical Business Register User Interface using Flask.
 
-Previous repository: https://github.com/ONSdigital/sbr-ui
+Previous repository: https://github.com/ONSdigital/sbr-react-ui
 
 ### Table of Contents
 **[1. Environment Setup](#environment-setup)**<br>
@@ -98,7 +98,7 @@ If you want to run the Selenium tests in headless mode, pass in `SELENIUM_HEADLE
 
 ### Test Coverage
 
-To generate test coverage using `pytest-cov``, use the following command:
+To generate test coverage using `pytest-cov`, use the following command:
 
 ```shell
 ENVIRONMENT=TEST pytest --cov-report html --cov=sbr_ui --ignore=tests/selenium
@@ -108,9 +108,15 @@ Coverage reports are saved to `./htmlcov`. Open `./htmlcov/index.html` in a brow
 
 ## Dependencies
 
+* [flask](http://flask.pocoo.org/)
 * [flask-login](http://flask-login.readthedocs.io/en/latest/)
 * [flask-session](http://flask-session.readthedocs.io/en/latest/)
-* [flask-restful](http://flask-restful.readthedocs.io/en/latest/)
+* [requests](http://docs.python-requests.org/en/master/)
+* [structlog](https://pypi.org/project/structlog/)
+* [colorama](https://pypi.org/project/colorama/)
+* [pytest](https://docs.pytest.org/en/latest/)
+* [selenium](https://selenium-python.readthedocs.io/)
+* [pytest-cov](https://pypi.org/project/pytest-cov/)
 
 ## Troubleshooting
 
