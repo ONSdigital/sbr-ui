@@ -3,10 +3,10 @@ import os
 
 class DevConfig:
     ENVIRONMENT = 'DEV'
-    USE_FAKE_DATA = os.getenv('USE_FAKE_DATA', False)
+    USE_FAKE_DATA = bool(os.getenv('USE_FAKE_DATA', False))
     LOG_LEVEL = os.getenv('LOG_LEVEL', 'INFO')
-    API_TIMEOUT = os.getenv('API_TIMEOUT', 10)
-    AUTH_TIMEOUT = os.getenv('AUTH_TIMEOUT', 10)
+    API_TIMEOUT = int(os.getenv('API_TIMEOUT', 10))
+    AUTH_TIMEOUT = int(os.getenv('AUTH_TIMEOUT', 10))
     AUTH_URL = os.getenv('AUTH_URL', 'http://localhost:3002/auth')
     API_URL = os.getenv('API_URL', 'http://localhost:9000')
     SECRET_KEY = os.getenv('SECRET_KEY', 'change_me')
