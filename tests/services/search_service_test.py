@@ -5,7 +5,7 @@ from sbr_ui import create_application
 from sbr_ui.models.exceptions import ApiError
 from test_data import enterprise, legal_unit, reporting_unit, local_unit, value_added_tax, pay_as_you_earn, company_house
 from sbr_ui.services.search_service import SearchService
-from tests.constants import ENTREF, UBRN, RURN, LURN, VATREF, PAYEREF, CRN
+from tests.constants import ERN, UBRN, RURN, LURN, VATREF, PAYEREF, CRN
 
 
 @pytest.fixture
@@ -22,10 +22,10 @@ def app():
 
 @responses.activate
 def test_search_by_id_ent(search, app):
-    url = f'http://localhost:9000/v1/search/{ENTREF}'
+    url = f'http://localhost:9000/v1/search/{ERN}'
     responses.add(responses.GET, url, json=enterprise, status=200)
     with app.app_context():
-        json = search.search_by_id(ENTREF)
+        json = search.search_by_id(ERN)
     assert json == enterprise
 
 
@@ -109,10 +109,10 @@ def test_search_by_id_404(search, app):
 def test_search_by_id_type_period_ent(search, app):
     target_unit_type = "ENT"
     target_period = "201810"
-    url = f'http://localhost:9000/v1/periods/{target_period}/ents/{ENTREF}'
+    url = f'http://localhost:9000/v1/periods/{target_period}/ents/{ERN}'
     responses.add(responses.GET, url, json=enterprise, status=200)
     with app.app_context():
-        json = search.get_unit_by_id_type_period(ENTREF, target_unit_type, target_period)
+        json = search.get_unit_by_id_type_period(ERN, target_unit_type, target_period)
     assert json == enterprise
 
 

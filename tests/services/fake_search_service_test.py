@@ -2,6 +2,7 @@ import pytest
 
 from sbr_ui.services.fake_search_service import FakeSearchService
 from test_data import enterprise, legal_unit
+from tests.constants import ERN, UBRN, LEGAL_UNIT
 
 
 class TestFakeSearchService(object):
@@ -11,13 +12,10 @@ class TestFakeSearchService(object):
         return FakeSearchService
 
     def test_search_by_id(self, search):
-        target_id = "1"
-        unit_result = search.search_by_id(target_id)
+        unit_result = search.search_by_id(ERN)
         assert unit_result == enterprise
 
     def test_get_unit_by_id_type_period(self, search):
-        target_id = "2"
-        target_unit_type = "LEU"
         target_period = "201810"
-        unit_result = search.get_unit_by_id_type_period(target_id, target_unit_type, target_period)
+        unit_result = search.get_unit_by_id_type_period(UBRN, LEGAL_UNIT, target_period)
         assert unit_result == legal_unit
