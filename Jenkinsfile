@@ -4,7 +4,7 @@
 def artServer = Artifactory.server 'art-p-01'
 def buildInfo = Artifactory.newBuildInfo()
 def distDir = 'build/dist/'
-def agentSbtVersion = 'sbt_0-13-13'
+def agentPythonVersion = 'python_3.3.0'
 
 pipeline {
     libraries {
@@ -38,7 +38,7 @@ pipeline {
         }
 
         stage('Build'){
-            agent { label "build.python_3.3.0" }
+            agent { label "build.${agentPythonVersion}" }
             steps {
                 unstash name: 'Checkout'
                 sh 'python --version'
@@ -71,13 +71,56 @@ pipeline {
             failFast true
             parallel {
                 stage('Test: Unit'){
-                    agent { label "build.python_3.3.0" }
+                    agent { label "build.${agentPythonVersion}" }
                     steps {
                         unstash name: 'Checkout'
-                        sh 'ENVIRONMENT=TEST pytest --ignore=tests/selenium'
+                        sh 'ENVIRONMENT=TEST pytest --cov ./ --cov-report term-missing --cov-report xml --cov-config .coveragerc --junitxml=junit.xml --ignore=tests/selenium'
                     }
                     post {
                         // TODO: generate and publish test reports here
+                        always {
+                            junit '**/junit.xml'
+                            cobertura autoUpdateHealth: false,
+                                    autoUpdateStability: false,
+                                    coberturaReportFile: '**/coverage.xml',
+                                    conditionalCoverageTargets: '70, 0, 0',
+                                    failUnhealthy: false,
+                                    failUnstable: false,
+                                    lineCoverageTargets: '80, 0, 0',
+                                    maxNumberOfBuilds: 0,
+                                    methodCoverageTargets: '80, 0, 0',
+                                    onlyStable: false,
+                                    zoomCoverageChart: false
+                        }
+                        success {
+                            colourText("info","Stage: ${env.STAGE_NAME} successful!")
+                        }
+                        failure {
+                            colourText("warn","Stage: ${env.STAGE_NAME} failed!")
+                        }
+                    }
+                }
+                stage('Style'){
+                    agent { label "build.${agentPythonVersion}" }
+                    steps {
+                        unstash name: 'Checkout'
+                        sh 'pylint $(find . -maxdepth 4 -name "*.py") --msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}"> pylint.log'
+                    }
+                    post {
+                        always {
+                            script {
+                                step([$class                   : 'WarningsPublisher',
+                                      consoleParsers           : [[parserName: 'PC-Lint', pattern: 'pylint.log']],
+                                      defaultEncoding          : '',
+                                      excludePattern           : '',
+                                      healthy                  : '',
+                                      includePattern           : '',
+                                      messagesPattern          : '',
+                                      unHealthy                : '',
+                                      useStableBuildAsReference: true
+                                ])
+                            }
+                        }
                         success {
                             colourText("info","Stage: ${env.STAGE_NAME} successful!")
                         }
@@ -97,8 +140,8 @@ pipeline {
             }
         }
 
-        stage('Test: Acceptance') {
-            agent { label "build.python_3.3.0" }
+        /*stage('Test: Acceptance') {
+            agent { label "build.${agentPythonVersion}" }
             steps {
                 unstash name: 'Checkout'
                 sh "pytest tests/selenium/"
@@ -111,10 +154,10 @@ pipeline {
                     colourText("warn","Stage: ${env.STAGE_NAME} failed!")
                 }
             }
-        }
+        }*/
 
         stage ('Publish') {
-            agent { label "build.python_3.3.0" }
+            agent { label "build.${agentPythonVersion}" }
             when {
                 branch "master"
                 // evaluate the when condition before entering this stage's agent, if any
@@ -146,6 +189,44 @@ pipeline {
             }
         }
 
+        stage ('Vendor') {
+            agent { label "build.${agentPythonVersion}" }
+            when {
+                branch "master"
+                // evaluate the when condition before entering this stage's agent, if any
+                beforeAgent true
+            }
+            steps {
+                colourText("info", "Vendoring ${env.BUILD_ID} on ${env.JENKINS_URL} from branch ${env.BRANCH_NAME}")
+                script {
+                    def downloadSpec = """{
+                        "files": [
+                            {
+                                "pattern": "registers-npm-snapshots/uk/gov/ons/${buildInfo.name}/sbr-ui-${buildInfo.number}.zip",
+                                "target": "sbr-ui-${buildInfo.number}.zip",
+                                "flat": "true"
+                                "explode": "true"
+                            }
+                        ]
+                    }"""
+                    artServer.download spec: downloadSpec, buildInfo: buildInfo
+                }
+                sh "pip download -d vendor -r requirements.txt --no-binary :all:"
+                dir('config') {
+                    git url: "${GITLAB_URL}/StatBusReg/${env.SVC_NAME}.git", credentialsId: 'JenkinsSBR__gitlab'
+                }
+                stash name: 'Vendor'
+            }
+            post {
+                success {
+                    colourText("info","Stage: ${env.STAGE_NAME} successful!")
+                }
+                failure {
+                    colourText("warn","Stage: ${env.STAGE_NAME} failed!")
+                }
+            }
+        }
+
         stage('Deploy: Dev'){
             agent { label 'deploy.cf' }
             when {
@@ -158,23 +239,8 @@ pipeline {
                 SPACE = 'Dev'
             }
             steps {
-                script {
-                    def downloadSpec = """{
-                        "files": [
-                            {
-                                "pattern": "registers-npm-snapshots/uk/gov/ons/${buildInfo.name}/sbr-ui-${buildInfo.number}.zip",
-                                "target": "sbr-ui-${buildInfo.number}.zip",
-                                "flat": "true"
-                            }
-                        ]
-                    }"""
-                    artServer.download spec: downloadSpec, buildInfo: buildInfo
-                    //sh "mv sbr-ui-${buildInfo.number}.zip ${distDir}${env.SVC_NAME}.zip"
-                    sh "ls -la"
-                }
-                dir('config') {
-                    git url: "${GITLAB_URL}/StatBusReg/${env.SVC_NAME}.git", credentialsId: 'JenkinsSBR__gitlab'
-                }
+                unstash name: 'Vendor'
+                colourText("info", "Deploying ${env.BUILD_ID} on ${env.JENKINS_URL} from branch ${env.BRANCH_NAME} to ${env.SPACE}")
                 script {
                     cfDeploy {
                         credentialsId = "${this.env.CREDS}"
@@ -208,22 +274,8 @@ pipeline {
                 SPACE = 'Test'
             }
             steps {
-                script {
-                    def downloadSpec = """{
-                        "files": [
-                            {
-                                "pattern": "registers-npm-snapshots/uk/gov/ons/${buildInfo.name}/sbr-ui-${buildInfo.number}.zip",
-                                "target": "sbr-ui-${buildInfo.number}.zip",
-                                "flat": "true"
-                            }
-                        ]
-                    }"""
-                    artServer.download spec: downloadSpec, buildInfo: buildInfo
-                    sh "ls -la"
-                }
-                dir('config') {
-                    git url: "${GITLAB_URL}/StatBusReg/${env.SVC_NAME}.git", credentialsId: 'JenkinsSBR__gitlab'
-                }
+                unstash name: 'Vendor'
+                colourText("info", "Deploying ${env.BUILD_ID} on ${env.JENKINS_URL} from branch ${env.BRANCH_NAME} to ${env.SPACE}")
                 script {
                     cfDeploy {
                         credentialsId = "${this.env.CREDS}"
