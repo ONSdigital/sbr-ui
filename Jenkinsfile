@@ -77,7 +77,6 @@ pipeline {
                         sh 'ENVIRONMENT=TEST pytest --cov ./ --cov-report term-missing --cov-report xml --cov-config .coveragerc --junitxml=junit.xml --ignore=tests/selenium'
                     }
                     post {
-                        // TODO: generate and publish test reports here
                         always {
                             junit '**/junit.xml'
                             cobertura autoUpdateHealth: false,
@@ -154,7 +153,7 @@ pipeline {
                     colourText("warn","Stage: ${env.STAGE_NAME} failed!")
                 }
             }
-        }*/
+        }
 
         stage ('Publish') {
             agent { label "build.${agentPythonVersion}" }
@@ -187,10 +186,10 @@ pipeline {
                     colourText("warn","Stage: ${env.STAGE_NAME} failed!")
                 }
             }
-        }
+        }*/
 
         stage ('Vendor') {
-            agent { label "build.${agentPythonVersion}" }
+            agent { label 'download.jenkins.slave' }
             when {
                 branch "master"
                 // evaluate the when condition before entering this stage's agent, if any
@@ -198,7 +197,8 @@ pipeline {
             }
             steps {
                 colourText("info", "Vendoring ${env.BUILD_ID} on ${env.JENKINS_URL} from branch ${env.BRANCH_NAME}")
-                script {
+                unstash name: 'Checkout'
+                /*script {
                     def downloadSpec = """{
                         "files": [
                             {
@@ -210,7 +210,7 @@ pipeline {
                         ]
                     }"""
                     artServer.download spec: downloadSpec, buildInfo: buildInfo
-                }
+                }*/
                 sh "pip download -d vendor -r requirements.txt --no-binary :all:"
                 dir('config') {
                     git url: "${GITLAB_URL}/StatBusReg/${env.SVC_NAME}.git", credentialsId: 'JenkinsSBR__gitlab'
@@ -227,7 +227,7 @@ pipeline {
             }
         }
 
-        stage('Deploy: Dev'){
+        /*stage('Deploy: Dev'){
             agent { label 'deploy.cf' }
             when {
                 branch "master"
@@ -260,9 +260,9 @@ pipeline {
                     colourText("warn","Stage: ${env.STAGE_NAME} failed!")
                 }
             }
-        }
+        }*/
 
-        stage('Deploy: Test'){
+        /*stage('Deploy: Test'){
             agent { label 'deploy.cf' }
             when {
                 branch "master"
@@ -295,7 +295,7 @@ pipeline {
                     colourText("warn","Stage: ${env.STAGE_NAME} failed!")
                 }
             }
-        }
+        }*/
     }
 
     post {
