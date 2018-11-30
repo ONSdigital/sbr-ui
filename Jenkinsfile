@@ -4,7 +4,7 @@
 def artServer = Artifactory.server 'art-p-01'
 def buildInfo = Artifactory.newBuildInfo()
 def distDir = 'build/dist/'
-def agentPythonVersion = 'python_3.3.0'
+def agentPythonVersion = 'python_3.6.0'
 
 pipeline {
     libraries {
@@ -20,6 +20,7 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '30', artifactNumToKeepStr: '30'))
         timeout(time: 1, unit: 'HOURS')
         ansiColor('xterm')
+        timestamps()
     }
     agent { label 'download.jenkins.slave' }
     stages {
@@ -41,21 +42,12 @@ pipeline {
             agent { label "build.${agentPythonVersion}" }
             steps {
                 unstash name: 'Checkout'
-                sh 'python --version'
-                sh '/usr/local/bin/python3.3 --version'
-                sh 'chmod 777 /usr/local/lib/python3.3/'
-                sh '/usr/local/bin/python3.3 get-pip.py'
-                sh 'pip --version'
-                //sh $echo $PATH | tr ':' '\n'  | xargs -I %  sh -c "echo \"Checking %\";  ls -l % 2>/dev/null | grep -i 'py\|python\|pip'$
-                sh 'echo $PATH'
-                sh "echo $PATH | tr ':' '\n'  || true"
-                sh "which python"
-                sh 'python3 --version'
-                //sh 'pip --version'
-                //sh "python -m venv venv"
-                //sh "source venv/bin/activate"
-                //sh "source .envrc"
-                sh "pip install -r requirements.txt"
+                sh 'python3.6 --version'
+                sh 'python3.6 -c "import locale; locale.setlocale(locale.LC_ALL, \'\')"'
+                sh 'python3.6 -v -m venv venv'
+                sh 'source venv/bin/activate'
+                sh 'cat ~/.pip/pip.conf || true'
+                sh 'pip3.6 install -r requirements.txt'
             }
             post {
                 success {
@@ -322,3 +314,4 @@ pipeline {
         }
     }
 }
+
