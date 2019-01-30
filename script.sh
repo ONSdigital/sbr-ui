@@ -24,19 +24,9 @@ python3.6 -v -m venv venv
 source venv/bin/activate
 
 mkdir -p $HOME/.pip
-cat > $HOME/.pip/pip.conf <<WHATEVS3
-[install]
-user = true
 
-[global]
-index-url=http://af-py-pi:JNJl6DEVMtQ2M9k0t8zc@art-p-01.ons.statistics.gov.uk/artifactory/api/pypi/yr-python/simple
-trusted-host=art-p-01.ons.statistics.gov.uk
-WHATEVS3
-                
-                
 # pip3.6 install -r requirements.txt
 pip3.6 download -d vendor -r requirements.txt --no-binary :all:
-
 
 mkdir -p config/dev
 cat > config/dev/.env <<WHATEVS3
@@ -50,7 +40,6 @@ cat > config/dev/manifest.yml <<WHATEVS2
 applications:
 - name: sbr-ui
   memory: 1024M
-  command: node server/index.js
   env:
     NODE_ENV: production
     SERVE_HTML: true
